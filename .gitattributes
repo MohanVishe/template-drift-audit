@@ -1,0 +1,2 @@
+# store every file byte-for-byte: rendered prompts and fixtures are compared exactly
+* -text

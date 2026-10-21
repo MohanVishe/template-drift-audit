@@ -1,0 +1,52 @@
+{"id": "q25-L0-L1-F04", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F05", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F06", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F07", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F08", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F09", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L0-L1-F10", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "tool-use instruction example has doubled braces {{...}}"}
+{"id": "q25-L1-L3-F04", "split": "dev", "classes": ["TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; "}
+{"id": "q25-L1-L3-F05", "split": "dev", "classes": ["TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; "}
+{"id": "q25-L1-L3-F06", "split": "dev", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; JSON_SPACING"}
+{"id": "q25-L1-L3-F07", "split": "dev", "classes": ["JSON_SPACING", "TOOL_CALL", "TOOL_RESULT", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; JSON_SPACING, TOOL_CALL, TOOL_RESULT"}
+{"id": "q25-L1-L3-F08", "split": "dev", "classes": ["TOOL_CALL", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; TOOL_CALL"}
+{"id": "q25-L1-L3-F09", "split": "dev", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; JSON_SPACING"}
+{"id": "q25-L1-L3-F10", "split": "dev", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; instruction braces; JSON_SPACING"}
+{"id": "q25-L0-L3-hf-F01", "split": "test", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F03", "split": "test", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F04", "split": "test", "classes": ["DEFAULT_SYSTEM", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F05", "split": "test", "classes": ["TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F06", "split": "test", "classes": ["DEFAULT_SYSTEM", "JSON_SPACING", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F07", "split": "test", "classes": ["DEFAULT_SYSTEM", "JSON_SPACING", "TOOL_CALL", "TOOL_RESULT", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F08", "split": "test", "classes": ["DEFAULT_SYSTEM", "TOOL_CALL", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F09", "split": "test", "classes": ["DEFAULT_SYSTEM", "JSON_SPACING", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F10", "split": "test", "classes": ["DEFAULT_SYSTEM", "JSON_SPACING", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F11", "split": "test", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "q25-L0-L3-hf-F12", "split": "test", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "no SYSTEM layer, HF-converted Go template"}
+{"id": "coder7-L1-L3-F04", "split": "test", "classes": ["TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; "}
+{"id": "coder7-L1-L3-F05", "split": "test", "classes": ["TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; "}
+{"id": "coder7-L1-L3-F06", "split": "test", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; JSON_SPACING"}
+{"id": "coder7-L1-L3-F07", "split": "test", "classes": ["JSON_SPACING", "TOOL_CALL", "TOOL_RESULT", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; JSON_SPACING, TOOL_CALL, TOOL_RESULT"}
+{"id": "coder7-L1-L3-F08", "split": "test", "classes": ["TOOL_CALL", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; TOOL_CALL"}
+{"id": "coder7-L1-L3-F09", "split": "test", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; JSON_SPACING"}
+{"id": "coder7-L1-L3-F10", "split": "test", "classes": ["JSON_SPACING", "TOOL_SCHEMA", "TOOL_SCHEMA_NOT_JSON"], "severity": "material", "note": "Go struct tool defs; reworded tool instructions; JSON_SPACING"}
+{"id": "con-00-bos-F01", "split": "dev", "classes": ["BOS"], "severity": "none", "note": "constructed: bos"}
+{"id": "con-01-trailing-newline-F02", "split": "test", "classes": ["WHITESPACE"], "severity": "none", "note": "constructed: trailing-newline"}
+{"id": "con-02-indent-F03", "split": "dev", "classes": ["WHITESPACE"], "severity": "none", "note": "constructed: indent"}
+{"id": "con-03-date-F02", "split": "test", "classes": ["DATE"], "severity": "none", "note": "constructed: date"}
+{"id": "con-04-default-system-dropped-F01", "split": "dev", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "constructed: default-system-dropped"}
+{"id": "con-05-default-system-changed-F03", "split": "test", "classes": ["DEFAULT_SYSTEM"], "severity": "material", "note": "constructed: default-system-changed"}
+{"id": "con-06-tools-dropped-F05", "split": "dev", "classes": ["TOOLS_DROPPED"], "severity": "material", "note": "constructed: tools-dropped"}
+{"id": "con-07-tools-dropped-F06", "split": "test", "classes": ["TOOLS_DROPPED"], "severity": "material", "note": "constructed: tools-dropped"}
+{"id": "con-08-tool-def-key-order-F05", "split": "dev", "classes": ["TOOL_SCHEMA"], "severity": "material", "note": "constructed: tool-def-key-order"}
+{"id": "con-09-tool-call-args-spacing-F06", "split": "test", "classes": ["JSON_SPACING"], "severity": "minor", "note": "constructed: tool-call-args-spacing"}
+{"id": "con-10-tool-call-name-lost-F06", "split": "dev", "classes": ["TOOL_CALL"], "severity": "material", "note": "constructed: tool-call-name-lost"}
+{"id": "con-11-tool-result-unwrapped-F06", "split": "test", "classes": ["TOOL_RESULT"], "severity": "material", "note": "constructed: tool-result-unwrapped"}
+{"id": "con-12-tool-result-role-F06", "split": "dev", "classes": ["TOOL_RESULT"], "severity": "material", "note": "constructed: tool-result-role"}
+{"id": "con-13-reasoning-kept-F11", "split": "test", "classes": ["THINKING"], "severity": "material", "note": "constructed: reasoning-kept"}
+{"id": "con-14-content-escaped-F10", "split": "dev", "classes": ["CONTENT"], "severity": "material", "note": "constructed: content-escaped"}
+{"id": "con-15-content-template-eval-F12", "split": "test", "classes": ["CONTENT"], "severity": "material", "note": "constructed: content-template-eval"}
+{"id": "con-16-user-turn-merged-F03", "split": "dev", "classes": ["STRUCTURE"], "severity": "material", "note": "constructed: user-turn-merged"}
+{"id": "con-17-generation-prompt-missing-F02", "split": "test", "classes": ["STRUCTURE"], "severity": "material", "note": "constructed: generation-prompt-missing"}
+{"id": "con-18-render-error-F07", "split": "dev", "classes": ["RENDER_ERROR"], "severity": "material", "note": "constructed: render-error"}
+{"id": "con-19-render-error-F11", "split": "test", "classes": ["RENDER_ERROR"], "severity": "material", "note": "constructed: render-error"}

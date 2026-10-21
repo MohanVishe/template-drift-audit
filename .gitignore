@@ -1,0 +1,12 @@
+.cache/
+.cache-*/
+runs/
+__pycache__/
+*.pyc
+.pytest_cache/
+go-helper/tda-render
+# raw third-party page snapshots stay local; their URLs and dates are in population/README.md
+population/snapshots/ollama-*
+population/tools/__pycache__/
+# article drafts are published separately
+article/

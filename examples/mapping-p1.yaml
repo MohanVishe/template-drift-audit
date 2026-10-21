@@ -1,0 +1,20 @@
+# P1 example mapping: the packages already cached or installed locally.
+# The population mapping (population/mapping.yaml) uses the same fields.
+- package: qwen2.5:7b-instruct
+  upstream_repo: Qwen/Qwen2.5-7B-Instruct
+  upstream_sha: a09a35458c702b33eeacc393d103063234e8bc28
+  reason: the pairing used in the P0 spike (P0-RESULTS.md)
+  confidence: high
+- package: hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Q4_K_M
+  upstream_repo: Qwen/Qwen2.5-7B-Instruct
+  upstream_sha: a09a35458c702b33eeacc393d103063234e8bc28
+  reason: the pairing used in the P0 spike (P0-RESULTS.md)
+  confidence: high
+- package: qwen2.5-coder:7b
+  upstream_repo: Qwen/Qwen2.5-Coder-7B-Instruct
+  reason: example row; to be confirmed in the population mapping
+  confidence: medium
+- package: qwen2.5-coder:3b
+  upstream_repo: Qwen/Qwen2.5-Coder-3B-Instruct
+  reason: example row; to be confirmed in the population mapping
+  confidence: medium

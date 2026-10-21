@@ -1,0 +1,25 @@
+[project]
+name = "template-drift-audit"
+version = "0.0.1"
+description = "Read-only audit of chat-template drift between model authors, GGUF files and Ollama"
+requires-python = ">=3.12"
+dependencies = ["jinja2>=3.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+tda = "tda.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["tda*"]
+
+[tool.setuptools.package-data]
+"tda.fixtures" = ["fixtures.json"]

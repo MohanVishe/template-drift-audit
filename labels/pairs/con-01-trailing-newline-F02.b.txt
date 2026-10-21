@@ -1,0 +1,6 @@
+<|im_start|>system
+You answer in one sentence.<|im_end|>
+<|im_start|>user
+What is GGUF?<|im_end|>
+<|im_start|>assistant
+

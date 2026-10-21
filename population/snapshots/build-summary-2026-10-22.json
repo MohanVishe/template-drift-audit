@@ -1,0 +1,120 @@
+{
+ "library": {
+  "chat": 50,
+  "included": 45,
+  "skipped_before_cutoff": [
+   {
+    "page_rank": 3,
+    "name": "nomic-embed-text",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 15,
+    "name": "mxbai-embed-large",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 22,
+    "name": "bge-m3",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 36,
+    "name": "qwen3-embedding",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 41,
+    "name": "all-minilm",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 46,
+    "name": "snowflake-arctic-embed",
+    "why": "embedding-only"
+   },
+   {
+    "page_rank": 55,
+    "name": "embeddinggemma",
+    "why": "embedding-only"
+   }
+  ]
+ },
+ "hf": {
+  "chat": 30,
+  "included": 27,
+  "skipped_before_cutoff": [
+   {
+    "download_rank": 1,
+    "repo": "mudler/locate-anything.cpp-gguf",
+    "why": "pipeline object-detection"
+   },
+   {
+    "download_rank": 2,
+    "repo": "audio-cpp/audio.cpp-gguf",
+    "why": "pipeline text-to-speech"
+   },
+   {
+    "download_rank": 5,
+    "repo": "Serveurperso/YuE2-GGUF",
+    "why": "music generation (GGUF architecture mert2, no chat template)"
+   },
+   {
+    "download_rank": 8,
+    "repo": "abenzerps/Qwen-Image-2.1-Uncensored-Quantized",
+    "why": "pipeline text-to-image"
+   },
+   {
+    "download_rank": 17,
+    "repo": "mixedbread-ai/mxbai-embed-large-v1",
+    "why": "pipeline feature-extraction"
+   },
+   {
+    "download_rank": 18,
+    "repo": "unsloth/MiniMax-H3-GGUF",
+    "why": "pipeline image-text-to-video"
+   },
+   {
+    "download_rank": 20,
+    "repo": "handy-computer/nemotron-3.5-asr-streaming-0.6b-gguf",
+    "why": "pipeline automatic-speech-recognition"
+   },
+   {
+    "download_rank": 21,
+    "repo": "handy-computer/parakeet-unified-en-0.6b-gguf",
+    "why": "pipeline automatic-speech-recognition"
+   },
+   {
+    "download_rank": 27,
+    "repo": "Serveurperso/ACE-Step-1.5-GGUF",
+    "why": "music generation (architecture acestep-lm, no chat template)"
+   },
+   {
+    "download_rank": 31,
+    "repo": "unsloth/Qwen-Image-2.1-GGUF",
+    "why": "pipeline text-to-image"
+   },
+   {
+    "download_rank": 33,
+    "repo": "scragnog/MOSS-Music-8B-Instruct-GGUF",
+    "why": "pipeline audio-text-to-text"
+   },
+   {
+    "download_rank": 34,
+    "repo": "pnnbao-ump/VieNeu-TTS-v3-Turbo",
+    "why": "pipeline text-to-speech"
+   },
+   {
+    "download_rank": 42,
+    "repo": "nvidia/nemotron-3.5-asr-streaming-0.6b",
+    "why": "pipeline automatic-speech-recognition"
+   }
+  ]
+ },
+ "confidence": {
+  "high": 57,
+  "medium": 12,
+  "low": 3
+ },
+ "network_requests": 0
+}
