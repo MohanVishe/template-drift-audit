@@ -6,7 +6,7 @@ description: The six places a home AI setup can go wrong, explained in plain wor
 
 # Running AI at home: where the weak spots are
 
-<p class="lede">I took the 43 most popular models in Ollama's library and checked the exact text
+<p class="lede">I took 43 of the most popular models in Ollama's library and checked the exact text
 each one is given when you use it with tools. For 32 of them, it isn't the text the model's maker
 designed. That's one of six weak spots in a home AI setup. This page goes through all six in
 plain words, shows how to check each one on your own computer, and says what to do about it.</p>
