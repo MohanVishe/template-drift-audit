@@ -9,13 +9,14 @@ description: Step-by-step instructions for running the local AI safety check-up 
 This takes about ten minutes. You don't need to know how to program. You'll download one folder,
 type one line, and read the answers.
 
-**What the check-up does:** it looks at your own computer and tells you, in plain words, whether
-anything about your local AI setup needs attention.
+**What the check-up does:** it looks at the six weak spots described in the
+[article](index.html) on your own computer, and tells you in plain words whether any of them needs
+attention.
 
 **What it never does:**
 - It never changes your settings.
 - It never sends anything over the internet.
-- It never opens your private files. It only looks at their names.
+- It never opens your private files or your chats. It only looks at their names and sizes.
 
 You can read every line of it on [GitHub](https://github.com/MohanVishe/template-drift-audit).
 
@@ -113,33 +114,29 @@ Here's what each check means, and what to do if it shows `[!!]`:
 
 ### "A local AI server is reachable from other devices"
 
-Your AI app is answering anyone on your network, not just you. Ollama has no password, so anyone
-who can reach it can use it, along with whatever it can reach. Security researchers counted
-175,108 Ollama servers open to the internet this way
-([SentinelOne and Censys](https://www.sentinelone.com/labs/silent-brothers-ollama-hosts-form-anonymous-ai-network-beyond-platform-guardrails/)).
+Your AI app answers other devices, not just this computer. Ollama has no login, so anyone who
+can reach it can chat with your models, add new ones or delete them.
 
 **Fix (Ollama):** find the setting called `OLLAMA_HOST`. On Windows, search the Start menu for
 "environment variables". Either delete the setting or set it to `127.0.0.1`. Then quit Ollama and
 open it again.
 
-**Fix (LM Studio):** in the server settings, turn off serving on the local network, or turn on
-**Require Authentication**.
+**Fix (LM Studio):** in the server settings, turn off **Serve on Local Network**.
 
-**Need to reach it from another device?** Use a private network app such as Tailscale, not an open
-port.
+**Really need it on another device?** Ask someone technical to put a login in front of it. Don't
+leave the port open.
 
 ### "Ollama … is missing published security fixes"
 
-Your version has known problems that newer versions fix. One of them could leak other people's
-chats and passwords from a server's memory.
+Your version has known security problems that newer versions fix. The message lists which ones.
 
 **Fix:** download the latest Ollama from [ollama.com](https://ollama.com) and install it over the
 old one. Your models stay where they are.
 
 ### "… models come from outside Ollama's library"
 
-Anyone can publish a model. A model can't do anything on its own, but if you let it use tools (run
-commands, read files, browse), a tampered one can be told to misuse them.
+Anyone can upload a model to Hugging Face, and the uploader decides what instructions travel with
+it. That matters most when the model can use tools: run commands, read files or browse.
 
 **Fix:** for anything that uses tools, prefer the model maker's official release or Ollama's own
 library.
@@ -151,9 +148,8 @@ what text the model reads. The check looks for two unusual things in it:
 - a web address;
 - a rule that reacts when you type particular words.
 
-Hidden instructions have been planted that way
-([Pillar Security](https://www.pillar.security/blog/from-discovery-to-large-scale-validation-chat-template-backdoors-across-18-models-and-4-engines)).
-This doesn't prove the model is bad. It means a person should look.
+Both could let a template behave differently from what you expect. This doesn't prove the model
+is bad. It means a person should look.
 
 For a sense of how often it happens: I ran this same check over 95 different templates from
 popular models. It flagged 3. All three turned out to be ordinary, visible features, such as
@@ -170,6 +166,24 @@ that folder can read them.
 
 **Fix:** move them out of the folders you let an AI helper work in, or give the helper its own
 folder with only what it needs.
+
+### "Ollama is set to save a copy of every request"
+
+A debugging setting called `OLLAMA_DEBUG_LOG_REQUESTS` is switched on. While it's on, Ollama
+writes the full text of every chat request to a folder in your temp folder.
+
+**Fix:** delete the setting the same way as `OLLAMA_HOST` above, quit and reopen Ollama, then
+delete the folders whose names start with `ollama-request-logs-` in your temp folder.
+
+### "Your conversations are kept in … place(s)"
+
+This one is marked `[--]`, because it's information, not a fault. It lists where your chats are
+saved and how big those files are. Anyone who uses your account, and any backup or sync tool,
+can read them.
+
+**What you can do:** delete old chats you don't need from inside the app. To stop Ollama keeping
+a history of what you type in a terminal, add a setting called `OLLAMA_NOHISTORY` with the value
+`1`, the same way as `OLLAMA_HOST` above.
 
 ---
 

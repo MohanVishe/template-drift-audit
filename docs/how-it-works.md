@@ -46,6 +46,20 @@ into a plain category. For example:
 - **Every number has a source.** Each figure on this site comes from a saved run or from a cited
   publication, and every download is logged with its address, time and size.
 
+## How the check-up decides
+
+The quick [check-up](guide.html) is separate from the measurement. It only reads:
+- **Network:** the list of open network ports your computer already keeps, to see which address
+  each AI app listens on.
+- **Version:** Ollama's version number, asked from Ollama itself on `127.0.0.1`. That's the only
+  connection the check-up makes.
+- **Models:** the names and chat templates of your installed Ollama models.
+- **Secrets:** the names of files in the folder you point it at.
+- **Saved chats:** whether the usual chat files exist, and their sizes.
+
+It never opens a file's contents, apart from your models' chat templates, and it changes no
+settings.
+
 ## Running the full measurement yourself
 
 This part is for people comfortable with a terminal. The quick [check-up](guide.html) needs none
@@ -99,6 +113,8 @@ The design and each stage's results are kept in the repository, in the order the
   feasibility spike, and the live check against a real Ollama.
 - [P1-RESULTS.md](https://github.com/MohanVishe/template-drift-audit/blob/main/P1-RESULTS.md): the
   classifier, the hand-labelled set and the pipeline.
+- [P2-RESULTS.md](https://github.com/MohanVishe/template-drift-audit/blob/main/P2-RESULTS.md): the
+  measurement of the popular models, the hand review, and the check-up's warning rate.
 - [labels/GUIDE.md](https://github.com/MohanVishe/template-drift-audit/blob/main/labels/GUIDE.md):
   every category, with its meaning.
 - [population/README.md](https://github.com/MohanVishe/template-drift-audit/blob/main/population/README.md):

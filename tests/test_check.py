@@ -61,3 +61,20 @@ def test_secret_names_only(tmp_path):
     (tmp_path / "node_modules").mkdir()
     (tmp_path / "node_modules" / ".env").write_text("X=1")
     assert check.find_secrets(tmp_path) == [".env", str(__import__("pathlib").Path("keys/id_ed25519"))]
+
+
+def test_saved_conversations(tmp_path):
+    (tmp_path / ".ollama").mkdir()
+    (tmp_path / ".ollama" / "history").write_bytes(b"hello\n" * 300)
+    conv = tmp_path / ".lmstudio" / "conversations" / "a"
+    conv.mkdir(parents=True)
+    (conv / "1.json").write_text("{}")
+    off = {}.get
+    [f] = check.check_saved(tmp_path, "Linux", None, setting=lambda k: off(k, ""))
+    assert f.level == check.INFO and len(f.items) == 2
+    assert "1.8 KB" in f.items[0] and "1 conversation files" in f.items[1]
+    assert "OLLAMA_NOHISTORY" in f.fix
+    on = {"OLLAMA_DEBUG_LOG_REQUESTS": "1", "OLLAMA_NOHISTORY": "true"}.get
+    warn, info = check.check_saved(tmp_path, "Linux", None, setting=lambda k: on(k, ""))
+    assert warn.level == check.WARN and "OLLAMA_NOHISTORY" not in info.fix
+    assert check.check_saved(tmp_path / "empty", "Windows", str(tmp_path / "x"), setting=lambda k: "")[0].level == check.OK

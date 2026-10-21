@@ -50,9 +50,11 @@ It reports:
 - an Ollama version older than published security fixes;
 - where each local model came from;
 - template red flags (URLs, rules that react to words in a message);
-- secret-looking file names in the folder.
+- secret-looking file names in the folder;
+- where conversations are saved on disk (Ollama history, the Ollama app database, LM Studio
+  chats), and whether `OLLAMA_DEBUG_LOG_REQUESTS` is writing every request to disk.
 
-It reads file names only, never contents. It changes nothing, and it contacts nothing except
+It reads file names and sizes only, never contents. It changes nothing, and it contacts nothing except
 Ollama on 127.0.0.1. `--json` gives machine-readable output.
 
 ## Why
@@ -61,16 +63,12 @@ Chat templates are executable code that ships inside model files, and they decid
 reads:
 - A malicious template in GGUF metadata led to remote code execution in llama-cpp-python
   ([CVE-2024-34359](https://github.com/advisories/GHSA-56xg-wfcc-g829)).
-- Pillar Security showed that a tampered template can plant a trigger-activated backdoor that
-  survives four inference engines, Ollama among them
-  ([Pillar Security, Feb 2026](https://www.pillar.security/blog/from-discovery-to-large-scale-validation-chat-template-backdoors-across-18-models-and-4-engines)).
-  Their advice to deployers is to compare GGUF templates against the provider's originals.
 - Splunk suggests watching for mismatches between the advertised and embedded templates
   ([Splunk, Feb 2026](https://www.splunk.com/en_us/blog/security/gguf-llm-security-inference-time-poisoning-templates.html)).
 
-This tool does that comparison on the rendered prompt rather than on template source. It also adds
-the layer those comparisons leave out: what Ollama itself runs, which can differ from both L0 and
-L1.
+This tool compares rendered prompts rather than template source, because templates that differ as
+text can render identically (7 of the 22 Hugging Face packages here do). It also covers the layer
+a GGUF-only comparison leaves out: what Ollama itself runs, which can differ from both L0 and L1.
 
 ## How it stays faithful
 

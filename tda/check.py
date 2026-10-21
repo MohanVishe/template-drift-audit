@@ -1,14 +1,15 @@
 """`tda check`: a read-only safety check-up for a local AI setup, written for non-specialists.
 
-Five checks, each answered in plain words:
+Six checks, each answered in plain words:
   1. network  Is a local AI server (Ollama, LM Studio, llama.cpp) reachable from other machines?
   2. version  Is the running Ollama older than the fixes for its published vulnerabilities?
   3. origin   Where did each installed model come from: Ollama's own library or someone else?
   4. template Does a model's chat template contain web addresses or react to what you type?
   5. secrets  Which secret-looking files sit in the folder an AI helper would work in?
+  6. saved    Where are your conversations kept on disk, and is prompt logging switched on?
 
-Nothing is changed, nothing leaves the machine (the only request goes to 127.0.0.1), and secret
-files are listed by name only; their contents are never opened.
+Nothing is changed, nothing leaves the machine (the only request goes to 127.0.0.1), and files
+are listed by name and size only; their contents are never opened.
 """
 
 from __future__ import annotations
@@ -28,13 +29,15 @@ OK, WARN, INFO = "ok", "warn", "info"
 SERVERS = {11434: "Ollama", 1234: "LM Studio", 8080: "llama.cpp server"}
 
 # Published Ollama vulnerabilities and the first release that fixes each (checked 2026-10-22).
+# The Windows updater advisories give no fixed version; 0.23.3 is the release whose notes say
+# "app: harden update flows" (ollama/ollama#16100).
 ADVISORIES = [
-    {"id": "CVE-2026-7482", "name": "Bleeding Llama (memory leak through the API)", "fixed": "0.17.1",
+    {"id": "CVE-2026-7482", "name": "a crafted model upload can leak memory", "fixed": "0.17.1",
      "platforms": None, "affected_from": None,
-     "source": "https://www.cyera.com/blog/bleeding-llama-a-critical-memory-leak-in-the-worlds-most-popular-local-ai-platform"},
-    {"id": "CVE-2026-42248 / CVE-2026-42249", "name": "Windows auto-updater (unsigned update, path traversal)",
+     "source": "https://github.com/advisories/GHSA-x8qc-fggm-mpqg"},
+    {"id": "CVE-2026-42248 / CVE-2026-42249", "name": "Windows auto-updater accepts unchecked updates",
      "fixed": "0.23.3", "platforms": {"Windows"}, "affected_from": "0.12.10",
-     "source": "https://mondoo.com/blog/three-ollama-cves-bleeding-llama-and-windows-updater-flaws"},
+     "source": "https://github.com/advisories/GHSA-5fjh-wjgp-25ph"},
 ]
 
 SECRET_NAMES = {".env", "id_rsa", "id_ed25519", "id_ecdsa", "id_dsa", "credentials", ".git-credentials",
@@ -98,8 +101,10 @@ def _loopback(addr: str) -> bool:
     return addr.startswith("127.") or addr in ("::1", "localhost", "0:0:0:0:0:0:0:1")
 
 
-def _ollama_host_setting() -> str:
-    value = os.environ.get("OLLAMA_HOST", "")
+def _setting(name: str) -> str:
+    """A setting as Ollama would see it: the process environment, then (Windows) the user and system
+    environment in the registry, which is where the Ollama app picks it up."""
+    value = os.environ.get(name, "")
     if not value and platform.system() == "Windows":
         try:
             import winreg
@@ -107,7 +112,7 @@ def _ollama_host_setting() -> str:
                                (winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment")):
                 try:
                     with winreg.OpenKey(root, path) as k:
-                        value = winreg.QueryValueEx(k, "OLLAMA_HOST")[0]
+                        value = winreg.QueryValueEx(k, name)[0]
                         break
                 except OSError:
                     continue
@@ -118,7 +123,7 @@ def _ollama_host_setting() -> str:
 
 def check_network(netstat_text: str | None = None, ollama_host: str | None = None) -> Finding:
     socks = listening(_listen_lines() if netstat_text is None else netstat_text)
-    host = _ollama_host_setting() if ollama_host is None else ollama_host
+    host = _setting("OLLAMA_HOST") if ollama_host is None else ollama_host
     open_ = sorted({f"{SERVERS[p]} (port {p})" for a, p in socks if p in SERVERS and not _loopback(a)})
     local = sorted({f"{SERVERS[p]} (port {p})" for a, p in socks if p in SERVERS and _loopback(a)})
     host_open = host.split(":")[0].strip("[]") in ("0.0.0.0", "::", "")  and bool(host)
@@ -127,9 +132,9 @@ def check_network(netstat_text: str | None = None, ollama_host: str | None = Non
                        "It accepts connections from other devices, not only from this computer. "
                        "Anyone on the same Wi-Fi, and possibly the internet, may be able to use it. Ollama has no "
                        "password of its own.",
-                       "Set OLLAMA_HOST to 127.0.0.1 (or remove the setting) and restart Ollama. For LM Studio, "
-                       "serve on localhost only, or turn on its \"Require Authentication\" setting. If you need "
-                       "remote access, use a private network such as Tailscale, never an open port.", open_)
+                       "Set OLLAMA_HOST to 127.0.0.1 (or remove the setting) and restart Ollama. In LM Studio, "
+                       "turn off \"Serve on Local Network\". If another device really needs it, put a login in "
+                       "front of it rather than leaving the port open.", open_)
     if host_open:
         return Finding("network", WARN, "OLLAMA_HOST is set to listen on every network",
                        f"OLLAMA_HOST is \"{host}\". Ollama is not running right now, but it will be reachable from "
@@ -277,13 +282,76 @@ def check_secrets(folder: Path) -> Finding:
                    "Checked file names such as .env, id_rsa and *.pem, four folders deep.")
 
 
+# --- 6. saved conversations ------------------------------------------------------------------
+
+def saved_places(home: Path, system: str, localappdata: str | None) -> list[tuple[str, Path]]:
+    """Where local AI apps keep conversations (Ollama v0.40.7 source; LM Studio's documentation)."""
+    places = [("Ollama terminal history (the last 100 lines typed into `ollama run`)", home / ".ollama" / "history")]
+    if system == "Windows" and localappdata:
+        places.append(("Ollama app chats", Path(localappdata) / "Ollama" / "db.sqlite"))
+    elif system == "Darwin":
+        places.append(("Ollama app chats", home / "Library" / "Application Support" / "Ollama" / "db.sqlite"))
+    places.append(("LM Studio chats", home / ".lmstudio" / "conversations"))
+    return places
+
+
+def _size(n: float) -> str:
+    if n < 1024:
+        return f"{n:.0f} bytes"
+    for unit in ("KB", "MB", "GB"):
+        n /= 1024
+        if n < 1024 or unit == "GB":
+            return f"{n:.1f} {unit}"
+    return ""
+
+
+def _on(value: str) -> bool:
+    return value.strip().lower() in ("1", "t", "true")
+
+
+def check_saved(home: Path | None = None, system: str | None = None, localappdata: str | None = ...,
+                setting=None) -> list[Finding]:
+    home = Path(home) if home else Path.home()
+    system = system or platform.system()
+    localappdata = os.environ.get("LOCALAPPDATA") if localappdata is ... else localappdata
+    setting = setting or _setting
+    found = []
+    for label, p in saved_places(home, system, localappdata):
+        try:
+            if p.is_file():
+                found.append(f"{label}: {p} ({_size(p.stat().st_size)})")
+            elif p.is_dir():
+                n = sum(1 for _ in p.rglob("*.json"))
+                if n:
+                    found.append(f"{label}: {p} ({n} conversation files)")
+        except OSError:
+            continue
+    out = []
+    if _on(setting("OLLAMA_DEBUG_LOG_REQUESTS")):
+        out.append(Finding("saved", WARN, "Ollama is set to save a copy of every request",
+                           "OLLAMA_DEBUG_LOG_REQUESTS is on. It is meant for fixing bugs: Ollama then writes the full "
+                           "text of every chat request to a folder named ollama-request-logs-... in your temp folder.",
+                           "Remove the OLLAMA_DEBUG_LOG_REQUESTS setting, restart Ollama, and delete those folders."))
+    if found:
+        fix = "Delete chats you no longer need from inside the app."
+        if not _on(setting("OLLAMA_NOHISTORY")):
+            fix += " To stop Ollama keeping terminal history, set OLLAMA_NOHISTORY to 1."
+        out.append(Finding("saved", INFO, f"Your conversations are kept in {len(found)} place(s) on this computer",
+                           "These are ordinary files. Anyone who can use your account, and any backup or sync tool "
+                           "that copies your user folder, can read them. (Only names and sizes were checked.)",
+                           fix, found))
+    elif not out:
+        out.append(Finding("saved", OK, "No saved conversations found in the usual places"))
+    return out
+
+
 # --- run all ----------------------------------------------------------------------------------
 
 ICON = {OK: "[OK]  ", WARN: "[!!]  ", INFO: "[--]  "}
 
 
 def run(folder: Path) -> list[Finding]:
-    return [check_network(), check_version(), *check_models(), check_secrets(folder)]
+    return [check_network(), check_version(), *check_models(), check_secrets(folder), *check_saved()]
 
 
 def render(findings: list[Finding]) -> str:

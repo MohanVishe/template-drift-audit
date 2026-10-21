@@ -1,5 +1,5 @@
-title: Is your local AI safe?
-description: A plain-language check-up for local AI, and a measurement of whether popular models read the prompt their makers designed.
+title: Running AI at home
+description: The weak spots of a home AI setup in plain words, a free check-up for your own computer, and a measurement of what popular models actually read.
 markdown: kramdown
 kramdown:
   input: GFM
