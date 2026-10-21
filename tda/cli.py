@@ -4,6 +4,7 @@
   tda library  --mapping M    Ollama library packages, metadata and GGUF headers only
   tda hf       --mapping M    hf.co/... packages, same
   tda report   RUN_DIR        rebuild report.md and cells.csv from a saved run
+  tda check   [--folder F]    a plain-language safety check-up of this computer's local AI setup
 
 Every network read goes through the cache; --offline fails on anything not already cached.
 """
@@ -96,8 +97,16 @@ def main(argv=None) -> int:
         p.add_argument("--run-id")
     p = sub.add_parser("report")
     p.add_argument("run_dir")
+    p = sub.add_parser("check", help="a read-only safety check-up of this computer's local AI setup")
+    p.add_argument("--folder", default=".", help="the folder an AI helper works in (default: this folder)")
+    p.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")
+    if args.cmd == "check":
+        from tda import check
+        findings = check.run(Path(args.folder).resolve())
+        print(check.to_json(findings) if args.json else check.render(findings))
+        return 0
     if args.cmd == "report":
         print(report.build(Path(args.run_dir)))
         return 0

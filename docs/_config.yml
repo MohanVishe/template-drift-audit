@@ -1,0 +1,5 @@
+title: Is your local AI safe?
+description: A plain-language check-up for local AI, and a measurement of whether popular models read the prompt their makers designed.
+markdown: kramdown
+kramdown:
+  input: GFM

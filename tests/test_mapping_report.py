@@ -26,7 +26,7 @@ def test_yaml_subset(tmp_path):
 
 def _model(pkg, cells):
     return {"target": {"package": pkg}, "status": "audited", "reason": "", "selection": {"source": "go_template"},
-            "layers": {"L0": {"exact": True}, "L3": {"exact": True}},
+            "layers": {"L0": {"exact": True}, "L1": {"exact": True}, "L3": {"exact": True}},
             "cells": [{"fixture": f, "pair": p, "classes": c, "severity": s} for f, p, c, s in cells]}
 
 

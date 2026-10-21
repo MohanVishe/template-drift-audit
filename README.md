@@ -21,6 +21,40 @@ difference first appears.
 It never loads model weights. GGUF headers are read with HTTP range requests, and rendering needs
 no GPU.
 
+**Website, in plain language:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
+the article, a step-by-step guide to the check-up, and the full results.
+
+## Results (snapshot 2026-10-22, Ollama v0.40.7)
+
+Six tool fixtures (F04–F09), L0 vs L3, frozen classifier. Details in `P2-RESULTS.md`.
+
+| Population | Material drift | Excluding key-order-only | Tool-capable: material | Tool-capable: excluding key order |
+|---|---|---|---|---|
+| Ollama library, top 50 chat | 32 / 43 | 28 / 43 | 15 / 19 | 11 / 19 |
+| Hugging Face, top 30 GGUF | 5 / 22 | 5 / 22 | 4 / 21 | 4 / 21 |
+
+In the library, 24 of the 32 come from Ollama's packaging alone. In 6, the GGUF already carries an
+older template revision, and the packaging adds to that. The remaining 2 have no GGUF template. All 5 Hugging Face cases are already in the
+GGUF's embedded template.
+
+## Quick check-up: `tda check`
+
+A read-only check of your own machine that needs only Python, no other packages:
+
+```bash
+python -m tda check --folder <the folder your AI helper works in>
+```
+
+It reports:
+- AI servers listening beyond this machine (Ollama, LM Studio, llama.cpp server);
+- an Ollama version older than published security fixes;
+- where each local model came from;
+- template red flags (URLs, rules that react to words in a message);
+- secret-looking file names in the folder.
+
+It reads file names only, never contents. It changes nothing, and it contacts nothing except
+Ollama on 127.0.0.1. `--json` gives machine-readable output.
+
 ## Why
 
 Chat templates are executable code that ships inside model files, and they decide what the model
@@ -98,7 +132,9 @@ tda report runs/<run-id>
 | `tda/fixtures/fixtures.json` | 12 benign test conversations (F04–F09 use tools) |
 | `labels/` | the labelled diff set and the labelling guide |
 | `population/` | the dated study population (top Ollama library and HF GGUF packages) and its hand-made L0 mapping |
-| `DESIGN.md`, `P0-RESULTS.md`, `P1-RESULTS.md` | design and results notes, in order |
+| `scripts/` | headline numbers, hand-review hunk viewer, population template lint, results-page builder |
+| `docs/` | the GitHub Pages site (article, guide, results, method) |
+| `DESIGN.md`, `P0-RESULTS.md`, `P1-RESULTS.md`, `P2-RESULTS.md` | design and results notes, in order |
 
 ## Scope
 

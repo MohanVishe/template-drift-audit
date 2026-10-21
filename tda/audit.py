@@ -12,6 +12,7 @@ A fixture that the reference side itself cannot render is not counted as drift.
 
 from __future__ import annotations
 
+import urllib.error
 from dataclasses import asdict, dataclass, field
 
 from tda import fixtures as fixtures_mod
@@ -94,6 +95,7 @@ class Auditor:
         self.hf = registry.huggingface(fetcher)
         self.header_bytes = 0
         self.history = history  # look up which upstream revision each GGUF template came from
+        self.pulled_as: dict[str, str] = {}  # packages that needed a different tag to resolve
 
     # --- loading -----------------------------------------------------------------------------
 
@@ -105,7 +107,14 @@ class Auditor:
             return matches[0], self.store.gguf_header(matches[0])
         reg, (repo, tag, name) = ((self.hf, registry.hf_ref(t.package)) if t.kind == "hf"
                                   else (self.library, registry.library_ref(t.package)))
-        pkg = reg.load(repo, tag, name)
+        try:
+            pkg = reg.load(repo, tag, name)
+        except urllib.error.HTTPError as e:
+            # unsloth's dynamic quants are tagged UD-<quant> on hf.co, not <quant>
+            if t.kind != "hf" or e.code != 404 or tag.startswith("UD-"):
+                raise
+            pkg = reg.load(repo, f"UD-{tag}", name)
+            self.pulled_as[t.package] = f"hf.co/{repo}:UD-{tag}"
         if pkg.model_digest is None:
             return pkg, None
         hdr, n = reg.gguf_header(repo, pkg)
@@ -150,6 +159,8 @@ class Auditor:
         except Exception as e:  # noqa: BLE001 - reported per model, never fatal for the run
             return ModelAudit(t, "skipped", reason=f"package: {type(e).__name__}: {e}")
         res.model_digest = pkg.model_digest or ""
+        if t.package in self.pulled_as:
+            res.reason = f"resolved as {self.pulled_as[t.package]}"
         res.template_digest = pkg.layer_digests.get("application/vnd.ollama.image.template", "")
         family = pkg.config.get("model_family", "")
         gguf_templates = hdr.chat_templates() if hdr else {}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}Is your local AI safe?</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <style>
+    :root {
+      --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5b55; --rule: #e3e0d8; --accent: #1f5f8b;
+      --code-bg: #f1eee7; --warn: #8a4b00; --ok: #2f6b2f; --max: 44rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #161615; --fg: #ecebe6; --muted: #a9a69d; --rule: #34332f; --accent: #7fb6dc;
+        --code-bg: #232320; --warn: #e2a65a; --ok: #8cc68c;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 18px/1.65 Georgia, "Iowan Old Style", "Times New Roman", serif;
+    }
+    header, main, footer { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 28px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+    header a.site { color: var(--fg); text-decoration: none; font-weight: bold; }
+    nav { font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; margin-top: 8px; }
+    nav a { color: var(--muted); margin-right: 16px; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
+    main { padding-top: 12px; padding-bottom: 48px; }
+    h1 { font-size: 2.1rem; line-height: 1.2; margin: 1.2rem 0 0.6rem; }
+    h2 { font-size: 1.45rem; margin-top: 2.4rem; line-height: 1.3; }
+    h3 { font-size: 1.15rem; margin-top: 1.8rem; }
+    p, li { max-width: 40rem; }
+    a { color: var(--accent); }
+    hr { border: 0; border-top: 1px solid var(--rule); margin: 2.4rem 0; }
+    blockquote { margin: 1.2rem 0; padding: 0.2rem 1rem; border-left: 3px solid var(--accent); color: var(--muted); }
+    code { font: 0.86em/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; }
+    pre { background: var(--code-bg); padding: 12px 14px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: none; padding: 0; font-size: 0.85rem; }
+    .table-wrap, table { display: block; width: 100%; overflow-x: auto; }
+    table { border-collapse: collapse; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 1rem 0; }
+    th, td { border-bottom: 1px solid var(--rule); padding: 6px 10px 6px 0; text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+    .lede { font-size: 1.15rem; color: var(--muted); }
+    footer { border-top: 1px solid var(--rule); padding-top: 16px; padding-bottom: 40px; color: var(--muted);
+      font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    img { max-width: 100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="site" href="{{ '/' | relative_url }}">Is your local AI safe?</a>
+    <nav>
+      <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Article</a>
+      <a href="{{ '/guide.html' | relative_url }}" {% if page.url == '/guide.html' %}aria-current="page"{% endif %}>Run the check-up</a>
+      <a href="{{ '/results.html' | relative_url }}" {% if page.url == '/results.html' %}aria-current="page"{% endif %}>Results</a>
+      <a href="{{ '/how-it-works.html' | relative_url }}" {% if page.url == '/how-it-works.html' %}aria-current="page"{% endif %}>How it works</a>
+      <a href="https://github.com/MohanVishe/template-drift-audit">GitHub</a>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    By Mohan Vishe · Code and data: <a href="https://github.com/MohanVishe/template-drift-audit">github.com/MohanVishe/template-drift-audit</a> (MIT) · Every number on this site comes from a run of that code or a cited source.
+  </footer>
+</body>
+</html>

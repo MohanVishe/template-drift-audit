@@ -73,7 +73,8 @@ def summary(models: list[dict]) -> dict:
     for m in hit:
         conv = _worst(m["cells"], "conversion", TOOL_SET) == "material"
         pack = _worst(m["cells"], "packaging", TOOL_SET) == "material"
-        origin["conversion and packaging" if conv and pack else "conversion only" if conv
+        origin["no GGUF template to compare" if "L1" not in m["layers"]
+               else "conversion and packaging" if conv and pack else "conversion only" if conv
                else "packaging only" if pack else "neither alone"] += 1
     cls = Counter(k for m in hit for k in _classes(m["cells"], "end_to_end", TOOL_SET)
                   if k not in NOT_DRIFT and SEVERITY.get(k, "material") == "material")
