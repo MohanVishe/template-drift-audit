@@ -59,6 +59,11 @@
     nav a { color: var(--ink-2); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
     nav a:hover { background: var(--surface-2); }
     nav a[aria-current="page"] { background: var(--accent-wash); color: var(--accent-ink); font-weight: 600; }
+    @media (max-width: 640px) {
+      .top { position: static; }
+      nav { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; margin: 0 -6px; }
+      nav a { white-space: nowrap; }
+    }
 
     /* page */
     main { max-width: var(--max); margin: 0 auto; padding: 8px 16px 56px; }
@@ -93,13 +98,13 @@
 
     /* setup and comparison diagrams (HTML, so text stays readable on a phone) */
     .flow { display: flex; align-items: stretch; gap: 8px; margin: 1.2rem 0 0.4rem; }
-    .flow .node { flex: 1; background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; }
-    .flow .node b { display: block; font-size: 15px; margin-bottom: 2px; }
-    .flow .node em { font-style: normal; color: var(--ink-2); }
+    :is(.flow, .flow-side) .node { flex: 1; background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; }
+    :is(.flow, .flow-side) .node b { display: block; font-size: 15px; margin-bottom: 2px; }
+    :is(.flow, .flow-side) .node em { font-style: normal; color: var(--ink-2); }
     .flow .arrow { flex: none; align-self: center; color: var(--muted); font-size: 20px; }
-    .flow .tag { display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; border-radius: 999px; background: var(--accent); color: #fff;
+    :is(.flow, .flow-side) .tag { display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; border-radius: 999px; background: var(--accent); color: #fff;
       font-size: 12px; font-weight: 700; margin-right: 4px; padding: 0 4px; }
-    .flow-side { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .flow-side { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0 0.4rem; }
     .flow-side .node { background: var(--surface-2); }
     .diagram-note { font-size: 14px; color: var(--muted); margin: 0.2rem 0 1.4rem; }
     @media (max-width: 640px) {
