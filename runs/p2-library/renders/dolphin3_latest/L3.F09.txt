@@ -1,0 +1,13 @@
+<|im_start|>system
+You are Dolphin, a helpful AI assistant.<|im_end|>
+<|im_start|>user
+Add 1 and 1.<|im_end|>
+<|im_start|>assistant
+<|im_end|>
+<|im_start|>tool
+2<|im_end|>
+<|im_start|>assistant
+1 + 1 = 2.<|im_end|>
+<|im_start|>user
+Now add 2 and 2.<|im_end|>
+<|im_start|>assistant

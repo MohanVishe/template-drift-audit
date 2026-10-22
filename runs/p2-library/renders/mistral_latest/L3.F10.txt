@@ -1,0 +1,1 @@
+[INST] Météo à Zürich? "quoted" \ back\slash — नमस्ते[/INST][TOOL_CALLS] [{"name": "get_weather", "arguments": {"city":"Zürich \"ZH\""}}]</s>[TOOL_RESULTS] {"content": {"temp": 7, "note": "été"}} [/TOOL_RESULTS]

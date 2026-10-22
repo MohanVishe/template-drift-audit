@@ -11,28 +11,52 @@ each one is given when you use it with tools. For 32 of them, it isn't the text 
 designed. That's one of six weak spots in a home AI setup. This page goes through all six in
 plain words, shows how to check each one on your own computer, and says what to do about it.</p>
 
+<div class="box box-accent" markdown="1">
+
+### The short version
+
+- **Running AI at home keeps your chats off other companies' computers.** It doesn't make your
+  setup safe by itself. Six parts of it can let you down.
+- **Three things to do today:**
+  1. Make sure your AI app only accepts connections from your own computer (weak spot 1).
+  2. Update Ollama (weak spot 2).
+  3. Keep passwords and keys out of any folder an AI helper can read (weak spot 5).
+- **The [free check-up](guide.html) tells you where you stand** in about ten minutes. It changes
+  nothing and sends nothing anywhere.
+
+</div>
+
+{% include fig/stats.html %}
+
 ## What a home AI setup is made of
 
 When you run an AI model on your own computer with an app like **Ollama** or **LM Studio**, these
-parts work together:
+parts work together. The numbers mark the six weak spots described below.
 
-1. **The app.** It runs quietly in the background as a small server. Other programs, such as a
-   chat window, a coding helper or a browser add-on, send it messages and get answers back.
-2. **The model file** you downloaded. It holds the trained model, plus two small extras: default
-   settings, and a set of layout instructions called the **chat template**.
-3. **The layout step.** Every time you send a message, the app uses the chat template to turn
-   the whole conversation into one block of text. That block is all the model ever sees.
-4. **Helpers you connect.** A coding assistant or an "agent" lets the model read files, run
-   commands or open web pages for you.
-5. **Saved chats.** Your conversations, kept as files on your disk.
+<div class="flow" role="img" aria-label="Your message goes to the app, which uses the chat template to lay out the conversation, which the model then reads. The model file, connected helpers and saved chats sit alongside.">
+  <div class="node"><b>You</b><em>type a message in a chat window or a coding helper</em></div>
+  <div class="arrow" aria-hidden="true">→</div>
+  <div class="node"><b><span class="tag">1</span><span class="tag">2</span>The app</b><em>Ollama or LM Studio, running quietly in the background</em></div>
+  <div class="arrow" aria-hidden="true">→</div>
+  <div class="node"><b><span class="tag">4</span>The layout step</b><em>turns the whole conversation into one block of text</em></div>
+  <div class="arrow" aria-hidden="true">→</div>
+  <div class="node"><b>The model</b><em>reads that block, and only that block</em></div>
+</div>
+<div class="flow-side" aria-hidden="true">
+  <div class="node"><b><span class="tag">3</span>The model file</b>the model, its default settings and its layout instructions</div>
+  <div class="node"><b><span class="tag">5</span>Helpers</b>tools that let the model read files, run commands or browse</div>
+  <div class="node"><b><span class="tag">6</span>Saved chats</b>your conversations, kept as files on your disk</div>
+</div>
+<p class="diagram-note">The layout instructions inside the model file are called the <strong>chat template</strong>.</p>
 
 Each part can go wrong in its own way. Here's each one, with what to look for and what to do.
 
----
+<section class="spot" markdown="1">
 
-## 1. The app answers anyone who can reach it
+## <span class="num">1</span> The app answers anyone who can reach it
 
-Ollama's server has no login. Anyone who can connect to it can do everything you can: chat with
+Ollama runs a small **server** on your computer: a program that waits for other programs to send
+it messages. It has no login. Anyone who can connect to it can do everything you can: chat with
 your models, download new ones, delete them, or create a new model with its own instructions.
 These are ordinary features, listed in Ollama's own code
 ([routes.go](https://github.com/ollama/ollama/blob/v0.40.7/server/routes.go)).
@@ -43,20 +67,24 @@ from your own computer, through the special address `127.0.0.1`
 `OLLAMA_HOST`, changes that. People often change it on purpose so they can use their model from a
 phone or a second computer. LM Studio has a switch for the same thing, called
 **Serve on Local Network**. Once either is on, everyone on the same Wi-Fi can use your AI. If your
-router forwards the port, the whole internet can too.
+router forwards Ollama's connection point (its "port") to the internet, everyone online can too.
 
-**How to tell:** the check-up looks at the addresses your AI apps are listening on and tells you
-if anything other than your own computer can connect.
+<div class="tell" markdown="1">
+**How to tell:** the check-up looks at the addresses your AI apps are listening on, and at the
+`OLLAMA_HOST` setting, and tells you if anything other than your own computer can connect.
+</div>
+</section>
 
-## 2. Older versions have known holes
+<section class="spot" markdown="1">
 
-Ollama is updated often, and some updates fix security problems. Two published ones show why
-updating matters:
+## <span class="num">2</span> Older versions have known holes
+
+Ollama is updated often, and some updates fix security problems. Each published problem gets an
+ID that starts with "CVE". Two of them show why updating matters:
 - **A crafted model upload could leak memory** (CVE-2026-7482). Before version 0.17.1, sending
   Ollama a specially built model file made it read memory it shouldn't
-  ([GitHub advisory](https://github.com/advisories/GHSA-x8qc-fggm-mpqg)). The upload goes through
-  the "create a model" feature from point 1. An app that others can reach is therefore exposed to
-  this too.
+  ([GitHub advisory](https://github.com/advisories/GHSA-x8qc-fggm-mpqg)). The upload uses the
+  "create a model" feature from point 1, so an app that others can reach is exposed to this too.
 - **The Windows updater accepted unchecked updates** (CVE-2026-42248 and CVE-2026-42249). Ollama for
   Windows didn't verify that a downloaded update was genuine. Versions 0.12.10 to 0.17.5 were
   confirmed affected
@@ -67,10 +95,15 @@ updating matters:
 The newest Ollama when this was written is
 [0.40.8](https://github.com/ollama/ollama/releases/tag/v0.40.8), released on 21 October 2026.
 
+<div class="tell" markdown="1">
 **How to tell:** the check-up asks your running Ollama for its version and compares it with these
 fixes.
+</div>
+</section>
 
-## 3. A model file carries more than the model
+<section class="spot" markdown="1">
+
+## <span class="num">3</span> A model file carries more than the model
 
 A model file isn't only the trained model. It also carries the chat template, which is a small
 program, plus default settings. Whoever packages the file decides what goes in them, and you never
@@ -81,41 +114,58 @@ My measurement found two everyday examples of this:
   older version of the maker's. For example, `falcon3`'s file matches the maker's template from
   17 December 2024. The next day, the maker published a change called "fix chat_template for tool
   use". The file was simply made before it.
-- **Rewritten instructions.** On Hugging Face, where anyone can upload, two popular custom models
-  replace the maker's instructions for using tools with their own wording. They also add a
-  standing instruction about how to answer.
+- **Rewritten instructions.** On **Hugging Face**, the largest public website for sharing AI
+  models, anyone can upload. Two popular custom models there replace the maker's instructions for
+  using tools with their own wording. They also add a standing instruction about how to answer.
 
 Neither is an attack. But they show that the instructions travelling with a model can change
 between its maker and your computer.
 
+<div class="tell" markdown="1">
 **How to tell:** the check-up lists where each of your models came from: Ollama's own library, or
 a named uploader on Hugging Face. It also reads each template for two unusual things: a web
 address, or a rule that reacts when you type particular words. I tested that warning on 95 real
 templates. It went off for 3, and all 3 turned out to be ordinary, visible features. So it's rare,
 and worth a look when it happens.
+</div>
+</section>
 
-## 4. The layout step can change what the model reads
+<section class="spot" markdown="1">
 
-This is the weak spot I measured, because nobody had counted it.
+## <span class="num">4</span> The layout step can change what the model reads
+
+This is the weak spot I measured, because I couldn't find anyone who had counted it.
 
 A model learns to read conversations laid out in one exact way: who is speaking, where
 instructions go, how a tool is described, how a tool's answer comes back. Its maker publishes the
 chat template that produces that layout. If the app lays the conversation out differently, the
 model is reading something it wasn't trained on. It's like being handed a familiar form where the
-boxes have moved. Usually you'd cope, but you'd make more mistakes, and with tools, mistakes turn
-into actions.
+boxes have moved.
+
+Does that matter? Researchers have shown that formatting alone, such as which separators and
+spaces a prompt uses, can move a model's accuracy by up to 76 percentage points on some tasks
+([Sclar and others, ICLR 2024](https://arxiv.org/abs/2310.11324)). That study used a different
+kind of prompt, and this project doesn't measure accuracy. So read it as "layout matters", not as a
+number for these models.
+
+{% include fig/specimen.html %}
 
 ### What I measured
 
-For each model, I produced the text the model would read in three ways:
+For each model, I produced the text the model would read in three ways, and compared them:
 
-1. with **the maker's original** template;
-2. with **the copy inside the model file**;
-3. with **what Ollama actually uses**. Ollama often ships its own version of the template.
+<div class="flow" role="img" aria-label="Three versions of the same conversation: from the maker's template, from the copy inside the model file, and from what Ollama uses. Each is compared with the maker's.">
+  <div class="node"><b>The maker's template</b><em>published with the model. This is the reference.</em></div>
+  <div class="arrow" aria-hidden="true">→</div>
+  <div class="node"><b>The copy in the model file</b><em>made when the model was packaged for apps like Ollama</em></div>
+  <div class="arrow" aria-hidden="true">→</div>
+  <div class="node"><b>What Ollama uses</b><em>often Ollama's own rewritten version</em></div>
+</div>
+<p class="diagram-note">Twelve harmless practice conversations went through all three. Six of them use tools.</p>
 
-I ran twelve harmless practice conversations through all three and compared the results. Six of
-the conversations use tools. For the Ollama step, the comparison runs Ollama's own code, so nothing
-is guessed. [How it works](how-it-works.html) explains the method and how it was checked.
+For 41 of the 45 Ollama library models, the Ollama step runs Ollama's own code, so nothing is
+guessed. For three others, and for the Hugging Face models, it's a close copy written in Python.
+[How it works](how-it-works.html) explains the method and how it was checked.
 
 The models were the 50 most popular chat models in Ollama's library and the 30 most downloaded
 chat models on Hugging Face, as they were on 22 October 2026. Some couldn't be compared fairly,
@@ -136,25 +186,20 @@ Some of these models weren't built for tools at all. Counting only the 19 whose 
 does show the model a list of tools: **15 of 19** differ, or **11 of 19** without the
 order-only cases.
 
-**Where the differences come from:**
-- In 24 of the 32, the model file matches the maker's template. Ollama's own version introduces
-  the difference.
-- In 6, the model file already holds an older copy of the maker's template, and Ollama's version
-  changes it further.
-- In 2, the model file has no template of its own to compare.
+{% include fig/grid.html %}
 
-**What changes most often** (out of the 28):
-- **Tool answers** (20 models). What a tool sent back is laid out differently, merged with other
-  text, or left out.
-- **Standing instructions** (10). A default instruction is added that the maker didn't write, or
-  one the maker wrote goes missing.
-- **Earlier tool requests** (10). The model's own previous request to use a tool is written back
-  differently.
-- **The list of tools** (7). In some conversations, the model isn't shown its tools at all.
+**Most differences come from Ollama's own version of the template.** In 24 of the 32, the copy
+inside the model file gives the same conversations as the maker's, apart from harmless spacing. In 6, the model file already holds an older
+copy of the maker's template, and Ollama's version changes it further. In 2, the model file has no
+template of its own to compare.
 
-**Hugging Face downloads fare better.** For these, Ollama uses the template inside the file
-instead of its own. Only 5 of 22 differ, and in all 5 the difference is already in the uploaded
-file. Ollama adds no meaningful change of its own.
+{% include fig/origin.html %}
+
+{% include fig/classes.html %}
+
+**Hugging Face downloads fare better.** For all 22 measured here, Ollama used the template inside
+the file instead of its own. Only 5 differ, and in all 5 the difference is already in the
+uploaded file. Ollama adds no meaningful change of its own.
 
 **A template that looks different can still be fine.** In 7 of the Hugging Face models, the
 template text differs from the maker's, yet all twelve conversations came out exactly the same.
@@ -163,46 +208,57 @@ receives does.
 
 ### One model, step by step: `qwen2.5`
 
-`qwen2.5` is the fourth most popular chat model in Ollama's library. Its default download is the
-7-billion-parameter instruct model.
+`qwen2.5` is the fourth most popular chat model in Ollama's library.
 - **The model file holds an outdated template.** It matches the maker's template as it was on
   18 September 2024. The maker updated it the next day.
-- **Ollama's version describes tools in the wrong format.** The model was trained to read tool
-  descriptions written in JSON, a standard data format. Ollama's version hands them over in the
-  internal format of its own programming language, with words like `<nil>` mixed in. This is
-  already reported to Ollama ([issue #14601](https://github.com/ollama/ollama/issues/14601)), and
-  fixes have been proposed. The measurement shows how far it reaches: 4 of the 43 library models
-  (`qwen2`, `qwen2.5`, `qwen2.5-coder` and `qwen3`).
-- **The Hugging Face copy loses a default instruction.** Downloaded from Hugging Face instead, the
-  model file matches the maker's template exactly. But the version Ollama builds for it leaves out
-  the short default instruction the maker's template adds when you don't write one yourself.
+- **Ollama's version describes tools in the wrong format,** as the figure above shows. The model
+  was trained on JSON, a standard way of writing data. It gets the internal format of Go, the
+  programming language Ollama is written in. This is already reported to Ollama
+  ([issue #14601](https://github.com/ollama/ollama/issues/14601)), and fixes have been proposed.
+  The measurement shows how far it reaches: 4 of the 43 library models (`qwen2`, `qwen2.5`,
+  `qwen2.5-coder` and `qwen3`).
+- **A popular Hugging Face copy loses a default instruction.** For this model, Hugging Face
+  supplies its own Ollama-style template, and Ollama uses that instead of the one inside the file.
+  That version leaves out the short default instruction the maker's
+  template adds when you don't write one yourself.
 
+<div class="tell" markdown="1">
 **How to tell:** the full comparison needs a few more tools and is described in
 [How it works](how-it-works.html). The quick check-up covers the parts you can act on: where your
 models came from, and whether their templates have warning signs.
+</div>
+</section>
 
-## 5. Helpers turn the model's words into actions
+<section class="spot" markdown="1">
+
+## <span class="num">5</span> Helpers turn the model's words into actions
 
 On its own, a model only writes text. Once you connect a helper that can read files, run commands
 or browse, its text becomes actions on your computer. Two things can then go wrong:
-- **The model makes a mistake.** The layout problems in point 4 make this more likely.
+- **The model makes a mistake.** The layout problems in point 4 can make that more likely.
 - **The model is misled by what it reads.** A web page, an email or a file can contain text
-  written to give the AI orders. The model can't reliably tell those apart from yours. OWASP, a
-  long-standing security community, lists this ("prompt injection") as the number one risk for AI
-  applications ([OWASP LLM01:2025](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)).
+  written to give the AI orders. The model can't reliably tell those apart from yours. This is
+  called **prompt injection**. OWASP, a long-standing security community, lists it as the number
+  one risk for AI applications
+  ([OWASP LLM01:2025](https://genai.owasp.org/llmrisk/llm01-prompt-injection/)).
 
 Either way, what the helper can reach is what's at risk. Project folders often hold a file called
 `.env` with passwords and keys in it, or a private key for logging in to servers.
 
+<div class="tell" markdown="1">
 **How to tell:** point the check-up at the folder your helper works in. It lists any file whose
 name suggests it holds a secret. It reads only the names, never the contents.
+</div>
+</section>
 
-## 6. Your chats are kept as ordinary files
+<section class="spot" markdown="1">
+
+## <span class="num">6</span> Your chats are kept as ordinary files
 
 "Local" means your conversations stay on your computer. It also means they sit on your disk,
 where anything that can read your files can read them too:
-- **Ollama in a terminal** keeps the last 100 lines you typed in a file called `.ollama/history` in
-  your home folder, unless you set `OLLAMA_NOHISTORY`
+- **Ollama in a terminal** (a window where you type commands) keeps the last 100 lines you typed
+  in a file called `.ollama/history` in your home folder, unless you set `OLLAMA_NOHISTORY`
   ([history.go](https://github.com/ollama/ollama/blob/v0.40.7/readline/history.go)).
 - **The Ollama desktop app** keeps its chats in a database file in its app folder
   ([app_state.go](https://github.com/ollama/ollama/blob/v0.40.7/internal/onboarding/app_state.go)).
@@ -215,10 +271,11 @@ where anything that can read your files can read them too:
 None of this is a fault. But backup and sync tools copy these files like any others, and anyone
 who uses your account can open them.
 
+<div class="tell" markdown="1">
 **How to tell:** the check-up lists where your chats are saved and how big those files are,
 without opening them. It warns you if the debugging setting is on.
-
----
+</div>
+</section>
 
 ## Run the check-up
 
@@ -232,16 +289,32 @@ nothing else. It changes nothing and sends nothing anywhere.
 - **A clean check-up isn't a guarantee.** It looks for known warning signs. It can't prove a model
   or an app is trustworthy.
 - **A different layout isn't proof of harm.** It shows that the model reads something it wasn't
-  trained on. How much that costs in practice, for example in correct tool use, is a separate
-  question.
+  trained on. How much that costs in practice, for example in correct tool use, is the next
+  question to measure.
 - **The measurement is a snapshot.** It covers the most popular models on 22 October 2026, as they
   were that day.
-- **Two parts are close copies, not Ollama's own code.** For Hugging Face downloads, and for three
-  library models, Ollama fills in the template with a separate engine. I reproduced that engine's
-  behaviour in Python. It's very close, but not byte-for-byte Ollama.
+- **Some parts are close copies, not Ollama's own code.** For the Hugging Face models, and for
+  three library models, Ollama fills in the template with a separate engine. I reproduced that
+  engine's behaviour in Python. It's very close, but not byte-for-byte Ollama.
 - **Practice conversations have limits.** Mistral's own template, for example, rejects the made-up
   tool request numbers my practice conversations use, so a few of its comparisons couldn't run.
   The [results page](results.html) lists every gap like this.
+
+## Words used on this page
+
+<dl class="gloss">
+  <dt>Model</dt><dd>The trained AI itself: a large file of numbers that turns text into more text.</dd>
+  <dt>Ollama, LM Studio</dt><dd>Free apps that download models and run them on your own computer.</dd>
+  <dt>Hugging Face</dt><dd>The largest public website for sharing AI models. Anyone can upload.</dd>
+  <dt>Chat template</dt><dd>The small set of layout instructions that turns a conversation into the one block of text a model reads.</dd>
+  <dt>Tool</dt><dd>Something a model can ask to use, such as a calculator, a file reader or a web search.</dd>
+  <dt>Server, port</dt><dd>A program that waits for messages from other programs, and the numbered door it listens on (Ollama's is 11434).</dd>
+  <dt><code>127.0.0.1</code></dt><dd>The address that means "this computer only".</dd>
+  <dt>JSON</dt><dd>A standard, widely used way of writing data so that programs and models can read it.</dd>
+  <dt>CVE</dt><dd>The ID given to a published security problem, so everyone can refer to the same one.</dd>
+  <dt>Prompt injection</dt><dd>Text hidden in a page, email or file that tries to give an AI orders.</dd>
+  <dt>Terminal</dt><dd>A window where you type commands instead of clicking.</dd>
+</dl>
 
 ## Sources
 
@@ -252,5 +325,7 @@ nothing else. It changes nothing and sends nothing anywhere.
   CVE-2026-42248, CVE-2026-42249.
 - LM Studio documentation, "Manage chats".
 - OWASP Top 10 for LLM Applications 2025, LLM01: Prompt Injection.
+- Sclar, Choi, Tsvetkov and Suhr, "Quantifying Language Models' Sensitivity to Spurious Features in
+  Prompt Design", ICLR 2024.
 - This project's measurement runs of 22 October 2026, published with the code on
   [GitHub](https://github.com/MohanVishe/template-drift-audit).

@@ -1,6 +1,11 @@
 .cache/
 .cache-*/
-runs/
+# run outputs stay local, except the published P2 study data
+runs/*
+!runs/p2-library/
+!runs/p2-hf/
+!runs/p2-headline.json
+!runs/p2-lint.json
 __pycache__/
 *.pyc
 .pytest_cache/
@@ -10,3 +15,5 @@ population/snapshots/ollama-*
 population/tools/__pycache__/
 # article drafts are published separately
 article/
+# local review notes
+notes/

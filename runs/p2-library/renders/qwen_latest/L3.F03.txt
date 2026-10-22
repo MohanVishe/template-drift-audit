@@ -1,0 +1,6 @@
+<|im_start|>user
+Pick a colour.<|im_end|>
+<|im_start|>assistant
+Blue.<|im_start|>user
+Why?<|im_end|>
+<|im_start|>assistant

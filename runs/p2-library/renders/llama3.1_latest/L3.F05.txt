@@ -1,0 +1,19 @@
+<|start_header_id|>system<|end_header_id|>
+
+Use tools when they help.
+
+Cutting Knowledge Date: December 2023
+
+When you receive a tool call response, use the output to format an answer to the orginal user question.
+
+You are a helpful assistant with tool calling capabilities.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Given the following functions, please respond with a JSON for a function call with its proper arguments that best answers the given prompt.
+
+Respond in the format {"name": function name, "parameters": dictionary of argument name and its value}. Do not use variables.
+
+{"type":"function","function":{"name":"get_weather","description":"Current weather for a city","parameters":{"type":"object","required":["city"],"properties":{"city":{"type":"string","description":"City name"},"unit":{"type":"string","enum":["c","f"]}}}}}
+{"type":"function","function":{"name":"add","description":"Add two numbers","parameters":{"type":"object","required":["a","b"],"properties":{"a":{"type":"number"},"b":{"type":"number"}}}}}
+
+Question: Weather in Oslo, in c?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

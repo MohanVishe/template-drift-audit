@@ -1,0 +1,5 @@
+<bos><|turn>user
+Explain {{ messages }} and {% if x %} in Jinja.<turn|>
+<|turn>model
+<|channel>thought
+<channel|>

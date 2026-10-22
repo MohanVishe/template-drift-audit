@@ -1,0 +1,4 @@
+<|im_start|>user
+Explain {{ messages }} and {% if x %} in Jinja.<|im_end|>
+<|im_start|>assistant
+<think>

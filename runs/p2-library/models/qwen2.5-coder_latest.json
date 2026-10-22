@@ -1,0 +1,484 @@
+{
+ "target": {
+  "package": "qwen2.5-coder:latest",
+  "upstream_repo": "Qwen/Qwen2.5-Coder-7B-Instruct",
+  "upstream_sha": "c03e6d358207e414f1eca0bb1891e29f1db0e242",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 7b-instruct-q4_K_M.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "12",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2025-01-12T02:03:41.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:60e05f2100071479f596b964f89f510f057ce397ea22f2833a0cfe029bfc2463",
+ "template_digest": "sha256:1e65450c30670713aa47fe23e8b9662bdf4065e81cc8e3cbfaa98924fcc0d320",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [
+   "tools",
+   "insert"
+  ],
+  "chat_caps": [
+   "tools"
+  ],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": true
+ },
+ "conversion": {
+  "match": "current",
+  "sha": "c03e6d358207e414f1eca0bb1891e29f1db0e242"
+ },
+ "layers": {
+  "L0": {
+   "source": "Qwen/Qwen2.5-Coder-7B-Instruct@c03e6d358207:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:60e05f210007",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_CALL",
+    "TOOL_RESULT",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_CALL",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_CALL",
+    "TOOL_RESULT",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_CALL",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

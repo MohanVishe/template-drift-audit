@@ -1,0 +1,10 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Is 7 prime?</s>
+<|assistant|>
+Yes.<|system|>
+</s>
+<|user|>
+And 9?</s>
+<|assistant|>

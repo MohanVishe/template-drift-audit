@@ -1,6 +1,8 @@
 # template-drift-audit: design
 
-Working name. Status: design only, nothing built. Written 2026-10-22.
+Written 2026-10-22, before any code, and kept as written. What was built and measured is in
+`P0-RESULTS.md`, `P1-RESULTS.md` and `P2-RESULTS.md`. The optional impact study (H3, §6) has not
+been run yet.
 
 ## 1. The question
 

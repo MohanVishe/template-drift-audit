@@ -1,0 +1,427 @@
+{
+ "target": {
+  "package": "llava:latest",
+  "upstream_repo": "liuhaotian/llava-v1.6-mistral-7b",
+  "upstream_sha": "f13b6254afb9d96a82e6f568d7a01101923b3ed9",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 7b-v1.6-mistral-q4_0. The author repo's tokenizer_config.json carries the Mistral-Instruct template inherited from the base tokenizer; LLaVA's actual prompt format is defined in the LLaVA code (conv mode mistral_instruct) and the template has no image placeholder. Alternative: llava-hf/llava-v1.6-mistral-7b-hf, Hugging Face's transformers port, which has a processor chat template but is not the author's.",
+  "confidence": "low",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "14",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2024-05-08T12:12:36.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:170370233dd5c5415250a2ecd5c71586352850729062ccef1496385647293868",
+ "template_digest": "sha256:c43332387573e98fdfad4a606171279955b53d891ba2500552c2984a6560ffb4",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {
+  "match": "current",
+  "sha": "f13b6254afb9d96a82e6f568d7a01101923b3ed9"
+ },
+ "layers": {
+  "L0": {
+   "source": "liuhaotian/llava-v1.6-mistral-7b@f13b6254afb9:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null,
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:170370233dd5",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null,
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

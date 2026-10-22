@@ -1,0 +1,7 @@
+<|user|>
+Is 7 prime?</s>
+<|assistant|>
+Yes.</s>
+<|user|>
+And 9?</s>
+<|assistant|>

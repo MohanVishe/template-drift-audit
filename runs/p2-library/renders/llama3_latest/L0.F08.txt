@@ -1,0 +1,8 @@
+<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+
+What is 2 + 3?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Let me add those.<|eot_id|><|start_header_id|>tool<|end_header_id|>
+
+5<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

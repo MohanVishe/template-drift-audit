@@ -1,0 +1,7 @@
+<|im_start|>user<|im_sep|>
+Weather in Oslo?<|im_end|>
+<|im_start|>assistant<|im_sep|>
+<|im_end|>
+<|im_start|>tool<|im_sep|>
+{"temp": 4, "sky": "cloudy"}<|im_end|>
+<|im_start|>assistant<|im_sep|>

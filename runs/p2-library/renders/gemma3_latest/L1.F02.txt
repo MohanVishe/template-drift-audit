@@ -1,0 +1,5 @@
+<bos><start_of_turn>user
+You answer in one sentence.
+
+What is GGUF?<end_of_turn>
+<start_of_turn>model

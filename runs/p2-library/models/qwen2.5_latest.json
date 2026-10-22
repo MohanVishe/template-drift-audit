@@ -1,0 +1,484 @@
+{
+ "target": {
+  "package": "qwen2.5:latest",
+  "upstream_repo": "Qwen/Qwen2.5-7B-Instruct",
+  "upstream_sha": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 7b-instruct-q4_K_M; the same repo P0 used (GGUF base_model metadata points at the base Qwen2.5-7B instead).",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "4",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2025-01-12T02:10:10.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+ "template_digest": "sha256:eb4402837c7829a690fa845de4d7f3fd842c2adee476d5341da8a46ea9255175",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [
+   "tools"
+  ],
+  "chat_caps": [
+   "tools"
+  ],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": true
+ },
+ "conversion": {
+  "match": "exact",
+  "commits_checked": 13,
+  "sha": "52e20a6f5f475e5c8f6a8ebda4ae5fa6b1ea22ac",
+  "date": "2024-09-18T11:20:44.000Z",
+  "title": "update README & LICENSE",
+  "replaced_by": {
+   "sha": "acbd96531cda22292a3ceaa67e984955d3965282",
+   "date": "2024-09-19T07:30:10.000Z",
+   "title": "Upload ./tokenizer_config.json with huggingface_hub"
+  }
+ },
+ "layers": {
+  "L0": {
+   "source": "Qwen/Qwen2.5-7B-Instruct@a09a35458c70:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:2bada8a74506",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "TOOL_SCHEMA"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_CALL",
+    "TOOL_RESULT",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_CALL",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_CALL",
+    "TOOL_RESULT",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "TOOL_CALL",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "JSON_SPACING",
+    "TOOL_SCHEMA_NOT_JSON"
+   ],
+   "severity": "material",
+   "known_issues": [
+    "ollama/ollama#14601"
+   ]
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+[INST] <<SYS>><</SYS>>
+
+Add 1 and 1. [/INST]
+1 + 1 = 2.[INST] <<SYS>><</SYS>>
+
+Now add 2 and 2. [/INST]

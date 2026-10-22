@@ -1,0 +1,1 @@
+<｜begin▁of▁sentence｜><｜User｜>Add 1 and 1.<｜Assistant｜><｜end▁of▁sentence｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>2<｜tool▁output▁end｜><｜tool▁outputs▁end｜>1 + 1 = 2.<｜end▁of▁sentence｜><｜User｜>Now add 2 and 2.<｜Assistant｜><think>

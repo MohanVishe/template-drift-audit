@@ -1,0 +1,12 @@
+<|im_start|>user
+Is 7 prime?<|im_end|>
+<|im_start|>assistant
+<think>
+7 has no divisors other than 1 and 7.
+</think>
+
+Yes.<|im_end|>
+<|im_start|>user
+And 9?<|im_end|>
+<|im_start|>assistant
+<think>

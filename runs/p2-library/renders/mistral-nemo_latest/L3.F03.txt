@@ -1,0 +1,1 @@
+[INST]Pick a colour.[/INST] Blue.</s>[INST]Why?[/INST]

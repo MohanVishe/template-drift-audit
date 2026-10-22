@@ -1,0 +1,57 @@
+{
+ "target": {
+  "package": "gpt-oss:latest",
+  "upstream_repo": "openai/gpt-oss-20b",
+  "upstream_sha": "6cee5e81ee83917806bbde320786a8fb61efebee",
+  "template_file": "chat_template.jinja",
+  "reason": "latest = 20b.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "15",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2025-08-26T17:25:47.000Z"
+  }
+ },
+ "status": "partial",
+ "reason": "L3 source harmony not rendered offline",
+ "model_digest": "sha256:8ecb5d4ad6172c63f9cbf1a07a04e525985a8a11a6e516da02b674c4010de716",
+ "template_digest": "sha256:fa6710a93d78da62641e192361344be7a8c0a1c3737f139cf89f20ce1626b99c",
+ "selection": {
+  "source": "harmony",
+  "prefer_chat_template": false,
+  "go_caps": [
+   "tools"
+  ],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {},
+ "layers": {
+  "L0": {
+   "source": "openai/gpt-oss-20b@6cee5e81ee83:chat_template.jinja",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": []
+}

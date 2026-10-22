@@ -1,0 +1,433 @@
+{
+ "target": {
+  "package": "llama3:latest",
+  "upstream_repo": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "upstream_sha": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 8b-instruct-q4_0.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "10",
+   "status": "included",
+   "gated": "manual",
+   "upstream_last_modified": "2025-06-18T23:49:51.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:6a0746a1ec1aef3e7ec53868f220ff6e389f6f8ef87a01d77c96807de94ca2aa",
+ "template_digest": "sha256:8ab4849b038cf0abc5b1c9b8ee1443dca6b93a045c2272180d985126eb40bf6f",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {
+  "match": "current",
+  "sha": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2"
+ },
+ "layers": {
+  "L0": {
+   "source": "meta-llama/Meta-Llama-3-8B-Instruct@8afb486c1db2:api:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:6a0746a1ec1a",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

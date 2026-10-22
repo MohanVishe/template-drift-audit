@@ -1,0 +1,10 @@
+<|im_start|>system
+<|im_end|>
+<|im_start|>user
+Pick a colour.<|im_end|>
+<|im_start|>assistant
+<think></think>Blue.<|im_end|>
+<|im_start|>user
+Why?<|im_end|>
+<|im_start|>assistant
+<think>

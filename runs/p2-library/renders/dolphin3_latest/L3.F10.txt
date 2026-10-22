@@ -1,0 +1,9 @@
+<|im_start|>system
+You are Dolphin, a helpful AI assistant.<|im_end|>
+<|im_start|>user
+Météo à Zürich? "quoted" \ back\slash — नमस्ते<|im_end|>
+<|im_start|>assistant
+<|im_end|>
+<|im_start|>tool
+{"temp": 7, "note": "été"}<|im_end|>
+<|im_start|>assistant

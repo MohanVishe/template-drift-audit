@@ -1,0 +1,8 @@
+<|system|>
+You are OLMo 2, a helpful and harmless AI Assistant built by the Allen Institute for AI.
+<|user|>
+Weather in Oslo?
+<|assistant|>
+
+<|tool|>
+{"temp": 4, "sky": "cloudy"}<|assistant|>

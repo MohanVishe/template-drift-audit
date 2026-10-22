@@ -1,0 +1,14 @@
+<|im_start|>system
+Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.<|im_end|>
+<|im_start|>user
+Is 7 prime?<|im_end|>
+<|im_start|>assistant
+<think>
+7 has no divisors other than 1 and 7.
+</think>
+
+Yes.<|im_end|>
+<|im_start|>user
+And 9?<|im_end|>
+<|im_start|>assistant
+<think>

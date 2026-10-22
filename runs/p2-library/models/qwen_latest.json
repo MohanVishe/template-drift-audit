@@ -1,0 +1,438 @@
+{
+ "target": {
+  "package": "qwen:latest",
+  "upstream_repo": "Qwen/Qwen1.5-4B-Chat",
+  "upstream_sha": "a7a4d4945d28bac955554c9abd2f74a71ebbf22f",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 4b-chat-v1.5-q4_0.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "19",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2024-04-30T07:41:43.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:46bb65206e0e2b00424f33985a5281bd21070617ebcfda9be86eb17e6e00f793",
+ "template_digest": "sha256:1da0581fd4ce92dcf5a66b1da737cf215d8dcf25aa1b98b44443aaf7173155f5",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {
+  "match": "exact",
+  "commits_checked": 25,
+  "sha": "53db5c42837c30ad39cf7648e563ead446a4175a",
+  "date": "2024-02-05T15:44:29.000Z",
+  "title": "update readme",
+  "replaced_by": {
+   "sha": "810c56371ed0fc3f64279bc097bdbd3cdd23c392",
+   "date": "2024-02-06T13:48:32.000Z",
+   "title": "update tokenizer_config.json"
+  }
+ },
+ "layers": {
+  "L0": {
+   "source": "Qwen/Qwen1.5-4B-Chat@a7a4d4945d28:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:46bb65206e0e",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "TOOL_RESULT"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM",
+    "STRUCTURE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "DEFAULT_SYSTEM"
+   ],
+   "severity": "material",
+   "known_issues": []
+  }
+ ]
+}

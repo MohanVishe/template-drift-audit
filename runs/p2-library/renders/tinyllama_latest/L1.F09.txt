@@ -1,0 +1,9 @@
+<|user|>
+Add 1 and 1.</s>
+<|assistant|>
+</s>
+<|assistant|>
+1 + 1 = 2.</s>
+<|user|>
+Now add 2 and 2.</s>
+<|assistant|>

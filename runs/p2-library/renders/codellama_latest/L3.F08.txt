@@ -1,0 +1,4 @@
+[INST] <<SYS>><</SYS>>
+
+What is 2 + 3? [/INST]
+Let me add those.

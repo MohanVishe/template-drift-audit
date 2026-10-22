@@ -1,0 +1,7 @@
+<|user|>
+Pick a colour.</s>
+<|assistant|>
+Blue.</s>
+<|user|>
+Why?</s>
+<|assistant|>

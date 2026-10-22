@@ -1,0 +1,5 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Is it raining in Pune?</s>
+<|assistant|>

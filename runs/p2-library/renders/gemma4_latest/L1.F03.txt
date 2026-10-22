@@ -1,0 +1,7 @@
+<bos><|turn>user
+Pick a colour.<turn|>
+<|turn>model
+Blue.<turn|>
+<|turn>user
+Why?<turn|>
+<|turn>model

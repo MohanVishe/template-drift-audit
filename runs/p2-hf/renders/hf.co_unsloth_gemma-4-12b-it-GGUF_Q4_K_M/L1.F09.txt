@@ -1,0 +1,11 @@
+<bos><|turn>system
+<|tool>declaration:get_weather{description:<|"|>Current weather for a city<|"|>,parameters:{properties:{city:{description:<|"|>City name<|"|>,type:<|"|>STRING<|"|>},unit:{enum:[<|"|>c<|"|>,<|"|>f<|"|>],type:<|"|>STRING<|"|>}},required:[<|"|>city<|"|>],type:<|"|>OBJECT<|"|>}}<tool|><|tool>declaration:add{description:<|"|>Add two numbers<|"|>,parameters:{properties:{a:{type:<|"|>NUMBER<|"|>},b:{type:<|"|>NUMBER<|"|>}},required:[<|"|>a<|"|>,<|"|>b<|"|>],type:<|"|>OBJECT<|"|>}}<tool|><turn|>
+<|turn>user
+Add 1 and 1.<turn|>
+<|turn>model
+<|tool_call>call:add{a:1,b:1}<tool_call|><|tool_response>response:add{value:<|"|>2<|"|>}<tool_response|>1 + 1 = 2.<turn|>
+<|turn>user
+Now add 2 and 2.<turn|>
+<|turn>model
+<|channel>thought
+<channel|>

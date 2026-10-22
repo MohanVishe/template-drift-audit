@@ -1,0 +1,5 @@
+[gMASK]<sop><|user|>
+Pick a colour.<|assistant|>
+<think></think>
+Blue.<|user|>
+Why?<|assistant|>

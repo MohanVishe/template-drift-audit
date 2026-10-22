@@ -1,0 +1,2 @@
+<｜begin▁of▁sentence｜><｜User｜>Weather in Oslo and Lima?<｜Assistant｜><｜end▁of▁sentence｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>{"temp": 4}<｜tool▁output▁end｜>
+<｜tool▁output▁begin｜>{"temp": 19}<｜tool▁output▁end｜><｜tool▁outputs▁end｜>

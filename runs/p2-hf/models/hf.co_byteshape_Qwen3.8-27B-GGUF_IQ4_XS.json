@@ -1,0 +1,26 @@
+{
+ "target": {
+  "package": "hf.co/byteshape/Qwen3.8-27B-GGUF:IQ4_XS",
+  "upstream_repo": "Qwen/Qwen3.8-27B",
+  "upstream_sha": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "template_file": "chat_template.jinja",
+  "reason": "Quantisation of Qwen3.8-27B (card base_model).",
+  "confidence": "high",
+  "extra": {
+   "source": "hf",
+   "rank": "14",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2026-08-14T15:00:01.000Z",
+   "evidence": "embedded GGUF template is byte-identical to the upstream template at main"
+  }
+ },
+ "status": "skipped",
+ "reason": "package: HTTPError: HTTP Error 400: Bad Request",
+ "model_digest": "",
+ "template_digest": "",
+ "selection": {},
+ "conversion": {},
+ "layers": {},
+ "cells": []
+}

@@ -1,0 +1,428 @@
+{
+ "target": {
+  "package": "deepseek-r1:latest",
+  "upstream_repo": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
+  "upstream_sha": "6e8885a6ff5c1dc5201574c8fd700323f23c25fa",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 8b-0528-qwen3-q4_K_M, DeepSeek's R1-0528 distill into Qwen3-8B, so DeepSeek's repo for it, not Qwen's.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "2",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2025-05-29T13:13:34.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:e6a7edc1a4d7d9b2de136a221a57336b76316cfe53a252aeba814496c5ae439d",
+ "template_digest": "sha256:c5ad996bda6eed4df6e3b605a9869647624851ac248209d22fd5e2c0cc1121d3",
+ "selection": {
+  "source": "gguf_chat_template",
+  "prefer_chat_template": true,
+  "go_caps": [
+   "thinking"
+  ],
+  "chat_caps": [
+   "tools",
+   "thinking"
+  ],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {
+  "match": "current",
+  "sha": "6e8885a6ff5c1dc5201574c8fd700323f23c25fa"
+ },
+ "layers": {
+  "L0": {
+   "source": "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B@6e8885a6ff5c:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:e6a7edc1a4d7",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:gguf_chat_template",
+   "renderer": "jinja_sandbox_approx",
+   "exact": false,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    "TypeError: can only concatenate str (not \"dict\") to str",
+    null,
+    null
+   ],
+   "note": "llama-server renders this path with its own Jinja engine; not validated live"
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

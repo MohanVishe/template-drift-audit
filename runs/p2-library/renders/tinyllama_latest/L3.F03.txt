@@ -1,0 +1,10 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Pick a colour.</s>
+<|assistant|>
+Blue.<|system|>
+</s>
+<|user|>
+Why?</s>
+<|assistant|>

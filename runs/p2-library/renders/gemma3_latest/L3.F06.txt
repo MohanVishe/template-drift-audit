@@ -1,0 +1,4 @@
+<start_of_turn>user
+Weather in Oslo?<end_of_turn>
+<start_of_turn>model
+<end_of_turn>

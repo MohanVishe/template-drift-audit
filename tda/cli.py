@@ -98,13 +98,13 @@ def main(argv=None) -> int:
     p = sub.add_parser("report")
     p.add_argument("run_dir")
     p = sub.add_parser("check", help="a read-only safety check-up of this computer's local AI setup")
-    p.add_argument("--folder", default=".", help="the folder an AI helper works in (default: this folder)")
+    p.add_argument("--folder", help="the folder an AI helper works in (its secret-looking file names are listed)")
     p.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")
     if args.cmd == "check":
         from tda import check
-        findings = check.run(Path(args.folder).resolve())
+        findings = check.run(Path(args.folder).resolve() if args.folder else None)
         print(check.to_json(findings) if args.json else check.render(findings))
         return 0
     if args.cmd == "report":

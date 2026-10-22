@@ -1,0 +1,6 @@
+[INST] <<SYS>><</SYS>>
+
+Is 7 prime? [/INST]
+Yes.[INST] <<SYS>><</SYS>>
+
+And 9? [/INST]

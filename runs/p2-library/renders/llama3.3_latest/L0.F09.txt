@@ -1,0 +1,72 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Environment: ipython
+Cutting Knowledge Date: December 2023
+Today Date: 26 Jul 2024
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Given the following functions, please respond with a JSON for a function call with its proper arguments that best answers the given prompt.
+
+Respond in the format {"name": function name, "parameters": dictionary of argument name and its value}.Do not use variables.
+
+{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "Current weather for a city",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "description": "City name"
+                },
+                "unit": {
+                    "type": "string",
+                    "enum": [
+                        "c",
+                        "f"
+                    ]
+                }
+            },
+            "required": [
+                "city"
+            ]
+        }
+    }
+}
+
+{
+    "type": "function",
+    "function": {
+        "name": "add",
+        "description": "Add two numbers",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "number"
+                },
+                "b": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "a",
+                "b"
+            ]
+        }
+    }
+}
+
+Add 1 and 1.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+{"name": "add", "parameters": {"a": 1, "b": 1}}<|eot_id|><|start_header_id|>ipython<|end_header_id|>
+
+"2"<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+1 + 1 = 2.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Now add 2 and 2.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

@@ -1,0 +1,6 @@
+[gMASK]<sop><|user|>
+Is 7 prime?<|assistant|>
+<think>7 has no divisors other than 1 and 7.</think>
+Yes.
+<|user|>
+And 9?<|assistant|>

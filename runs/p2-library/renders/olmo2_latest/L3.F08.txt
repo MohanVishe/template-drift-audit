@@ -1,0 +1,8 @@
+<|system|>
+You are OLMo 2, a helpful and harmless AI Assistant built by the Allen Institute for AI.
+<|user|>
+What is 2 + 3?
+<|assistant|>
+Let me add those.
+<|tool|>
+5<|assistant|>

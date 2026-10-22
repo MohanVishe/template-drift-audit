@@ -1,0 +1,8 @@
+<|start_of_role|>system<|end_of_role|>Knowledge Cutoff Date: April 2024.
+You are Granite, developed by IBM.<|end_of_text|>
+<|start_of_role|>tools<|end_of_role|>[
+{"type":"function","function":{"name":"get_weather","description":"Current weather for a city","parameters":{"type":"object","required":["city"],"properties":{"city":{"type":"string","description":"City name"},"unit":{"type":"string","enum":["c","f"]}}}}},
+{"type":"function","function":{"name":"add","description":"Add two numbers","parameters":{"type":"object","required":["a","b"],"properties":{"a":{"type":"number"},"b":{"type":"number"}}}}}
+]<|end_of_text|>
+<|start_of_role|>user<|end_of_role|>Is it raining in Pune?<|end_of_text|>
+<|start_of_role|>assistant<|end_of_role|>

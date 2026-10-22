@@ -1,0 +1,4 @@
+<|im_start|>system
+Use tools when they help.<|im_end|><|im_start|>user
+Weather in Oslo, in c?<|im_end|>
+<|im_start|>assistant

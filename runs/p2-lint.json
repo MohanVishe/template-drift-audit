@@ -1,0 +1,94 @@
+{
+ "packages": 65,
+ "packages_flagged": 3,
+ "distinct_templates": 95,
+ "distinct_templates_flagged": 3,
+ "errors": [
+  {
+   "package": "hf.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF:IQ3_S",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF/manifests/IQ3_S "
+  },
+  {
+   "package": "hf.co/unsloth/Qwen3.8-27B-GGUF:Q4_K_M",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/unsloth/Qwen3.8-27B-GGUF/blobs/sha256:99c7ce2cfd4d4889953c59533f0b27f13a0bdfc6542c6debcb14c2307f716cd8 "
+  },
+  {
+   "package": "hf.co/cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF:NVFP4",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF/manifests/NVFP4 "
+  },
+  {
+   "package": "hf.co/byteshape/Qwen3.8-27B-GGUF:IQ4_XS",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/byteshape/Qwen3.8-27B-GGUF/manifests/IQ4_XS "
+  },
+  {
+   "package": "hf.co/mudler/Laguna-XS-2.1-APEX-GGUF:APEX-Balanced",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/mudler/Laguna-XS-2.1-APEX-GGUF/manifests/APEX-Balanced "
+  },
+  {
+   "package": "hf.co/antirez/deepseek-v4.1-flash-gguf:MXFP4",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/antirez/deepseek-v4.1-flash-gguf/manifests/MXFP4 "
+  },
+  {
+   "package": "hf.co/unsloth/Qwen3.6-35B-A3B-GGUF:Q4_K_M",
+   "error": "LookupError: offline and not cached: https://hf.co/v2/unsloth/Qwen3.6-35B-A3B-GGUF/blobs/sha256:a836902de2d7e61701b55e479f0f0b85c81e156487f9a3323a0603aed8c157ae "
+  }
+ ],
+ "flagged": [
+  {
+   "package": "gpt-oss:latest",
+   "flags": {
+    "author:default": [
+     "changes behaviour when a message contains \"<|channel|>analysis<|message|>\"",
+     "changes behaviour when a message contains \"<|channel|>final<|message|>\""
+    ]
+   },
+   "layers": [
+    "author:default",
+    "ollama_go"
+   ]
+  },
+  {
+   "package": "hf.co/peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP:Q4_K_XL",
+   "flags": {
+    "gguf:default": [
+     "changes behaviour when a message contains \"<|think_off|>\"",
+     "changes behaviour when a message contains \"<|think_on|>\"",
+     "changes behaviour when a message contains \"<|think_xhigh|>\"",
+     "changes behaviour when a message contains \"<|think_high|>\"",
+     "changes behaviour when a message contains \"<|think_ultracode|>\"",
+     "changes behaviour when a message contains \"<|think_extreme|>\"",
+     "changes behaviour when a message contains \"<|think_max|>\"",
+     "changes behaviour when a message contains \"<|think_low|>\"",
+     "changes behaviour when a message contains \"<|think_minimal|>\"",
+     "changes behaviour when a message contains \"<|think_medium|>\""
+    ]
+   },
+   "layers": [
+    "author:default",
+    "gguf:default"
+   ]
+  },
+  {
+   "package": "hf.co/peculiar-ragdoll/Dirk-Qwen3.8-27B-GGUF:Q4_K_M",
+   "flags": {
+    "gguf:default": [
+     "changes behaviour when a message contains \"<|think_off|>\"",
+     "changes behaviour when a message contains \"<|think_on|>\"",
+     "changes behaviour when a message contains \"<|think_xhigh|>\"",
+     "changes behaviour when a message contains \"<|think_high|>\"",
+     "changes behaviour when a message contains \"<|think_ultracode|>\"",
+     "changes behaviour when a message contains \"<|think_extreme|>\"",
+     "changes behaviour when a message contains \"<|think_max|>\"",
+     "changes behaviour when a message contains \"<|think_low|>\"",
+     "changes behaviour when a message contains \"<|think_minimal|>\"",
+     "changes behaviour when a message contains \"<|think_medium|>\""
+    ]
+   },
+   "layers": [
+    "author:default",
+    "gguf:default",
+    "ollama_go"
+   ]
+  }
+ ]
+}

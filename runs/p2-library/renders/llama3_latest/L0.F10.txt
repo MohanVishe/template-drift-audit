@@ -1,0 +1,8 @@
+<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+
+Météo à Zürich? "quoted" \ back\slash — नमस्ते<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+<|eot_id|><|start_header_id|>tool<|end_header_id|>
+
+{"temp": 7, "note": "été"}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

@@ -1,0 +1,4 @@
+<｜begin▁of▁sentence｜><｜User｜>Pick a colour.<｜Assistant｜>Blue.<｜end▁of▁sentence｜><｜User｜>Why?<｜Assistant｜><think>
+
+</think>
+

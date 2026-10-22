@@ -1,0 +1,7 @@
+<|user|>
+Pick a colour.<|end|>
+<|assistant|>
+Blue.<|end|>
+<|user|>
+Why?<|end|>
+<|assistant|>

@@ -1,0 +1,5 @@
+<|system|>
+Use tools when they help.<|end|>
+<|user|>
+Weather in Oslo, in c?<|end|>
+<|assistant|>

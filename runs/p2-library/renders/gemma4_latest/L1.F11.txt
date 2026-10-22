@@ -1,0 +1,7 @@
+<bos><|turn>user
+Is 7 prime?<turn|>
+<|turn>model
+Yes.<turn|>
+<|turn>user
+And 9?<turn|>
+<|turn>model

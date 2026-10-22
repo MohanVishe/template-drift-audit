@@ -1,0 +1,26 @@
+{
+ "target": {
+  "package": "hf.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF:IQ3_S",
+  "upstream_repo": "Qwen/Qwen3.8-Flash-Next",
+  "upstream_sha": "de4b8e4d43b917e7706784d8bb445c9af86a3540",
+  "template_file": "chat_template.jinja",
+  "reason": "Pure quantisation (card: base_model_relation quantized) of Qwen's post-trained Flash-Next.",
+  "confidence": "high",
+  "extra": {
+   "source": "hf",
+   "rank": "1",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2026-08-27T05:03:36.000Z",
+   "evidence": "embedded GGUF template differs from the upstream template at main (9993 vs 8952 chars)"
+  }
+ },
+ "status": "skipped",
+ "reason": "package: HTTPError: HTTP Error 400: Bad Request",
+ "model_digest": "",
+ "template_digest": "",
+ "selection": {},
+ "conversion": {},
+ "layers": {},
+ "cells": []
+}

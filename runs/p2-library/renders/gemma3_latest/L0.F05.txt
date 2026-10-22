@@ -1,0 +1,5 @@
+<bos><start_of_turn>user
+Use tools when they help.
+
+Weather in Oslo, in c?<end_of_turn>
+<start_of_turn>model

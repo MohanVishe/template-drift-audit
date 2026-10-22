@@ -1,0 +1,4 @@
+<start_of_turn>user
+Météo à Zürich? "quoted" \ back\slash — नमस्ते<end_of_turn>
+<start_of_turn>model
+<end_of_turn>

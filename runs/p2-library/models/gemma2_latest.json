@@ -1,0 +1,423 @@
+{
+ "target": {
+  "package": "gemma2:latest",
+  "upstream_repo": "google/gemma-2-9b-it",
+  "upstream_sha": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 9b-instruct-q4_0.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "7",
+   "status": "included",
+   "gated": "manual",
+   "upstream_last_modified": "2024-08-27T19:41:49.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:ff1d1fc78170d787ee1201778e2dd65ea211654ca5fb7d69b5a2e7b123a50373",
+ "template_digest": "sha256:109037bec39c0becc8221222ae23557559bc594290945a2c4221ab4f303b8871",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {
+  "match": "current",
+  "sha": "11c9b309abf73637e4b6f9a3fa1e92e615547819"
+ },
+ "layers": {
+  "L0": {
+   "source": "google/gemma-2-9b-it@11c9b309abf7:api:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    "System role not supported",
+    null,
+    null,
+    "System role not supported",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L1": {
+   "source": "gguf:sha256:ff1d1fc78170",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    "System role not supported",
+    null,
+    null,
+    "System role not supported",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": "special tokens from L0"
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "conversion",
+   "classes": [
+    "BOTH_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "conversion",
+   "classes": [
+    "IDENTICAL"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "packaging",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "packaging",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

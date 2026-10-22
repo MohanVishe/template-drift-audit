@@ -1,0 +1,198 @@
+{
+ "target": {
+  "package": "codellama:latest",
+  "upstream_repo": "codellama/CodeLlama-7b-Instruct-hf",
+  "upstream_sha": "22cb240e0292b0b5ab4c17ccd97aa3a2f799cbed",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 7b-instruct-q4_0. Meta publishes this model in two orgs: codellama/ (the original transformers release, ungated) and meta-llama/CodeLlama-7b-Instruct-hf (gated); codellama/ chosen as the original.",
+  "confidence": "medium",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "22",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2024-04-12T14:18:42.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:3a43f93b78ec50f7c4e4dc8bd1cb3fff5a900e7d574c51a6f7495e48486e0dac",
+ "template_digest": "sha256:2e0493f67d0c8c9c68a8aeacdf6a38a2151cb3c4c1d42accf296e19810527988",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {},
+ "layers": {
+  "L0": {
+   "source": "codellama/CodeLlama-7b-Instruct-hf@22cb240e0292:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "OTHER",
+    "WHITESPACE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "OTHER",
+    "STRUCTURE",
+    "WHITESPACE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "OTHER",
+    "WHITESPACE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "WHITESPACE"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "OTHER",
+    "STRUCTURE",
+    "WHITESPACE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS",
+    "OTHER",
+    "WHITESPACE"
+   ],
+   "severity": "material",
+   "known_issues": []
+  }
+ ]
+}

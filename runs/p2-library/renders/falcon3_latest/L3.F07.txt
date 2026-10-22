@@ -1,0 +1,8 @@
+<|user|>
+Weather in Oslo and Lima?
+<|assistant|>
+
+<|tool|>
+{"temp": 4}
+<|tool|>
+{"temp": 19}<|assistant|>

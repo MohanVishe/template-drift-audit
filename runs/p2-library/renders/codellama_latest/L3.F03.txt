@@ -1,0 +1,6 @@
+[INST] <<SYS>><</SYS>>
+
+Pick a colour. [/INST]
+Blue.[INST] <<SYS>><</SYS>>
+
+Why? [/INST]

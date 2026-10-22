@@ -1,0 +1,8 @@
+<figure class="viz specimen" aria-labelledby="fig-spec-title">
+  <figcaption><strong id="fig-spec-title">The same tool, as the model reads it</strong>
+  <span>One line from a practice conversation for <code>qwen2.5</code>, describing a weather tool. Copied exactly from the measurement.</span></figcaption>
+  <div class="spec-pair">
+    <div class="spec"><div class="spec-h">What the maker's template gives the model</div><pre>{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {&quot;name&quot;: &quot;get_weather&quot;, &quot;description&quot;: &quot;Current weather for a city&quot;, &quot;parameters&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;City name&quot;}, &quot;unit&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;enum&quot;: [&quot;c&quot;, &quot;f&quot;]}}, &quot;required&quot;: [&quot;city&quot;]}}}</pre><p>Neat JSON: every part is named (<code>"name"</code>, <code>"description"</code>, <code>"parameters"</code>).</p></div>
+    <div class="spec spec-b"><div class="spec-h">What Ollama gives the model</div><pre>{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {<mark>get_weather</mark> Current weather for a city {object <mark>&lt;nil&gt;</mark> <mark>&lt;nil&gt;</mark> [city] {&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;City name&quot;},&quot;unit&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;enum&quot;:[&quot;c&quot;,&quot;f&quot;]}}}}}</pre><p>The names are gone, and placeholders like <code>&lt;nil&gt;</code> (Go for "empty") appear in their place.</p></div>
+  </div>
+</figure>

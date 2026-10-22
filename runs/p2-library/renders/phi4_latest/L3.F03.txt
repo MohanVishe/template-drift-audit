@@ -1,0 +1,7 @@
+<|im_start|>user<|im_sep|>
+Pick a colour.<|im_end|>
+<|im_start|>assistant<|im_sep|>
+Blue.<|im_end|>
+<|im_start|>user<|im_sep|>
+Why?<|im_end|>
+<|im_start|>assistant<|im_sep|>

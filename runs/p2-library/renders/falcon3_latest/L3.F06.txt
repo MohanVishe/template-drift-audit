@@ -1,0 +1,6 @@
+<|user|>
+Weather in Oslo?
+<|assistant|>
+
+<|tool|>
+{"temp": 4, "sky": "cloudy"}<|assistant|>

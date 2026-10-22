@@ -1,0 +1,5 @@
+[gMASK]<sop><|user|>
+Is 7 prime?<|assistant|>
+<think></think>
+Yes.<|user|>
+And 9?<|assistant|>

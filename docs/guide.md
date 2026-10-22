@@ -98,28 +98,38 @@ On a Mac, the location looks like `"/Users/you/Documents/my-project"`. Use `pyth
 **Tip:** you don't have to type the location. Type everything up to and including `--folder `,
 then drag the folder into the terminal window.
 
+If you leave out `--folder`, the check-up skips this part and says so.
+
+{% include fig/checkup.html %}
+
 ---
 
 ## Reading the answers
 
 Each answer starts with a mark:
 
-| Mark | Meaning |
-|---|---|
-| `[OK]` | All good. |
-| `[!!]` | Worth fixing. The line underneath says why, and **What to do** says how. |
-| `[--]` | Couldn't check. Usually your AI app wasn't open. |
+<div class="marks">
+  <div><code>[OK]</code><span>All good.</span></div>
+  <div><code>[!!]</code><span>Worth fixing. The line underneath says why, and <strong>What to do</strong> says how.</span></div>
+  <div><code>[--]</code><span>For information, or couldn't check. For example, your AI app wasn't open, or you didn't give a folder.</span></div>
+</div>
 
 Here's what each check means, and what to do if it shows `[!!]`:
 
-### "A local AI server is reachable from other devices"
+### "A local AI server is reachable from other devices" or "OLLAMA_HOST lets other devices connect"
 
-Your AI app answers other devices, not just this computer. Ollama has no login, so anyone who
-can reach it can chat with your models, add new ones or delete them.
+Your AI app answers other devices, not just this computer, or it will the next time it starts.
+Ollama has no login, so anyone who can reach it can chat with your models, add new ones or delete
+them.
 
-**Fix (Ollama):** find the setting called `OLLAMA_HOST`. On Windows, search the Start menu for
-"environment variables". Either delete the setting or set it to `127.0.0.1`. Then quit Ollama and
-open it again.
+**Fix (Ollama on Windows):** open the Start menu, type "environment variables" and choose
+**Edit environment variables for your account**. Find `OLLAMA_HOST` in the list and click
+**Delete**, or change its value to `127.0.0.1`. Click **OK**, then quit Ollama from the system
+tray (the small icons by the clock) and open it again.
+
+**Fix (Ollama on Mac or Linux):** `OLLAMA_HOST` is usually set in a startup file or a service
+setting, wherever the guide you followed told you to put it. Remove that line, then restart
+Ollama.
 
 **Fix (LM Studio):** in the server settings, turn off **Serve on Local Network**.
 
@@ -173,9 +183,10 @@ A debugging setting called `OLLAMA_DEBUG_LOG_REQUESTS` is switched on. While it'
 writes the full text of every chat request to a folder in your temp folder.
 
 **Fix:** delete the setting the same way as `OLLAMA_HOST` above, quit and reopen Ollama, then
-delete the folders whose names start with `ollama-request-logs-` in your temp folder.
+delete the folders whose names start with `ollama-request-logs-` in your temp folder. (On Windows,
+type `%TEMP%` in the File Explorer address bar to open it.)
 
-### "Your conversations are kept in … place(s)"
+### "Your conversations are kept in … places"
 
 This one is marked `[--]`, because it's information, not a fault. It lists where your chats are
 saved and how big those files are. Anyone who uses your account, and any backup or sync tool,
@@ -183,7 +194,13 @@ can read them.
 
 **What you can do:** delete old chats you don't need from inside the app. To stop Ollama keeping
 a history of what you type in a terminal, add a setting called `OLLAMA_NOHISTORY` with the value
-`1`, the same way as `OLLAMA_HOST` above.
+`1`. On Windows, use the same **Edit environment variables for your account** window and click
+**New**.
+
+### "No folder given, so no folder was checked for secrets"
+
+You ran the check-up without `--folder`. Run it again as shown in
+[Step 5](#also-check-the-folder-your-ai-helper-works-in) to check the folder your AI helper uses.
 
 ---
 

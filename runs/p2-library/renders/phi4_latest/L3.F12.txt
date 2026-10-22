@@ -1,0 +1,3 @@
+<|im_start|>user<|im_sep|>
+Explain {{ messages }} and {% if x %} in Jinja.<|im_end|>
+<|im_start|>assistant<|im_sep|>

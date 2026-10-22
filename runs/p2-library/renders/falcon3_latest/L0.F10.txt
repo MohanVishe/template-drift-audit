@@ -1,0 +1,90 @@
+<|system|>
+You are a Falcon assistant skilled in function calling. You are helpful, respectful, and concise.
+
+# Tools
+
+You have access to the following functions. You MUST use them to answer questions when needed. For each function call, you MUST return a JSON object inside <tool_call></tool_call> tags.
+
+<tools>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Current weather for a city",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "City name"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "c",
+              "f"
+            ]
+          }
+        },
+        "required": [
+          "city"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "add",
+      "description": "Add two numbers",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "number"
+          },
+          "b": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ]
+      }
+    }
+  }
+]</tools>
+
+# Output Format
+
+Your response MUST follow this format when making function calls:
+<tool_call>
+[
+  {"name": "function_name", "arguments": {"arg1": "value1", "arg2": "value2"}},
+  {"name": "another_function", "arguments": {"arg": "value"}}
+]
+</tool_call>
+If no function calls are needed, respond normally without the tool_call tags.
+<|user|>
+Météo à Zürich? "quoted" \ back\slash — नमस्ते
+
+<tool_call>
+[
+  {
+    "id": "call_1",
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "arguments": {
+        "city": "Zürich \"ZH\""
+      }
+    }
+  }
+]
+</tool_call><|endoftext|>
+<|assistant|>
+<tool_response>
+{"temp": 7, "note": "été"}
+</tool_response>
+<|assistant|>

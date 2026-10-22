@@ -5,61 +5,186 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title and page.url != '/' %}{{ page.title }} · {% endif %}Running AI at home</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232a78d6'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
-      --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5b55; --rule: #e3e0d8; --accent: #1f5f8b;
-      --code-bg: #f1eee7; --warn: #8a4b00; --ok: #2f6b2f; --max: 44rem;
+      color-scheme: light;
+      --plane: #f6f5f1; --surface: #fcfcfb; --surface-2: #f0efea; --ink: #0b0b0b; --ink-2: #52514e;
+      --muted: #77756f; --rule: #e1e0d9; --ring: rgba(11,11,11,0.10);
+      --accent: #2a78d6; --accent-ink: #1c5cab; --accent-wash: #e8f1fc;
+      --viz-strong: #2a78d6; --viz-soft: #86b6ef; --viz-none: #d6d4cc;
+      --warn: #a35200; --warn-wash: #fdf1e3; --ok: #006300; --ok-wash: #e9f5e9;
+      --mark: #ffe9a8; --code-bg: #efeee8; --max: 46rem;
     }
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #161615; --fg: #ecebe6; --muted: #a9a69d; --rule: #34332f; --accent: #7fb6dc;
-        --code-bg: #232320; --warn: #e2a65a; --ok: #8cc68c;
+      :root:where(:not([data-theme="light"])) {
+        color-scheme: dark;
+        --plane: #0d0d0d; --surface: #1a1a19; --surface-2: #232321; --ink: #f0efec; --ink-2: #c3c2b7;
+        --muted: #9a988f; --rule: #2c2c2a; --ring: rgba(255,255,255,0.10);
+        --accent: #6da7ec; --accent-ink: #86b6ef; --accent-wash: #142338;
+        --viz-strong: #3987e5; --viz-soft: #184f95; --viz-none: #3a3936;
+        --warn: #ec9a5a; --warn-wash: #2d1d0f; --ok: #0ca30c; --ok-wash: #102410;
+        --mark: #5a4710; --code-bg: #262624;
       }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --plane: #0d0d0d; --surface: #1a1a19; --surface-2: #232321; --ink: #f0efec; --ink-2: #c3c2b7;
+      --muted: #9a988f; --rule: #2c2c2a; --ring: rgba(255,255,255,0.10);
+      --accent: #6da7ec; --accent-ink: #86b6ef; --accent-wash: #142338;
+      --viz-strong: #3987e5; --viz-soft: #184f95; --viz-none: #3a3936;
+      --warn: #ec9a5a; --warn-wash: #2d1d0f; --ok: #0ca30c; --ok-wash: #102410;
+      --mark: #5a4710; --code-bg: #262624;
     }
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; }
     body {
-      margin: 0; background: var(--bg); color: var(--fg);
-      font: 18px/1.65 Georgia, "Iowan Old Style", "Times New Roman", serif;
+      margin: 0; background: var(--plane); color: var(--ink);
+      font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
-    header, main, footer { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
-    header { padding-top: 28px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
-    header a.site { color: var(--fg); text-decoration: none; font-weight: bold; }
-    nav { font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; margin-top: 8px; }
-    nav a { color: var(--muted); margin-right: 16px; text-decoration: none; }
-    nav a:hover, nav a[aria-current="page"] { color: var(--accent); }
-    main { padding-top: 12px; padding-bottom: 48px; }
-    h1 { font-size: 2.1rem; line-height: 1.2; margin: 1.2rem 0 0.6rem; }
-    h2 { font-size: 1.45rem; margin-top: 2.4rem; line-height: 1.3; }
-    h3 { font-size: 1.15rem; margin-top: 1.8rem; }
-    p, li { max-width: 40rem; }
-    a { color: var(--accent); }
-    hr { border: 0; border-top: 1px solid var(--rule); margin: 2.4rem 0; }
-    blockquote { margin: 1.2rem 0; padding: 0.2rem 1rem; border-left: 3px solid var(--accent); color: var(--muted); }
-    code { font: 0.86em/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--code-bg); padding: 0.1em 0.3em; border-radius: 3px; }
-    pre { background: var(--code-bg); padding: 12px 14px; border-radius: 6px; overflow-x: auto; }
+    a { color: var(--accent-ink); text-underline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    /* header */
+    .top { background: var(--surface); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 5; }
+    .top-in { max-width: 60rem; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 20px; }
+    .brand { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 700; }
+    .brand i { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); display: inline-block; position: relative; }
+    .brand i::after { content: ""; position: absolute; left: 6px; top: 4px; width: 6px; height: 10px;
+      border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+    nav { display: flex; flex-wrap: wrap; gap: 2px 4px; font-size: 15px; }
+    nav a { color: var(--ink-2); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+    nav a:hover { background: var(--surface-2); }
+    nav a[aria-current="page"] { background: var(--accent-wash); color: var(--accent-ink); font-weight: 600; }
+
+    /* page */
+    main { max-width: var(--max); margin: 0 auto; padding: 8px 16px 56px; }
+    h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); line-height: 1.15; letter-spacing: -0.02em; margin: 1.6rem 0 0.8rem; }
+    h2 { font-size: 1.45rem; line-height: 1.3; letter-spacing: -0.01em; margin: 2.6rem 0 0.6rem; }
+    h3 { font-size: 1.12rem; margin: 1.8rem 0 0.4rem; }
     p, li { overflow-wrap: anywhere; }
+    li { margin: 0.25rem 0; }
+    hr { border: 0; border-top: 1px solid var(--rule); margin: 2.6rem 0; }
+    .lede { font-size: 1.15rem; color: var(--ink-2); }
+    code { font: 0.86em/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+    pre { background: var(--code-bg); padding: 12px 14px; border-radius: 8px; overflow-x: auto; }
     pre code { background: none; padding: 0; font-size: 0.85rem; }
-    .table-wrap, table { display: block; width: 100%; overflow-x: auto; }
-    table { border-collapse: collapse; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 1rem 0; }
-    th, td { border-bottom: 1px solid var(--rule); padding: 6px 10px 6px 0; text-align: left; vertical-align: top; }
-    th { color: var(--muted); font-weight: 600; }
-    .lede { font-size: 1.15rem; color: var(--muted); }
-    footer { border-top: 1px solid var(--rule); padding-top: 16px; padding-bottom: 40px; color: var(--muted);
-      font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-    img { max-width: 100%; }
+    mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 2px; }
+    table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; margin: 1rem 0; }
+    th, td { border-bottom: 1px solid var(--rule); padding: 7px 12px 7px 0; text-align: left; vertical-align: top; }
+    th { color: var(--ink-2); font-weight: 600; }
+    td { font-variant-numeric: tabular-nums; }
+
+    /* boxes */
+    .box { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 4px 20px; margin: 1.4rem 0; }
+    .box > h2:first-child, .box > h3:first-child { margin-top: 1rem; }
+    .box-accent { border-left: 4px solid var(--accent); }
+    .box-warn { background: var(--warn-wash); border-color: transparent; }
+    .box-ok { background: var(--ok-wash); border-color: transparent; }
+    .spot { background: var(--surface); border: 1px solid var(--ring); border-radius: 16px; padding: 2px 22px 10px; margin: 1.6rem 0; }
+    .spot > h2 { display: flex; gap: 12px; align-items: baseline; margin-top: 1.2rem; }
+    .num { flex: none; display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
+      background: var(--accent); color: #fff; font-size: 1rem; font-weight: 700; transform: translateY(-2px); }
+    .tell { background: var(--accent-wash); border-radius: 10px; padding: 10px 14px; margin: 1rem 0 0.8rem; }
+    .tell strong:first-child { color: var(--accent-ink); }
+
+    /* setup and comparison diagrams (HTML, so text stays readable on a phone) */
+    .flow { display: flex; align-items: stretch; gap: 8px; margin: 1.2rem 0 0.4rem; }
+    .flow .node { flex: 1; background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; line-height: 1.45; }
+    .flow .node b { display: block; font-size: 15px; margin-bottom: 2px; }
+    .flow .node em { font-style: normal; color: var(--ink-2); }
+    .flow .arrow { flex: none; align-self: center; color: var(--muted); font-size: 20px; }
+    .flow .tag { display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; border-radius: 999px; background: var(--accent); color: #fff;
+      font-size: 12px; font-weight: 700; margin-right: 4px; padding: 0 4px; }
+    .flow-side { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .flow-side .node { background: var(--surface-2); }
+    .diagram-note { font-size: 14px; color: var(--muted); margin: 0.2rem 0 1.4rem; }
+    @media (max-width: 640px) {
+      .flow { flex-direction: column; }
+      .flow .arrow { transform: rotate(90deg); align-self: center; }
+      .flow-side { grid-template-columns: 1fr; }
+    }
+
+    /* figures */
+    .viz { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 16px 18px; margin: 1.6rem 0; }
+    .viz figcaption { display: flex; flex-direction: column; gap: 2px; margin-bottom: 12px; }
+    .viz figcaption strong { font-size: 1.05rem; }
+    .viz figcaption span, .viz-note { color: var(--ink-2); font-size: 14.5px; }
+    .viz-note { margin: 10px 0 0; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 10px; margin: 1.4rem 0; }
+    .stat { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 14px 14px 12px; }
+    .stat-v { font-size: 2.1rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+    .stat-v span { font-size: 1rem; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
+    .stat-l { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; }
+    .grid-group { margin: 8px 0 14px; }
+    .grid-label { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+    .grid-label span { font-weight: 400; color: var(--ink-2); }
+    svg.unit { display: block; max-width: 100%; height: auto; overflow: visible; }
+    svg.unit rect { cursor: default; }
+    svg.unit rect:hover, svg.unit rect:focus { stroke: var(--ink); stroke-width: 2; outline: none; }
+    .m-differs { fill: var(--viz-strong); background: var(--viz-strong); }
+    .m-order { fill: var(--viz-soft); background: var(--viz-soft); }
+    .m-same { fill: var(--viz-none); background: var(--viz-none); }
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--ink-2); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .bars { display: grid; gap: 4px; }
+    .bar-row { display: grid; grid-template-columns: minmax(8rem, 15rem) 1fr auto; align-items: center; gap: 10px; padding: 4px 6px; border-radius: 8px; }
+    .bar-row:hover, .bar-row:focus { background: var(--surface-2); outline: none; }
+    .bar-label { font-size: 14.5px; line-height: 1.3; }
+    .bar-track { height: 16px; }
+    .bar { display: block; height: 16px; background: var(--viz-strong); border-radius: 0 4px 4px 0; min-width: 4px; }
+    .bar-v { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .bar-v small { font-weight: 400; color: var(--muted); font-size: 13px; }
+    @media (max-width: 560px) {
+      .bar-row { grid-template-columns: 1fr auto; }
+      .bar-label { grid-column: 1 / -1; }
+      .bar-track { grid-row: 2; }
+    }
+    .spec-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .spec { border: 1px solid var(--ring); border-radius: 10px; padding: 10px 12px; background: var(--surface-2); }
+    .spec-b { border-color: var(--warn); }
+    .spec-h { font-weight: 600; font-size: 14.5px; margin-bottom: 6px; }
+    .spec pre { white-space: pre-wrap; word-break: break-all; font-size: 12.5px; margin: 0 0 8px; background: var(--surface); }
+    .spec p { font-size: 14px; color: var(--ink-2); margin: 0; }
+    @media (max-width: 640px) { .spec-pair { grid-template-columns: 1fr; } }
+
+    /* check-up output */
+    .term { background: #121212; color: #e9e8e3; border-radius: 12px; padding: 14px 16px; font: 13px/1.55 ui-monospace, "Cascadia Code", Consolas, monospace;
+      overflow-x: auto; white-space: pre-wrap; margin: 1rem 0; }
+    .term .ok { color: #5fd35f; font-weight: 700; } .term .warn { color: #ffb454; font-weight: 700; } .term .info { color: #9a988f; font-weight: 700; }
+    .marks { display: grid; gap: 8px; margin: 1rem 0; }
+    .marks div { display: grid; grid-template-columns: 3.4rem 1fr; gap: 10px; align-items: start; background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 8px 12px; }
+    .marks code { font-weight: 700; text-align: center; }
+
+    /* glossary */
+    dl.gloss { display: grid; grid-template-columns: minmax(7rem, 11rem) 1fr; gap: 6px 16px; margin: 1rem 0; }
+    dl.gloss dt { font-weight: 600; }
+    dl.gloss dd { margin: 0; color: var(--ink-2); }
+    @media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 8px; } }
+
+    /* tooltip */
+    #tip { position: fixed; z-index: 10; max-width: 18rem; pointer-events: none; background: var(--ink); color: var(--surface);
+      font-size: 13px; line-height: 1.4; padding: 6px 9px; border-radius: 8px; opacity: 0; transition: opacity .08s; }
+
+    footer { max-width: var(--max); margin: 0 auto; border-top: 1px solid var(--rule); padding: 16px 16px 40px; color: var(--muted); font-size: 14px; line-height: 1.5; }
   </style>
 </head>
 <body>
-  <header>
-    <a class="site" href="{{ '/' | relative_url }}">Running AI at home</a>
-    <nav>
-      <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Article</a>
-      <a href="{{ '/guide.html' | relative_url }}" {% if page.url == '/guide.html' %}aria-current="page"{% endif %}>Run the check-up</a>
-      <a href="{{ '/results.html' | relative_url }}" {% if page.url == '/results.html' %}aria-current="page"{% endif %}>Results</a>
-      <a href="{{ '/how-it-works.html' | relative_url }}" {% if page.url == '/how-it-works.html' %}aria-current="page"{% endif %}>How it works</a>
-      <a href="https://github.com/MohanVishe/template-drift-audit">GitHub</a>
-    </nav>
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="{{ '/' | relative_url }}"><i aria-hidden="true"></i>Running AI at home</a>
+      <nav aria-label="Site">
+        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Article</a>
+        <a href="{{ '/guide.html' | relative_url }}" {% if page.url == '/guide.html' %}aria-current="page"{% endif %}>Run the check-up</a>
+        <a href="{{ '/results.html' | relative_url }}" {% if page.url == '/results.html' %}aria-current="page"{% endif %}>Results</a>
+        <a href="{{ '/how-it-works.html' | relative_url }}" {% if page.url == '/how-it-works.html' %}aria-current="page"{% endif %}>How it works</a>
+        <a href="https://github.com/MohanVishe/template-drift-audit">GitHub</a>
+      </nav>
+    </div>
   </header>
   <main>
     {{ content }}
@@ -67,5 +192,26 @@
   <footer>
     By Mohan Vishe · Code and data: <a href="https://github.com/MohanVishe/template-drift-audit">github.com/MohanVishe/template-drift-audit</a> (MIT) · Every number on this site comes from a run of that code or a cited source.
   </footer>
+  <div id="tip" role="tooltip"></div>
+  <script>
+    (function () {
+      var tip = document.getElementById("tip");
+      function show(el, x, y) {
+        tip.textContent = el.getAttribute("data-tip");
+        var r = tip.getBoundingClientRect();
+        tip.style.left = Math.max(8, Math.min(x + 12, window.innerWidth - r.width - 8)) + "px";
+        tip.style.top = Math.max(8, y - r.height - 10) + "px";
+        tip.style.opacity = 1;
+      }
+      function hide() { tip.style.opacity = 0; }
+      document.querySelectorAll("[data-tip]").forEach(function (el) {
+        var t = el.querySelector("title"); if (t) t.remove();
+        el.addEventListener("pointermove", function (e) { show(el, e.clientX, e.clientY); });
+        el.addEventListener("pointerleave", hide);
+        el.addEventListener("focus", function () { var b = el.getBoundingClientRect(); show(el, b.left, b.top); });
+        el.addEventListener("blur", hide);
+      });
+    })();
+  </script>
 </body>
 </html>

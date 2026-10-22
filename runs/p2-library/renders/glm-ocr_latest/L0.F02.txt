@@ -1,0 +1,3 @@
+[gMASK]<sop><|system|>
+You answer in one sentence.<|user|>
+What is GGUF?<|assistant|>

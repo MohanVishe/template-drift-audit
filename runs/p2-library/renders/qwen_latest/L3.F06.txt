@@ -1,0 +1,3 @@
+<|im_start|>user
+Weather in Oslo?<|im_end|>
+<|im_start|>assistant

@@ -1,0 +1,3 @@
+<|im_start|>user
+Météo à Zürich? "quoted" \ back\slash — नमस्ते<|im_end|>
+<|im_start|>assistant

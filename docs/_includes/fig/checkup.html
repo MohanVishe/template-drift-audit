@@ -1,0 +1,36 @@
+<figure class="viz" aria-labelledby="fig-term-title">
+  <figcaption><strong id="fig-term-title">Example: what the check-up prints</strong><span>Produced by the real check-up code for a made-up computer that has Ollama open to its network, an old version, and a <code>.env</code> file in the project folder.</span></figcaption>
+  <div class="term">Local AI safety check-up (read-only: nothing was changed or sent anywhere)
+
+<span class="warn">[!!]</span>  A local AI server is reachable from other devices
+      It accepts connections from other devices, not only from this computer. Anyone on the same Wi-Fi, and possibly the internet, may be able to use it. Ollama has no password of its own.
+        - Ollama (port 11434)
+      What to do: Set OLLAMA_HOST to 127.0.0.1 (or remove the setting) and restart Ollama. In LM Studio, turn off &quot;Serve on Local Network&quot;. If another device really needs it, put a login in front of it rather than leaving the port open.
+
+<span class="warn">[!!]</span>  Ollama 0.15.2 is missing published security fixes
+      These problems are fixed in newer releases:
+        - a crafted model upload can leak memory: CVE-2026-7482, fixed in 0.17.1
+        - Windows auto-updater accepts unchecked updates: CVE-2026-42248 / CVE-2026-42249, fixed in 0.23.3
+      What to do: Update Ollama from ollama.com.
+
+<span class="warn">[!!]</span>  1 of 2 models comes from outside Ollama&#x27;s library
+      A model file can be published by anyone. Models from people you don&#x27;t know deserve more care, especially if you let them use tools.
+        - Hugging Face: someone: hf.co/someone/Some-Model-GGUF:Q4_K_M
+        - Ollama library: qwen2.5:7b
+      What to do: Prefer the model maker&#x27;s own release, or Ollama&#x27;s library, for anything that can run commands or read files.
+
+<span class="ok">[OK]</span>  No warning signs in the chat templates of 2 models
+      This looks for web addresses and for rules that react to particular words. It does not prove a template is safe.
+
+<span class="warn">[!!]</span>  1 secret-looking file in my-project
+      An AI helper that works in this folder can read these files. If the model makes a mistake, or is misled by something it reads, it could send them somewhere. (Only the names were checked; the files were not opened.)
+        - .env
+      What to do: Move keys and passwords out of the folders you let an AI helper work in, or give the helper a separate folder with copies of only what it needs.
+
+<span class="info">[--]</span>  Your conversations are kept in 1 place on this computer
+      These are ordinary files. Anyone who can use your account, and any backup or sync tool that copies your user folder, can read them. (Only names and sizes were checked.)
+        - Ollama terminal history (the last 100 lines typed into `ollama run`): ~\.ollama\history (2.2 KB)
+      What to do: Delete chats you no longer need from inside the app. To stop Ollama keeping terminal history, set OLLAMA_NOHISTORY to 1.
+
+4 things to look at.</div>
+</figure>

@@ -1,0 +1,17 @@
+<|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+
+When you receive a tool call response, use the output to format an answer to the orginal user question.
+
+You are a helpful assistant with tool calling capabilities.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Weather in Oslo and Lima?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+{"name": "get_weather", "parameters": {"city":"Oslo"}}
+{"name": "get_weather", "parameters": {"city":"Lima"}}<|eot_id|><|start_header_id|>ipython<|end_header_id|>
+
+{"temp": 4}<|eot_id|><|start_header_id|>ipython<|end_header_id|>
+
+{"temp": 19}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

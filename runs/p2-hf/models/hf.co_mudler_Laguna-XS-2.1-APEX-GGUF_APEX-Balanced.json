@@ -1,0 +1,26 @@
+{
+ "target": {
+  "package": "hf.co/mudler/Laguna-XS-2.1-APEX-GGUF:APEX-Balanced",
+  "upstream_repo": "poolside/Laguna-XS-2.1",
+  "upstream_sha": "c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db",
+  "template_file": "chat_template.jinja",
+  "reason": "Pure quantisation (card base_model poolside/Laguna-XS-2.1).",
+  "confidence": "high",
+  "extra": {
+   "source": "hf",
+   "rank": "19",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2026-08-19T15:41:00.000Z",
+   "evidence": "embedded GGUF template is byte-identical to the upstream template at main"
+  }
+ },
+ "status": "skipped",
+ "reason": "package: HTTPError: HTTP Error 400: Bad Request",
+ "model_digest": "",
+ "template_digest": "",
+ "selection": {},
+ "conversion": {},
+ "layers": {},
+ "cells": []
+}

@@ -1,0 +1,5 @@
+<bos><|turn>system
+You answer in one sentence.<turn|>
+<|turn>user
+What is GGUF?<turn|>
+<|turn>model

@@ -1,0 +1,184 @@
+{
+ "target": {
+  "package": "codegemma:latest",
+  "upstream_repo": "google/codegemma-1.1-7b-it",
+  "upstream_sha": "9523c8dbf32bf2130e2de570c478b3bdb1d36101",
+  "template_file": "tokenizer_config.json",
+  "reason": "latest = 7b-instruct-v1.1-q4_0, so CodeGemma 1.1.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "38",
+   "status": "included",
+   "gated": "manual",
+   "upstream_last_modified": "2024-08-07T18:27:19.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:392f2ba7a9bea371a2e27b547cbed87eb3964ac722b26d847b66fa90e5b8c49e",
+ "template_digest": "sha256:109037bec39c0becc8221222ae23557559bc594290945a2c4221ab4f303b8871",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {},
+ "layers": {
+  "L0": {
+   "source": "google/codegemma-1.1-7b-it@9523c8dbf32b:api:tokenizer_config.json",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    null,
+    "System role not supported",
+    null,
+    null,
+    "System role not supported",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    "Conversation roles must alternate user/assistant/user/assistant/...",
+    null,
+    null
+   ],
+   "note": ""
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "BOS"
+   ],
+   "severity": "none",
+   "known_issues": []
+  }
+ ]
+}

@@ -34,8 +34,11 @@ Six tool fixtures (F04–F09), L0 vs L3, frozen classifier. Details in `P2-RESUL
 | Hugging Face, top 30 GGUF | 5 / 22 | 5 / 22 | 4 / 21 | 4 / 21 |
 
 In the library, 24 of the 32 come from Ollama's packaging alone. In 6, the GGUF already carries an
-older template revision, and the packaging adds to that. The remaining 2 have no GGUF template. All 5 Hugging Face cases are already in the
-GGUF's embedded template.
+older template revision, and the packaging adds to that. The remaining 2 have no GGUF template.
+All 5 Hugging Face cases are already in the GGUF's embedded template.
+
+The data behind these numbers (every model's JSON and every render) is in `runs/p2-library/` and
+`runs/p2-hf/`.
 
 ## Quick check-up: `tda check`
 
@@ -130,7 +133,8 @@ tda report runs/<run-id>
 | `tda/fixtures/fixtures.json` | 12 benign test conversations (F04–F09 use tools) |
 | `labels/` | the labelled diff set and the labelling guide |
 | `population/` | the dated study population (top Ollama library and HF GGUF packages) and its hand-made L0 mapping |
-| `scripts/` | headline numbers, hand-review hunk viewer, population template lint, results-page builder |
+| `scripts/` | headline numbers, hand-review hunk viewer, population template lint, results page and site figures |
+| `runs/` | the published P2 study data: per-model JSON, every render, reports, headline and lint |
 | `docs/` | the GitHub Pages site (article, guide, results, method) |
 | `DESIGN.md`, `P0-RESULTS.md`, `P1-RESULTS.md`, `P2-RESULTS.md` | design and results notes, in order |
 

@@ -1,0 +1,6 @@
+<|start_header_id|>system<|end_header_id|>
+
+Use tools when they help.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Weather in Oslo, in c?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

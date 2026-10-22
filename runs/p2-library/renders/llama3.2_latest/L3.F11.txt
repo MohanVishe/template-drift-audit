@@ -1,0 +1,12 @@
+<|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Is 7 prime?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Yes.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+And 9?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+

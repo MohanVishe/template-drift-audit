@@ -1,0 +1,5 @@
+<|user|>
+Weather in Oslo?<|end|>
+<|assistant|>
+<|end|>
+<|assistant|>

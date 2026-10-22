@@ -1,0 +1,5 @@
+<s>[INST] <<SYS>>
+You answer in one sentence.
+<</SYS>>
+
+What is GGUF? [/INST]

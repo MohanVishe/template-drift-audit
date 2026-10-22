@@ -1,0 +1,4 @@
+<｜begin▁of▁sentence｜>You answer in one sentence.<｜User｜>What is GGUF?<｜Assistant｜><think>
+
+</think>
+

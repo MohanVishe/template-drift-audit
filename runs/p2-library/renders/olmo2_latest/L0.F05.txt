@@ -1,0 +1,5 @@
+<|endoftext|><|system|>
+Use tools when they help.
+<|user|>
+Weather in Oslo, in c?
+<|assistant|>

@@ -78,3 +78,19 @@ def test_saved_conversations(tmp_path):
     warn, info = check.check_saved(tmp_path, "Linux", None, setting=lambda k: on(k, ""))
     assert warn.level == check.WARN and "OLLAMA_NOHISTORY" not in info.fix
     assert check.check_saved(tmp_path / "empty", "Windows", str(tmp_path / "x"), setting=lambda k: "")[0].level == check.OK
+
+
+def test_ollama_host_values_parse_like_ollama():
+    cases = {"": "127.0.0.1", "0.0.0.0": "0.0.0.0", "0.0.0.0:11434": "0.0.0.0", "http://0.0.0.0:11434": "0.0.0.0",
+             ":11434": "", "[::]:11434": "::", "::": "::", "192.168.1.5": "192.168.1.5",
+             "https://localhost:8443/x": "localhost", "127.0.0.1:11434": "127.0.0.1"}
+    for value, host in cases.items():
+        assert check.bind_host(value) == host, value
+    for value in ("0.0.0.0", "http://0.0.0.0:11434", ":11434", "[::]:11434", "192.168.1.5"):
+        assert check.check_network("", ollama_host=value).level == check.WARN, value
+    for value in ("", "127.0.0.1:11434", "localhost:11434", "http://[::1]:11434"):
+        assert check.check_network("", ollama_host=value).level == check.INFO, value
+
+
+def test_no_folder_is_not_reported_as_clean():
+    assert check.check_secrets(None).level == check.INFO

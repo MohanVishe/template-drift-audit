@@ -1,0 +1,26 @@
+{
+ "target": {
+  "package": "hf.co/cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF:NVFP4",
+  "upstream_repo": "Qwen/Qwen3.8-27B",
+  "upstream_sha": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "template_file": "chat_template.jinja",
+  "reason": "Pure quantisation (card: quantized from Qwen/Qwen3.8-27B; name says iMatrix NVFP4, no fine-tune).",
+  "confidence": "high",
+  "extra": {
+   "source": "hf",
+   "rank": "11",
+   "status": "included",
+   "gated": "false",
+   "upstream_last_modified": "2026-08-14T15:00:01.000Z",
+   "evidence": "hub reports no embedded chat template for this GGUF repo"
+  }
+ },
+ "status": "skipped",
+ "reason": "package: HTTPError: HTTP Error 400: Bad Request",
+ "model_digest": "",
+ "template_digest": "",
+ "selection": {},
+ "conversion": {},
+ "layers": {},
+ "cells": []
+}

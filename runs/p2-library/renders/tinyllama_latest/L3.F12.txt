@@ -1,0 +1,5 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Explain {{ messages }} and {% if x %} in Jinja.</s>
+<|assistant|>

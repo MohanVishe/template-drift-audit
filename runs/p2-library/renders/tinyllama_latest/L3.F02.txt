@@ -1,0 +1,5 @@
+<|system|>
+You answer in one sentence.</s>
+<|user|>
+What is GGUF?</s>
+<|assistant|>

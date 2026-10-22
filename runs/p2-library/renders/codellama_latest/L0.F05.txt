@@ -1,0 +1,5 @@
+<s>[INST] <<SYS>>
+Use tools when they help.
+<</SYS>>
+
+Weather in Oslo, in c? [/INST]

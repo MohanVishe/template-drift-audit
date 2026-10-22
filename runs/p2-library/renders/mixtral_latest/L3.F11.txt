@@ -1,0 +1,2 @@
+[INST] Is 7 prime? [/INST] Yes.
+[INST] And 9? [/INST] 

@@ -1,0 +1,7 @@
+<start_of_turn>user
+Pick a colour.<end_of_turn>
+<start_of_turn>model
+Blue.<end_of_turn>
+<start_of_turn>user
+Why?<end_of_turn>
+<start_of_turn>model

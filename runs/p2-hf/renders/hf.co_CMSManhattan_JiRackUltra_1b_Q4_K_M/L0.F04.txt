@@ -1,0 +1,4 @@
+<｜begin▁of▁sentence｜><｜User｜>Is it raining in Pune?<｜Assistant｜><think>
+
+</think>
+

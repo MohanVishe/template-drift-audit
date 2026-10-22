@@ -1,0 +1,5 @@
+<|endoftext|><|user|>
+Weather in Oslo?
+<|assistant|>
+<|endoftext|>
+<|assistant|>

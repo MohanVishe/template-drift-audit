@@ -1,0 +1,6 @@
+<|user|>
+Météo à Zürich? "quoted" \ back\slash — नमस्ते
+<|assistant|>
+
+<|tool|>
+{"temp": 7, "note": "été"}<|assistant|>

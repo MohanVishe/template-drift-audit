@@ -1,0 +1,4 @@
+Use tools when they help.
+### Instruction:
+Weather in Oslo, in c?
+### Response:

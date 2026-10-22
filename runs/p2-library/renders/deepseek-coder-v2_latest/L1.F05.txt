@@ -1,0 +1,5 @@
+<｜begin▁of▁sentence｜>Use tools when they help.
+
+User: Weather in Oslo, in c?
+
+Assistant:

@@ -1,0 +1,3 @@
+<s> [INST] Use tools when they help.
+
+Weather in Oslo, in c? [/INST]

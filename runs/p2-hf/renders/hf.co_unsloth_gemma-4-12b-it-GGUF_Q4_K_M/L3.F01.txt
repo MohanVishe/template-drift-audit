@@ -1,0 +1,5 @@
+<bos><|turn>user
+Hello there.<turn|>
+<|turn>model
+<|channel>thought
+<channel|>

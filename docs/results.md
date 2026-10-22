@@ -22,6 +22,10 @@ explains the method.
 | Ollama library | 32 of 43 | 28 of 43 | 15 of 19 | 11 of 19 |
 | Hugging Face | 5 of 22 | 5 of 22 | 4 of 21 | 4 of 21 |
 
+{% include fig/stats.html %}
+
+{% include fig/grid.html %}
+
 "Order-only" means the only change is the order of the fields inside a tool's description,
 for example `required` listed before `properties`. "Built for tools" means the maker's own
 template shows the model the list of tools.

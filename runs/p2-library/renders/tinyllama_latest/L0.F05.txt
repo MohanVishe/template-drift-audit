@@ -1,0 +1,5 @@
+<|system|>
+Use tools when they help.</s>
+<|user|>
+Weather in Oslo, in c?</s>
+<|assistant|>

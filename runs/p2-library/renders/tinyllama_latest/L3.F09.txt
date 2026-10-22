@@ -1,0 +1,10 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Add 1 and 1.</s>
+<|assistant|>
+1 + 1 = 2.<|system|>
+</s>
+<|user|>
+Now add 2 and 2.</s>
+<|assistant|>

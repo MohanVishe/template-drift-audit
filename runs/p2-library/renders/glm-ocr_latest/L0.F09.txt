@@ -1,0 +1,34 @@
+[gMASK]<sop><|system|>
+# Tools
+
+You may call one or more functions to assist with the user query.
+
+You are provided with function signatures within <tools></tools> XML tags:
+<tools>
+{"type": "function", "function": {"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string", "description": "City name"}, "unit": {"type": "string", "enum": ["c", "f"]}}, "required": ["city"]}}}
+{"type": "function", "function": {"name": "add", "description": "Add two numbers", "parameters": {"type": "object", "properties": {"a": {"type": "number"}, "b": {"type": "number"}}, "required": ["a", "b"]}}}
+</tools>
+
+For each function call, output the function name and arguments within the following XML format:
+<tool_call>{function-name}
+<arg_key>{arg-key-1}</arg_key>
+<arg_value>{arg-value-1}</arg_value>
+<arg_key>{arg-key-2}</arg_key>
+<arg_value>{arg-value-2}</arg_value>
+...
+</tool_call><|user|>
+Add 1 and 1.<|assistant|>
+<think></think>
+<tool_call>add
+<arg_key>a</arg_key>
+<arg_value>1</arg_value>
+<arg_key>b</arg_key>
+<arg_value>1</arg_value>
+</tool_call><|observation|>
+<tool_response>
+2
+</tool_response>
+<|assistant|>
+<think></think>
+1 + 1 = 2.<|user|>
+Now add 2 and 2.<|assistant|>

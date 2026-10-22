@@ -1,0 +1,9 @@
+<|im_start|>system
+You are Dolphin, a helpful AI assistant.<|im_end|>
+<|im_start|>user
+What is 2 + 3?<|im_end|>
+<|im_start|>assistant
+Let me add those.<|im_end|>
+<|im_start|>tool
+5<|im_end|>
+<|im_start|>assistant

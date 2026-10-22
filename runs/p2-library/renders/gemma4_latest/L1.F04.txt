@@ -1,0 +1,5 @@
+<bos><|turn>system
+<|tool>declaration:get_weather{description:<|"|>Current weather for a city<|"|>,parameters:{properties:{city:{description:<|"|>City name<|"|>,type:<|"|>STRING<|"|>},unit:{enum:[<|"|>c<|"|>,<|"|>f<|"|>],type:<|"|>STRING<|"|>}},required:[<|"|>city<|"|>],type:<|"|>OBJECT<|"|>}}<tool|><|tool>declaration:add{description:<|"|>Add two numbers<|"|>,parameters:{properties:{a:{type:<|"|>NUMBER<|"|>},b:{type:<|"|>NUMBER<|"|>}},required:[<|"|>a<|"|>,<|"|>b<|"|>],type:<|"|>OBJECT<|"|>}}<tool|><turn|>
+<|turn>user
+Is it raining in Pune?<turn|>
+<|turn>model

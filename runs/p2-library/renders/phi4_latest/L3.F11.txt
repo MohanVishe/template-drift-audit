@@ -1,0 +1,7 @@
+<|im_start|>user<|im_sep|>
+Is 7 prime?<|im_end|>
+<|im_start|>assistant<|im_sep|>
+Yes.<|im_end|>
+<|im_start|>user<|im_sep|>
+And 9?<|im_end|>
+<|im_start|>assistant<|im_sep|>

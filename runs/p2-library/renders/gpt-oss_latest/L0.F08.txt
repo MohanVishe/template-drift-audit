@@ -1,0 +1,27 @@
+<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
+Knowledge cutoff: 2024-06
+Current date: 2026-10-22
+
+Reasoning: medium
+
+# Valid channels: analysis, commentary, final. Channel must be included for every message.
+Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>developer<|message|># Tools
+
+## functions
+
+namespace functions {
+
+// Current weather for a city
+type get_weather = (_: {
+// City name
+city: string,
+unit?: "c" | "f",
+}) => any;
+
+// Add two numbers
+type add = (_: {
+a: number,
+b: number,
+}) => any;
+
+} // namespace functions<|end|><|start|>user<|message|>What is 2 + 3?<|end|><|start|>assistant<|channel|>analysis<|message|>Let me add those.<|end|><|start|>assistant to=functions.add<|channel|>commentary json<|message|>{"a": 2, "b": 3}<|call|><|start|>functions.add to=assistant<|channel|>commentary<|message|>"5"<|end|><|start|>assistant

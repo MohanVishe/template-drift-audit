@@ -1,0 +1,1 @@
+<|im_start|>user<|im_sep|>Weather in Oslo?<|im_end|><|im_start|>assistant<|im_sep|><|im_end|><|im_start|>assistant<|im_sep|>

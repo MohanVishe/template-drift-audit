@@ -1,0 +1,7 @@
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+Weather in Oslo?<|im_end|>
+<|im_start|>assistant
+
+<|im_start|>assistant

@@ -1,0 +1,1 @@
+<|im_start|>user<|im_sep|>Add 1 and 1.<|im_end|><|im_start|>assistant<|im_sep|><|im_end|>1 + 1 = 2.<|im_end|><|im_start|>user<|im_sep|>Now add 2 and 2.<|im_end|><|im_start|>assistant<|im_sep|>

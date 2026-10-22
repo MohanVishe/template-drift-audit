@@ -1,0 +1,5 @@
+<|system|>
+You are a helpful AI assistant.</s>
+<|user|>
+Météo à Zürich? "quoted" \ back\slash — नमस्ते</s>
+<|assistant|>

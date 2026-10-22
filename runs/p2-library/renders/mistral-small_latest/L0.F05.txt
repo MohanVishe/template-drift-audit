@@ -1,0 +1,1 @@
+<s>[SYSTEM_PROMPT]Use tools when they help.[/SYSTEM_PROMPT][INST]Weather in Oslo, in c?[/INST]

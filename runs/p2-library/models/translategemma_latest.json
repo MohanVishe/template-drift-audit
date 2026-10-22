@@ -1,0 +1,184 @@
+{
+ "target": {
+  "package": "translategemma:latest",
+  "upstream_repo": "google/translategemma-4b-it",
+  "upstream_sha": "10042cb0e6e7fdce748996a71dc3dc432a4e0c89",
+  "template_file": "chat_template.jinja",
+  "reason": "latest = 4b-it-q4_K_M.",
+  "confidence": "high",
+  "extra": {
+   "source": "ollama-library",
+   "rank": "47",
+   "status": "included",
+   "gated": "manual",
+   "upstream_last_modified": "2026-01-28T17:28:43.000Z"
+  }
+ },
+ "status": "audited",
+ "reason": "",
+ "model_digest": "sha256:bdbf939b402e2f88fbe3e918beb777813009335756b4c17be7fe008dfe4815d4",
+ "template_digest": "sha256:e0a42594d802e5d31cdc786deb4823edb8adff66094d49de8fffe976d753e348",
+ "selection": {
+  "source": "go_template",
+  "prefer_chat_template": false,
+  "go_caps": [],
+  "chat_caps": [],
+  "exact": true,
+  "renderer": "",
+  "parser": "",
+  "system_layer": false
+ },
+ "conversion": {},
+ "layers": {
+  "L0": {
+   "source": "google/translategemma-4b-it@10042cb0e6e7:api:chat_template.jinja",
+   "renderer": "jinja_sandbox",
+   "exact": true,
+   "errors": [
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "Conversations must start with a user prompt.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "Conversations must start with a user prompt.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`.",
+    "User role must provide `content` as an iterable with exactly one item. That item must be a `mapping(type:'text' | 'image', source_lang_code:string, target_lang_code:string, text:string | none, image:string | none)`."
+   ],
+   "note": ""
+  },
+  "L3": {
+   "source": "ollama:go_template",
+   "renderer": "ollama_go",
+   "exact": true,
+   "errors": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": ""
+  }
+ },
+ "cells": [
+  {
+   "fixture": "F01",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F02",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F03",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F04",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F05",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F06",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F07",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F08",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F09",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F10",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F11",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  },
+  {
+   "fixture": "F12",
+   "pair": "end_to_end",
+   "classes": [
+    "REFERENCE_ERROR"
+   ],
+   "severity": "n/a",
+   "known_issues": []
+  }
+ ]
+}

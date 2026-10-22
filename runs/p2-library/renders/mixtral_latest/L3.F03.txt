@@ -1,0 +1,2 @@
+[INST] Pick a colour. [/INST] Blue.
+[INST] Why? [/INST] 

@@ -57,6 +57,10 @@ _CONTENT_TEST = re.compile(
     r"""|\b(?:contains|eq|hasPrefix)\s+\$?\.Content\s+"(?P<c>[^"\n]{1,80})\"""")
 
 
+def _n(count: int, one: str, many: str) -> str:
+    return f"{count} {one if count == 1 else many}"
+
+
 @dataclass
 class Finding:
     check: str
@@ -121,12 +125,27 @@ def _setting(name: str) -> str:
     return value
 
 
+def bind_host(value: str) -> str:
+    """The address Ollama listens on for an OLLAMA_HOST value, parsed the way `envconfig.Host()`
+    does in Ollama v0.40.7. An empty result (":11434") means every network."""
+    s = value.strip()
+    if not s:
+        return "127.0.0.1"
+    _, sep, rest = s.partition("://")
+    hostport = (rest if sep else s).split("/", 1)[0]
+    if hostport.startswith("[") and "]:" in hostport:
+        return hostport[1:hostport.index("]:")]
+    if hostport.count(":") == 1:
+        return hostport.split(":")[0]
+    return hostport.strip("[]") or "127.0.0.1"  # no port: a bare address or name
+
+
 def check_network(netstat_text: str | None = None, ollama_host: str | None = None) -> Finding:
     socks = listening(_listen_lines() if netstat_text is None else netstat_text)
     host = _setting("OLLAMA_HOST") if ollama_host is None else ollama_host
     open_ = sorted({f"{SERVERS[p]} (port {p})" for a, p in socks if p in SERVERS and not _loopback(a)})
     local = sorted({f"{SERVERS[p]} (port {p})" for a, p in socks if p in SERVERS and _loopback(a)})
-    host_open = host.split(":")[0].strip("[]") in ("0.0.0.0", "::", "")  and bool(host)
+    host_open = bool(host.strip()) and not _loopback(bind_host(host))
     if open_:
         return Finding("network", WARN, "A local AI server is reachable from other devices",
                        "It accepts connections from other devices, not only from this computer. "
@@ -136,9 +155,10 @@ def check_network(netstat_text: str | None = None, ollama_host: str | None = Non
                        "turn off \"Serve on Local Network\". If another device really needs it, put a login in "
                        "front of it rather than leaving the port open.", open_)
     if host_open:
-        return Finding("network", WARN, "OLLAMA_HOST is set to listen on every network",
-                       f"OLLAMA_HOST is \"{host}\". Ollama is not running right now, but it will be reachable from "
-                       "other devices when it starts.", "Remove the OLLAMA_HOST setting or set it to 127.0.0.1.")
+        return Finding("network", WARN, "OLLAMA_HOST lets other devices connect to Ollama",
+                       f"OLLAMA_HOST is \"{host}\". Whenever Ollama runs with this setting, other devices can reach "
+                       "it, not only this computer.", "Remove the OLLAMA_HOST setting or set it to 127.0.0.1, then "
+                       "quit and reopen Ollama.")
     if local:
         return Finding("network", OK, "Local AI servers only accept connections from this computer",
                        items=local)
@@ -218,7 +238,8 @@ def check_models(store=None) -> list[Finding]:
         by_origin.setdefault(origin_of(m.name), []).append(m.short_name)
     community = {o: v for o, v in by_origin.items() if o != "Ollama library"}
     out = [Finding("origin", WARN if community else OK,
-                   f"{sum(map(len, community.values()))} of {len(models)} models come from outside Ollama's library"
+                   f"{sum(map(len, community.values()))} of {_n(len(models), 'model', 'models')} "
+                   f"{'comes' if sum(map(len, community.values())) == 1 else 'come'} from outside Ollama's library"
                    if community else f"All {len(models)} models carry Ollama library names",
                    "A model file can be published by anyone. Models from people you don't know deserve more "
                    "care, especially if you let them use tools." if community else
@@ -239,7 +260,7 @@ def check_models(store=None) -> list[Finding]:
         if flags:
             flagged.append(f"{m.short_name}: " + "; ".join(flags))
     out.append(Finding("template", WARN if flagged else OK,
-                       f"{len(flagged)} model templates have something worth a look" if flagged
+                       f"{_n(len(flagged), 'model template has', 'model templates have')} something worth a look" if flagged
                        else f"No warning signs in the chat templates of {len(models)} models",
                        "A chat template is a small program inside the model file that writes the text the model "
                        "reads. Web addresses, or rules that react to particular words you type, are unusual there "
@@ -269,13 +290,17 @@ def find_secrets(root: Path, max_depth: int = 4, limit: int = 200) -> list[str]:
     return sorted(found)
 
 
-def check_secrets(folder: Path) -> Finding:
+def check_secrets(folder: Path | None) -> Finding:
+    if folder is None:
+        return Finding("secrets", INFO, "No folder given, so no folder was checked for secrets",
+                       "To check the folder your AI helper works in, run the check-up again with --folder and "
+                       "that folder's location.")
     found = find_secrets(folder)
     if found:
-        return Finding("secrets", WARN, f"{len(found)} secret-looking files in {folder}",
-                       "An AI helper that works in this folder can read these files, and a model that has been "
-                       "tampered with could be told to send them somewhere. (Only the names were checked; the "
-                       "files were not opened.)",
+        return Finding("secrets", WARN, f"{_n(len(found), 'secret-looking file', 'secret-looking files')} in {folder}",
+                       "An AI helper that works in this folder can read these files. If the model makes a mistake, "
+                       "or is misled by something it reads, it could send them somewhere. (Only the names were "
+                       "checked; the files were not opened.)",
                        "Move keys and passwords out of the folders you let an AI helper work in, or give the "
                        "helper a separate folder with copies of only what it needs.", found)
     return Finding("secrets", OK, f"No secret-looking files in {folder}",
@@ -336,7 +361,7 @@ def check_saved(home: Path | None = None, system: str | None = None, localappdat
         fix = "Delete chats you no longer need from inside the app."
         if not _on(setting("OLLAMA_NOHISTORY")):
             fix += " To stop Ollama keeping terminal history, set OLLAMA_NOHISTORY to 1."
-        out.append(Finding("saved", INFO, f"Your conversations are kept in {len(found)} place(s) on this computer",
+        out.append(Finding("saved", INFO, f"Your conversations are kept in {_n(len(found), 'place', 'places')} on this computer",
                            "These are ordinary files. Anyone who can use your account, and any backup or sync tool "
                            "that copies your user folder, can read them. (Only names and sizes were checked.)",
                            fix, found))
@@ -350,7 +375,7 @@ def check_saved(home: Path | None = None, system: str | None = None, localappdat
 ICON = {OK: "[OK]  ", WARN: "[!!]  ", INFO: "[--]  "}
 
 
-def run(folder: Path) -> list[Finding]:
+def run(folder: Path | None) -> list[Finding]:
     return [check_network(), check_version(), *check_models(), check_secrets(folder), *check_saved()]
 
 
@@ -368,7 +393,7 @@ def render(findings: list[Finding]) -> str:
             lines.append(f"      What to do: {f.fix}")
         lines.append("")
     warns = sum(f.level == WARN for f in findings)
-    lines.append(f"{warns} thing(s) to look at." if warns else "Nothing to fix right now.")
+    lines.append(f"{_n(warns, 'thing', 'things')} to look at." if warns else "Nothing to fix right now.")
     return "\n".join(lines)
 
 

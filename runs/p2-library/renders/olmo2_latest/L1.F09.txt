@@ -1,0 +1,9 @@
+<|endoftext|><|user|>
+Add 1 and 1.
+<|assistant|>
+<|endoftext|>
+<|assistant|>
+1 + 1 = 2.<|endoftext|>
+<|user|>
+Now add 2 and 2.
+<|assistant|>

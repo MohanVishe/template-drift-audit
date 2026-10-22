@@ -127,7 +127,26 @@ L0, L1 and the Ollama Go template, 95 distinct templates from 65 packages (`runs
 
 No template in the population contains a URL.
 
-## 7. Reproduce
+**Other checks.** `tda check` also lists where conversations are saved (the Ollama history file,
+the Ollama app database and LM Studio's conversations folder, by name and size only), and warns
+when `OLLAMA_DEBUG_LOG_REQUESTS` is on. The locations come from Ollama v0.40.7's source and LM
+Studio's documentation. The `OLLAMA_HOST` rule parses the value the way Ollama's `envconfig.Host()`
+does, so `http://0.0.0.0:11434`, `:11434` and a LAN address are all reported as reachable from
+other devices.
+
+## 7. Not measured here
+
+- **Behavioural effect.** This study counts how often the text differs, not how much that changes
+  a model's answers. The design's optional H3 (DESIGN.md §6) would run a few drifted models on a
+  small tool-calling set twice: once through Ollama's normal path, and once with the L0 render sent
+  raw. That needs the models run locally and is the next study.
+- **Non-default tags.** Only each package's `latest` tag was audited.
+
+## 8. Reproduce
+
+The P2 runs are published in `runs/p2-library/`, `runs/p2-hf/`, `runs/p2-headline.json` and
+`runs/p2-lint.json`. That covers every model's JSON and every render. The HTTP cache (`.cache/`) is
+not published, so re-running from scratch fetches the metadata again.
 
 ```bash
 python -m tda library --mapping population/mapping.yaml --run-id p2-library
@@ -149,4 +168,8 @@ python scripts/lint_population.py
 python scripts/results_page.py
 ```
 
-Add `--offline` to the first two commands to re-run from the cache with no network.
+```bash
+python scripts/site_figures.py
+```
+
+With a local `.cache/`, add `--offline` to the first two commands to re-run with no network.
