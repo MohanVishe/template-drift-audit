@@ -109,7 +109,7 @@ open port gives away:
   `OLLAMA_ORIGINS` lets that website do the same
   ([config.go](https://github.com/ollama/ollama/blob/v0.40.7/envconfig/config.go)).
 
-<figure class="viz"><picture><source media="(max-width: 640px)" srcset="assets/img/reach-narrow.svg"><img src="assets/img/reach.svg" alt="Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do, including using a signed-in ollama.com account" style="width:100%;height:auto"></picture></figure>
+<figure class="fig-img"><picture><source media="(max-width: 640px)" srcset="assets/img/reach-narrow.svg"><img src="assets/img/reach.svg" alt="Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do, including using a signed-in ollama.com account"></picture></figure>
 
 <div class="views" markdown="1">
 <div class="view" markdown="1">

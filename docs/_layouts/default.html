@@ -95,6 +95,10 @@
       background: var(--accent); color: #fff; font-size: 1rem; font-weight: 700; transform: translateY(-2px); }
     .tell { background: var(--accent-wash); border-radius: 10px; padding: 10px 14px; margin: 1rem 0 0.8rem; }
     .tell strong:first-child { color: var(--accent-ink); }
+    /* image figures (SVGs that draw their own card): no frame, and wider on phones */
+    .fig-img { margin: 1.4rem 0; }
+    .fig-img img { display: block; width: 100%; height: auto; }
+    @media (max-width: 640px) { .fig-img { margin-left: -14px; margin-right: -14px; } }
     .views { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
     .view { border: 1px solid var(--ring); border-radius: 10px; padding: 2px 14px; }
     .view > p:first-child { margin-top: 0.7rem; }
