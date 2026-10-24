@@ -10,6 +10,11 @@ That is one of six weak spots in a local AI setup. This article explains all six
 For each one it says what it means if you simply use AI, what it means if you build with AI, how
 to check it on your own computer, and what to do about it.
 
+This started from Kai's video *Your Local AI Is Not as Private as You Think* (@kaiexplainsYT,
+October 2026), which explains the security side of local AI well. I followed its leads back to the
+original sources, read Ollama's code myself, and measured the part I couldn't find anyone counting:
+the text the model actually reads.
+
 ---
 
 ## The short version
@@ -72,6 +77,8 @@ Three more things sit alongside:
 
 Each part can go wrong in its own way. Here is each one.
 
+![A local AI setup and its six weak spots: you, the app, the layout step and the model, with the model file, helpers and saved chats alongside](docs/assets/img/setup.svg)
+
 ---
 
 ## Weak spot 1: the app answers anyone who can reach it
@@ -88,19 +95,38 @@ LM Studio has a switch for the same thing, called **Serve on Local Network**. On
 everyone on the same Wi-Fi can use your AI. If your router forwards Ollama's port to the internet,
 everyone online can too.
 
+**What I found in Ollama's code.** I read the server code of Ollama 0.40.7 to see exactly what an
+open port gives away. Three things stood out:
+
+- **Its protection against websites switches off.** Ollama checks which address each request was
+  sent to. That blocks a known trick where a web page in your browser quietly talks to your
+  Ollama (called DNS rebinding). But the code runs this check only while Ollama listens on
+  `127.0.0.1`. Once it is open to the network, the check is skipped.
+- **Your ollama.com account comes with it.** If you have signed Ollama in to an ollama.com account
+  (for cloud models or web search), the server forwards some requests to ollama.com signed with
+  your computer's own key, whoever sent them. So anyone who can reach it can read your account's
+  name, email and plan, see its usage and balance, and run cloud models and web searches on it.
+- **Which websites may talk to it is one setting.** By default, only pages served from your own
+  computer and a few kinds of app (desktop apps, local files, VS Code panels) can read Ollama's
+  answers in a browser. Every address you add to `OLLAMA_ORIGINS` lets that website's pages do the
+  same.
+
+![Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do, including using a signed-in ollama.com account](docs/assets/img/reach.svg)
+
 **If you just use AI:** think of it as leaving your front door open. On home Wi-Fi the risk is
 the people and devices on your network. On café, hostel or office Wi-Fi, it is strangers.
 
 **If you build with AI:** a reachable Ollama is an unauthenticated API. It can pull and delete
-models and create new ones with any system prompt. If a team shares one model server, put an
-authenticating proxy in front of it rather than exposing the port.
+models and create new ones with any system prompt, and a signed-in server lends out its ollama.com
+account. If a team shares one model server, put an authenticating proxy in front of it rather than
+exposing the port, and keep `OLLAMA_ORIGINS` to the exact sites that need it.
 
 **How to check:** the check-up looks at the addresses your AI apps listen on and at the
 `OLLAMA_HOST` setting. It tells you if anything other than your own computer can connect.
 
 **What to do:** delete `OLLAMA_HOST`, or set it to `127.0.0.1`, then restart Ollama. In LM Studio,
 turn off **Serve on Local Network**. If you really need another device to reach it, put a login in
-front of it. Don't leave the port open.
+front of it. Don't leave the port open, and never on a server that is signed in to ollama.com.
 
 ---
 
@@ -140,7 +166,7 @@ models stay where they are.
 which is a small program, plus default settings. Whoever packages the file decides what goes in
 them, and you never see them unless you go looking.
 
-My measurement found two everyday examples:
+**What I found myself.** My measurement turned up two everyday examples:
 
 - **Outdated copies.** In 9 of 45 model files in Ollama's library, the template inside is an
   older version of the maker's template. For example, the `falcon3` file matches the maker's
@@ -193,23 +219,13 @@ doesn't measure accuracy. So read it as "layout matters", not as a number for th
 
 ### An example you can see
 
-Here is one line from my measurement, for `qwen2.5`. It describes a weather tool.
+Here is one tool from my measurement, for `qwen2.5`, as the model reads it each way.
 
-What the maker's template gives the model:
+![The same weather tool as qwen2.5 reads it: labelled JSON from the maker's template, and Go's default format with <nil> placeholders from Ollama's template](docs/assets/img/tool-format.svg)
 
-```
-{"type": "function", "function": {"name": "get_weather", "description": "Current weather for a city", "parameters": {"type": "object", "properties": {"city": {"type": "string", "description": "City name"}, "unit": {"type": "string", "enum": ["c", "f"]}}, "required": ["city"]}}}
-```
-
-What Ollama gives the model:
-
-```
-{"type": "function", "function": {get_weather Current weather for a city {object <nil> <nil> [city] {"city":{"type":"string","description":"City name"},"unit":{"type":"string","enum":["c","f"]}}}}}
-```
-
-In the first, every part is labelled: `"name"`, `"description"`, `"parameters"`. In the second,
-the labels are gone, and `<nil>` (the Go programming language's word for "empty") appears where
-they were. The model was trained to read the first one.
+In the maker's version, every part is labelled: `"name"`, `"description"`, `"parameters"`. In
+Ollama's, the labels are gone, and `<nil>` (the Go programming language's word for "empty")
+appears where they were. The model was trained to read the first one.
 
 ### What I measured, step by step
 
@@ -236,6 +252,8 @@ small header of each model file, not the model itself. For `qwen2.5` that was 7.
 multi-gigabyte file.
 
 ### What I found
+
+![How many popular models read their tool conversations differently: 32 of 43 in Ollama's library, 28 of 43 setting aside field-order changes, 15 of 19 built for tools, 5 of 22 Hugging Face downloads; of the 32, 24 start in Ollama's own template](docs/assets/img/results.svg)
 
 - **In Ollama's library, 32 of 43 models read their tool conversations differently from what
   their maker designed.** "Differently" means a change to what the model is told: a tool's answer
@@ -325,7 +343,10 @@ helper its own folder with only what it needs.
 ## Weak spot 6: your chats are kept as ordinary files
 
 **In plain words.** "Local" means your conversations stay on your computer. It also means they sit
-on your disk, where anything that can read your files can read them too:
+on your disk, where anything that can read your files can read them too.
+
+**What I found myself.** I went through Ollama's code and LM Studio's documentation to see where
+chats actually end up:
 
 - **Ollama in a terminal** keeps the last 100 lines you typed in a file called `.ollama/history`
   in your home folder, unless you set `OLLAMA_NOHISTORY`.
@@ -382,6 +403,17 @@ information). It changes nothing, sends nothing anywhere, and never opens your f
 
 ---
 
+## Credits
+
+Kai's video *Your Local AI Is Not as Private as You Think* (@kaiexplainsYT, October 2026) gave me
+the starting point. It covers weak spots 1, 2, 3 and 5 from the security side, and is worth
+watching. For those, this article cites the original advisories and research. The rest is my own
+work: the measurement of 65 models (weak spot 4), the evidence on old and rewritten templates
+(weak spot 3), what Ollama's code exposes on an open port (weak spot 1), where chats are saved
+(weak spot 6), and the check-up.
+
+---
+
 ## Links
 
 - Website, with the step-by-step check-up guide and full results:
@@ -390,7 +422,9 @@ information). It changes nothing, sends nothing anywhere, and never opens your f
 
 ## Sources
 
-- Ollama source code, version 0.40.7: `server/routes.go`, `envconfig/config.go`,
+- Kai, *Your Local AI Is Not as Private as You Think*, YouTube, October 2026.
+  https://www.youtube.com/watch?v=3mx84MRj8lY
+- Ollama source code, version 0.40.7: `server/routes.go`, `server/cloud_proxy.go`, `envconfig/config.go`,
   `readline/history.go`, `internal/onboarding/app_state.go`.
 - Ollama release notes for 0.23.3 and 0.40.8, and issue #14601.
 - GitHub Advisory Database: CVE-2026-7482, CVE-2026-42248, CVE-2026-42249, CVE-2024-34359.

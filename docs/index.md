@@ -12,6 +12,8 @@ designed. That's one of six weak spots in a local AI setup. This page explains a
 words: what each means if you simply use AI, what it means if you build with AI, how to check it on
 your own computer, and what to do about it.</p>
 
+<p class="diagram-note">This started from Kai's video <a href="https://www.youtube.com/watch?v=3mx84MRj8lY"><em>Your Local AI Is Not as Private as You Think</em></a> (October 2026). I followed its leads back to the original sources, read Ollama's code myself, and measured what the model actually reads. <a href="#credits">What's mine and what's the video's</a>.</p>
+
 <div class="box box-accent" markdown="1">
 
 ### The short version
@@ -89,6 +91,26 @@ phone or a second computer. LM Studio has a switch for the same thing, called
 **Serve on Local Network**. Once either is on, everyone on the same Wi-Fi can use your AI. If your
 router forwards Ollama's connection point (its "port") to the internet, everyone online can too.
 
+**What I found in Ollama's code.** I read the server code of Ollama 0.40.7 to see exactly what an
+open port gives away:
+- **Its protection against websites switches off.** Ollama checks which address each request was
+  sent to, which blocks a known trick where a web page quietly talks to your Ollama ("DNS
+  rebinding"). The code runs this check only while Ollama listens on `127.0.0.1`
+  ([routes.go](https://github.com/ollama/ollama/blob/v0.40.7/server/routes.go)). Open it to the
+  network and the check is skipped.
+- **Your ollama.com account comes with it.** If Ollama is signed in to an ollama.com account (for
+  cloud models or web search), it forwards some requests to ollama.com signed with your computer's
+  own key, whoever sent them
+  ([cloud_proxy.go](https://github.com/ollama/ollama/blob/v0.40.7/server/cloud_proxy.go)). Anyone
+  who can reach it can read the account's name, email and plan, see its usage and balance, and run
+  cloud models and web searches on it.
+- **Which websites may talk to it is one setting.** By default, only pages served from your own
+  computer and a few kinds of app can read Ollama's answers in a browser. Each address added to
+  `OLLAMA_ORIGINS` lets that website do the same
+  ([config.go](https://github.com/ollama/ollama/blob/v0.40.7/envconfig/config.go)).
+
+<figure class="viz"><img src="assets/img/reach.svg" alt="Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do, including using a signed-in ollama.com account" style="width:100%;height:auto"></figure>
+
 <div class="views" markdown="1">
 <div class="view" markdown="1">
 
@@ -99,8 +121,9 @@ people and devices on your network. On café, hostel or office Wi-Fi, it's stran
 <div class="view" markdown="1">
 
 **If you build with AI:** a reachable Ollama is an unauthenticated API that can pull, delete and
-create models with any system prompt. If a team shares one model server, put an authenticating
-proxy in front of it rather than exposing the port.
+create models with any system prompt, and a signed-in server lends out its ollama.com account. Put
+an authenticating proxy in front of a shared server, and keep `OLLAMA_ORIGINS` to the exact sites
+that need it.
 
 </div>
 </div>
@@ -164,7 +187,7 @@ A model file isn't only the trained model. It also carries the chat template, wh
 program, plus default settings. Whoever packages the file decides what goes in them, and you never
 see them unless you go looking.
 
-My measurement found two everyday examples of this:
+**What I found myself.** My measurement turned up two everyday examples:
 - **Outdated copies.** In 9 of 45 model files in Ollama's library, the template inside is an
   older version of the maker's. For example, `falcon3`'s file matches the maker's template from
   17 December 2024. The next day, the maker published a change called "fix chat_template for tool
@@ -377,7 +400,8 @@ those files out, or give the helper its own folder with only what it needs.
 ## <span class="num">6</span> Your chats are kept as ordinary files
 
 "Local" means your conversations stay on your computer. It also means they sit on your disk,
-where anything that can read your files can read them too:
+where anything that can read your files can read them too. **What I found myself**, going through
+Ollama's code and LM Studio's documentation:
 - **Ollama in a terminal** (a window where you type commands) keeps the last 100 lines you typed
   in a file called `.ollama/history` in your home folder, unless you set `OLLAMA_NOHISTORY`
   ([history.go](https://github.com/ollama/ollama/blob/v0.40.7/readline/history.go)).
@@ -435,6 +459,15 @@ nothing else. It changes nothing and sends nothing anywhere.
   tool request numbers my practice conversations use, so a few of its comparisons couldn't run.
   The [results page](results.html) lists every gap like this.
 
+## Credits
+
+Kai's video [*Your Local AI Is Not as Private as You Think*](https://www.youtube.com/watch?v=3mx84MRj8lY)
+(@kaiexplainsYT, October 2026) gave me the starting point. It covers weak spots 1, 2, 3 and 5 from
+the security side, and is worth watching. For those, this page cites the original advisories and
+research. The rest is my own work: the measurement of 65 models (weak spot 4), the evidence on old
+and rewritten templates (weak spot 3), what Ollama's code exposes on an open port (weak spot 1),
+where chats are saved (weak spot 6), and the check-up.
+
 ## Words used on this page
 
 <dl class="gloss">
@@ -454,7 +487,8 @@ nothing else. It changes nothing and sends nothing anywhere.
 
 ## Sources
 
-- Ollama source code, version 0.40.7: `server/routes.go`, `envconfig/config.go`,
+- Kai, *Your Local AI Is Not as Private as You Think*, YouTube, October 2026.
+- Ollama source code, version 0.40.7: `server/routes.go`, `server/cloud_proxy.go`, `envconfig/config.go`,
   `readline/history.go`, `internal/onboarding/app_state.go`.
 - Ollama release notes for 0.23.3 and 0.40.8, and issue #14601.
 - GitHub Advisory Database and the US National Vulnerability Database: CVE-2026-7482,

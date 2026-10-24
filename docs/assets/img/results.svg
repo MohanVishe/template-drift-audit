@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 336" width="856" height="336" role="img" aria-labelledby="t d">
+<title id="t">How many popular models read their tool conversations differently</title>
+<desc id="d">Ollama library: 32 of 43 differ (28 setting aside order-only changes); built for tools: 15 of 19; Hugging Face: 5 of 22. Of the library differences, 24 start in Ollama&#x27;s own template, 6 in an old copy in the model file, 2 where the file has no template.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="336" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >How many popular models read their tool conversations differently</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Compared with the maker&#x27;s own template. Snapshot of 22 October 2026, Ollama v0.40.7.</text>
+<text x="28" y="100" class="ink" font-size="14" font-weight="400" text-anchor="start" >Ollama library, all compared models</text>
+<rect x="28" y="108" width="330" height="14" rx="4" class="none"/>
+<rect x="28" y="108" width="245.6" height="14" rx="4" class="acc"/>
+<text x="368" y="121" class="ink" font-size="14" font-weight="700" text-anchor="start" >32 of 43</text>
+<text x="28" y="152" class="ink" font-size="14" font-weight="400" text-anchor="start" >…setting aside field-order-only changes</text>
+<rect x="28" y="160" width="330" height="14" rx="4" class="none"/>
+<rect x="28" y="160" width="214.9" height="14" rx="4" class="acc"/>
+<text x="368" y="173" class="ink" font-size="14" font-weight="700" text-anchor="start" >28 of 43</text>
+<text x="28" y="204" class="ink" font-size="14" font-weight="400" text-anchor="start" >Ollama library, models built for tools</text>
+<rect x="28" y="212" width="330" height="14" rx="4" class="none"/>
+<rect x="28" y="212" width="260.5" height="14" rx="4" class="acc"/>
+<text x="368" y="225" class="ink" font-size="14" font-weight="700" text-anchor="start" >15 of 19</text>
+<text x="28" y="256" class="ink" font-size="14" font-weight="400" text-anchor="start" >Hugging Face downloads</text>
+<rect x="28" y="264" width="330" height="14" rx="4" class="none"/>
+<rect x="28" y="264" width="75.0" height="14" rx="4" class="soft"/>
+<text x="368" y="277" class="ink" font-size="14" font-weight="700" text-anchor="start" >5 of 22</text>
+<text x="470" y="100" class="ink" font-size="15" font-weight="700" text-anchor="start" >Where the 32 library differences start</text>
+<text x="470" y="132" class="ink" font-size="14" font-weight="400" text-anchor="start" >Ollama&#x27;s own version of the template</text>
+<rect x="470" y="140" width="290" height="14" rx="4" class="none"/>
+<rect x="470" y="140" width="217.5" height="14" rx="4" class="acc"/>
+<text x="770" y="153" class="ink" font-size="14" font-weight="700" text-anchor="start" >24 of 32</text>
+<text x="470" y="184" class="ink" font-size="14" font-weight="400" text-anchor="start" >An old copy in the model file, then Ollama&#x27;s</text>
+<rect x="470" y="192" width="290" height="14" rx="4" class="none"/>
+<rect x="470" y="192" width="54.4" height="14" rx="4" class="acc"/>
+<text x="770" y="205" class="ink" font-size="14" font-weight="700" text-anchor="start" >6 of 32</text>
+<text x="470" y="236" class="ink" font-size="14" font-weight="400" text-anchor="start" >The model file has no template</text>
+<rect x="470" y="244" width="290" height="14" rx="4" class="none"/>
+<rect x="470" y="244" width="18.1" height="14" rx="4" class="acc"/>
+<text x="770" y="257" class="ink" font-size="14" font-weight="700" text-anchor="start" >2 of 32</text>
+<text x="28" y="318" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: runs/p2-headline.json in the project repository.</text>
+</svg>

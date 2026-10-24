@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 356" width="856" height="356" role="img" aria-labelledby="t d">
+<title id="t">Who can reach your Ollama, and what they can do</title>
+<desc id="d">Three nested zones: this computer only (the default), your network (if OLLAMA_HOST is 0.0.0.0), and the internet (if the port is forwarded). Anyone who can connect can chat with, download, delete and create models, and, if the app is signed in to ollama.com, see the account and use its cloud models and web search.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="356" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >Who can reach your Ollama, and what they can do</text>
+<rect x="28" y="64" width="384" height="252" rx="14" class="accw" stroke-width="1.5" style="stroke:#77756f;stroke-opacity:.35"/>
+<text x="44" y="90" class="ink" font-size="15" font-weight="700" text-anchor="start" >The internet</text>
+<text x="44" y="110" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >if your router forwards port 11434</text>
+<rect x="48" y="126" width="344" height="172" rx="14" class="card" stroke-width="1.5" style="stroke:#77756f;stroke-opacity:.35"/>
+<text x="64" y="152" class="ink" font-size="15" font-weight="700" text-anchor="start" >Your Wi-Fi or office network</text>
+<text x="64" y="172" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >OLLAMA_HOST=0.0.0.0, or LM Studio&#x27;s network switch</text>
+<rect x="68" y="196" width="304" height="84" rx="14" class="bg" stroke-width="1.5" style="stroke:#77756f;stroke-opacity:.35"/>
+<text x="84" y="222" class="ink" font-size="15" font-weight="700" text-anchor="start" >This computer only</text>
+<text x="84" y="242" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >the default: 127.0.0.1</text>
+<text x="442" y="82" class="ink" font-size="15" font-weight="700" text-anchor="start" >Anyone who can connect can, with no login:</text>
+<circle cx="450" cy="107" r="3" class="acc"/><text x="462" y="112" class="ink" font-size="14" font-weight="400" text-anchor="start" >Chat with your models</text>
+<text x="462" y="132" class="ink2" font-size="13" font-weight="400" text-anchor="start" >and see which ones you have</text>
+<circle cx="450" cy="153" r="3" class="acc"/><text x="462" y="158" class="ink" font-size="14" font-weight="400" text-anchor="start" >Download, copy or delete models</text>
+<circle cx="450" cy="179" r="3" class="acc"/><text x="462" y="184" class="ink" font-size="14" font-weight="400" text-anchor="start" >Create a model with its own instructions</text>
+<text x="442" y="216" class="warn" font-size="14" font-weight="700" text-anchor="start" >If you&#x27;re signed in to ollama.com:</text>
+<circle cx="450" cy="237" r="3" class="warn"/><text x="462" y="242" class="ink" font-size="14" font-weight="400" text-anchor="start" >see your account&#x27;s name, email and plan</text>
+<circle cx="450" cy="263" r="3" class="warn"/><text x="462" y="268" class="ink" font-size="14" font-weight="400" text-anchor="start" >see its usage and balance</text>
+<circle cx="450" cy="289" r="3" class="warn"/><text x="462" y="294" class="ink" font-size="14" font-weight="400" text-anchor="start" >run cloud models and web searches on it</text>
+<text x="28" y="338" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: Ollama v0.40.7, server/routes.go and server/cloud_proxy.go (read by the author).</text>
+</svg>

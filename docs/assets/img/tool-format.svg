@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 396" width="856" height="396" role="img" aria-labelledby="t d">
+<title id="t">The same tool, as qwen2.5 reads it</title>
+<desc id="d">On the left, the maker&#x27;s template gives the tool as labelled JSON. On the right, Ollama&#x27;s template gives the same tool in Go&#x27;s default format: the labels are missing and &lt;nil&gt; appears.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="396" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >The same tool, as qwen2.5 reads it</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >One weather tool from a practice conversation. Line breaks added for reading.</text>
+<rect x="28" y="80" width="388" height="272" rx="10" class="card"/>
+<text x="44" y="106" class="ink" font-size="14" font-weight="700" text-anchor="start" >From the maker&#x27;s template (what it was trained on)</text>
+<text x="44" y="136" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {</text>
+<text x="44" y="158" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">  &quot;name&quot;: &quot;get_weather&quot;,</text>
+<text x="44" y="180" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">  &quot;description&quot;: &quot;Current weather for a city&quot;,</text>
+<text x="44" y="202" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">  &quot;parameters&quot;: {&quot;type&quot;: &quot;object&quot;,</text>
+<text x="44" y="224" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">    &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;,</text>
+<text x="44" y="246" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">      &quot;description&quot;: &quot;City name&quot;},</text>
+<text x="44" y="268" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">      &quot;unit&quot;: {&quot;type&quot;: &quot;string&quot;,</text>
+<text x="44" y="290" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">               &quot;enum&quot;: [&quot;c&quot;, &quot;f&quot;]}},</text>
+<text x="44" y="312" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">    &quot;required&quot;: [&quot;city&quot;]}}}</text>
+<rect x="440" y="80" width="388" height="272" rx="10" class="warnw"/>
+<text x="456" y="106" class="ink" font-size="14" font-weight="700" text-anchor="start" >From Ollama&#x27;s template</text>
+<text x="456" y="136" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {</text>
+<text x="456" y="158" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">  get_weather</text>
+<text x="456" y="180" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">  Current weather for a city</text>
+<text x="456" y="202" class="ink mono" font-size="13" xml:space="preserve">  {object <tspan class="warn" font-weight="700">&lt;nil&gt;</tspan> <tspan class="warn" font-weight="700">&lt;nil&gt;</tspan> [city]</text>
+<text x="456" y="224" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">   {&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;,</text>
+<text x="456" y="246" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">     &quot;description&quot;:&quot;City name&quot;},</text>
+<text x="456" y="268" class="ink mono" font-size="13" font-weight="400" text-anchor="start" xml:space="preserve">    &quot;unit&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;enum&quot;:[&quot;c&quot;,&quot;f&quot;]}}}}}</text>
+<text x="28" y="376" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Left: every part is labelled (&quot;name&quot;, &quot;description&quot;, &quot;parameters&quot;). Right: the labels are gone, and &lt;nil&gt; (Go for &quot;empty&quot;) appears.</text>
+</svg>
