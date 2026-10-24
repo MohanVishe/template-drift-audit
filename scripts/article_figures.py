@@ -136,6 +136,47 @@ def fig_reach() -> str:
                "its cloud models and web search.", "\n".join(b))
 
 
+def fig_reach_narrow() -> str:
+    """fig_reach stacked for phones: the zones on top, the list below, same words."""
+    b = [t(16, 32, "Who can reach your Ollama,", "ink", 18, 700), t(16, 54, "and what they can do", "ink", 18, 700)]
+    rings = [(16, 72, 328, 230, "accw", "The internet", ["if your router forwards port 11434"]),
+             (30, 136, 300, 154, "card", "Your Wi-Fi or office network", ["OLLAMA_HOST=0.0.0.0, or", "LM Studio's network switch"]),
+             (44, 220, 272, 58, "bg", "This computer only", ["the default: 127.0.0.1"])]
+    for x, y, w, h, cls, name, subs in rings:
+        b.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" class="{cls}" stroke-width="1.5" '
+                 f'style="stroke:#77756f;stroke-opacity:.35"/>')
+        b.append(t(x + 14, y + 24, name, "ink", 15, 700))
+        for i, sub in enumerate(subs):
+            b.append(t(x + 14, y + 43 + i * 17, sub, "ink2", 13))
+    y = 336
+    b.append(t(16, y, "Anyone who can connect can,", "ink", 15, 700))
+    b.append(t(16, y + 20, "with no login:", "ink", 15, 700))
+    y += 50
+    rows = [("Chat with your models", "acc"), ("and see which ones you have", "sub"),
+            ("Download, copy or delete models", "acc"), ("Create a model with its own", "acc"),
+            ("instructions", "sub"), ("If you're signed in to ollama.com:", "warn"),
+            ("see your account's name, email", "w"), ("and plan", "sub"), ("see its usage and balance", "w"),
+            ("run cloud models and web", "w"), ("searches on it", "sub")]
+    for s_, kind in rows:
+        if kind == "warn":
+            y += 8
+            b.append(t(16, y, s_, "warn", 14.5, 700))
+        elif kind == "sub":
+            y -= 4
+            b.append(t(36, y, s_, "ink", 14.5))  # second line of the item above
+        else:
+            dot = "acc" if kind == "acc" else "warn"
+            b.append(f'<circle cx="24" cy="{y - 5}" r="3" class="{dot}"/>' + t(36, y, s_, "ink", 14.5))
+        y += 26
+    b.append(t(16, y + 4, "Source: Ollama v0.40.7, server/routes.go", "mut", 12))
+    b.append(t(16, y + 21, "and server/cloud_proxy.go (read by the author).", "mut", 12))
+    return svg(360, y + 38, "Who can reach your Ollama, and what they can do",
+               "Three nested zones: this computer only (the default), your network (if OLLAMA_HOST is 0.0.0.0), "
+               "and the internet (if the port is forwarded). Anyone who can connect can chat with, download, "
+               "delete and create models, and, if the app is signed in to ollama.com, see the account and use "
+               "its cloud models and web search.", "\n".join(b))
+
+
 def bars(b, x, y, label, num, den, width=330, cls="acc"):
     w = round(width * num / den, 1)
     b.append(t(x, y, label, "ink", 14))
@@ -213,7 +254,7 @@ def fig_tool_format() -> str:
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     head = json.loads((ROOT / "runs" / "p2-headline.json").read_text(encoding="utf-8"))
-    figs = {"setup.svg": fig_setup(), "reach.svg": fig_reach(), "results.svg": fig_results(head),
+    figs = {"setup.svg": fig_setup(), "reach.svg": fig_reach(), "reach-narrow.svg": fig_reach_narrow(), "results.svg": fig_results(head),
             "tool-format.svg": fig_tool_format()}
     for name, s in figs.items():
         (OUT / name).write_text(s, encoding="utf-8", newline="\n")
