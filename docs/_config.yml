@@ -1,5 +1,5 @@
-title: Running AI at home
-description: The weak spots of a home AI setup in plain words, a free check-up for your own computer, and a measurement of what popular models actually read.
+title: Running AI locally
+description: The weak spots of a local AI setup in plain words, a free check-up for your own computer, and a measurement of what popular models actually read.
 markdown: kramdown
 kramdown:
   input: GFM

@@ -21,7 +21,9 @@ difference first appears.
 It never loads model weights. GGUF headers are read with HTTP range requests, and rendering needs
 no GPU.
 
-**Website, in plain language:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
+**The article, in plain language:** [ARTICLE.md](ARTICLE.md), the six weak spots of a local AI setup for everyday users and AI engineers.
+
+**Website:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
 the article, a step-by-step guide to the check-up, and the full results.
 
 ## Results (snapshot 2026-10-22, Ollama v0.40.7)

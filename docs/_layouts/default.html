@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title and page.url != '/' %}{{ page.title }} · {% endif %}Running AI at home</title>
+  <title>{% if page.title and page.url != '/' %}{{ page.title }} · {% endif %}Running AI locally</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
@@ -95,6 +95,10 @@
       background: var(--accent); color: #fff; font-size: 1rem; font-weight: 700; transform: translateY(-2px); }
     .tell { background: var(--accent-wash); border-radius: 10px; padding: 10px 14px; margin: 1rem 0 0.8rem; }
     .tell strong:first-child { color: var(--accent-ink); }
+    .views { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1rem 0; }
+    .view { border: 1px solid var(--ring); border-radius: 10px; padding: 2px 14px; }
+    .view > p:first-child { margin-top: 0.7rem; }
+    @media (max-width: 640px) { .views { grid-template-columns: 1fr; } }
 
     /* setup and comparison diagrams (HTML, so text stays readable on a phone) */
     .flow { display: flex; align-items: stretch; gap: 8px; margin: 1.2rem 0 0.4rem; }
@@ -181,7 +185,7 @@
 <body>
   <header class="top">
     <div class="top-in">
-      <a class="brand" href="{{ '/' | relative_url }}"><i aria-hidden="true"></i>Running AI at home</a>
+      <a class="brand" href="{{ '/' | relative_url }}"><i aria-hidden="true"></i>Running AI locally</a>
       <nav aria-label="Site">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Article</a>
         <a href="{{ '/guide.html' | relative_url }}" {% if page.url == '/guide.html' %}aria-current="page"{% endif %}>Run the check-up</a>
