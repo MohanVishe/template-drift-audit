@@ -32,7 +32,8 @@ the text the model actually reads.
 **If you build with AI:**
 - The prompt your model actually reads can differ from the one its maker trained it on, even when
   you change nothing. In Ollama's library this held for 32 of 43 models on the tool-calling
-  conversations I tested.
+  conversations I tested. For `qwen2.5`, it cost 45 of 1,240 answers on a tool benchmark
+  ([the tool test](TOOL-TEST.md)).
 - Compare the rendered prompt, not the template file. Two templates can look different and give
   the same text, or look alike and give different text.
 - Treat a model's template as code that comes with the model, and the folders your agent can read
@@ -214,8 +215,9 @@ familiar form where the boxes have moved.
 
 Does that matter? Researchers have shown that formatting alone, such as which separators and
 spaces a prompt uses, can move a model's accuracy by up to 76 percentage points on some tasks
-(Sclar and others, ICLR 2024). That study used a different kind of prompt, and my measurement
-doesn't measure accuracy. So read it as "layout matters", not as a number for these models.
+(Sclar and others, ICLR 2024). That study used a different kind of prompt, so I tested it
+directly on one model. Given the maker's layout instead of Ollama's, `qwen2.5` answered 45 more of
+1,240 tool questions correctly: 87.0% instead of 83.4% ([the tool test](TOOL-TEST.md)).
 
 ### An example you can see
 
@@ -289,6 +291,11 @@ drift:
    exactly. But Hugging Face supplies its own Ollama-style template for it, and Ollama uses that
    one. It leaves out the short default instruction the maker's template adds when you don't
    write one yourself.
+
+**And the layout changes its answers.** On 1,240 tool questions from a public benchmark, the same
+model on the same server got 1,034 right with Ollama's layout and 1,079 with the maker's. The
+biggest gap: with Ollama's layout it more often called a tool when none fitted the question.
+[Read the tool test](TOOL-TEST.md).
 
 **If you just use AI:** if a local model is clumsy with tools, the layout may be part of the
 reason, not only the model. Check the results page for your model: some models came out with no
@@ -392,9 +399,9 @@ information). It changes nothing, sends nothing anywhere, and never opens your f
 
 - **A clean check-up looks for known warning signs.** It can't prove a model or an app is
   trustworthy.
-- **A different layout shows the model reads something it wasn't trained on.** How much that
-  changes its tool use is the next measurement, and I've already built and tested the harness for
-  it.
+- **A different layout changes what the model does.** For `qwen2.5`, the maker's layout gave
+  about 4 more correct tool answers in every 100 ([the tool test](TOOL-TEST.md)). Next: the same
+  test on more models, and on conversations with several turns.
 - **The results are a snapshot** of the most popular models on 22 October 2026, with Ollama 0.40.7.
 - **For the Hugging Face models and three library models,** Ollama fills in the template with a
   separate engine. I reproduced that engine's behaviour in Python: very close, not byte-for-byte.
@@ -410,7 +417,7 @@ the starting point. It covers weak spots 1, 2, 3 and 5 from the security side, a
 watching. For those, this article cites the original advisories and research. The rest is my own
 work: the measurement of 65 models (weak spot 4), the evidence on old and rewritten templates
 (weak spot 3), what Ollama's code exposes on an open port (weak spot 1), where chats are saved
-(weak spot 6), and the check-up.
+(weak spot 6), the tool test, and the check-up.
 
 ---
 

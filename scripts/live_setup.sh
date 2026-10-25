@@ -33,5 +33,13 @@ case "${1:-}" in
   serve)
     exec "$BASE/dist/bin/ollama" serve
     ;;
-  *) echo "usage: $0 unpack | import <models-dir> <ref> | serve" >&2; exit 2 ;;
+  serve-h3)
+    # H3 compares generations from the same weights, so every prompt must be computed the same
+    # way. llama-server keeps old prompts in a RAM cache and reuses their prefix, which changes
+    # how a prompt is batched and can tip greedy decoding. Ollama passes no --cache-ram for chat
+    # models, so llama-server reads it from this variable; 0 turns that cache off.
+    export LLAMA_ARG_CACHE_RAM=0
+    exec "$BASE/dist/bin/ollama" serve
+    ;;
+  *) echo "usage: $0 unpack | import <models-dir> <ref> | serve | serve-h3" >&2; exit 2 ;;
 esac

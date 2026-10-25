@@ -56,13 +56,15 @@ class JinjaSandbox:
 
     def render(self, template: str, messages: list[dict], tools: list[dict] | None = None, *,
                special_tokens: dict | None = None, add_generation_prompt: bool = True,
-               max_output: int | None = None) -> RenderResult:
+               max_output: int | None = None, extra: dict | None = None) -> RenderResult:
         if self.proc is None or self.proc.poll() is not None:
             self._start()
         req = {"template": template, "messages": messages, "tools": tools, "special_tokens": special_tokens,
                "add_generation_prompt": add_generation_prompt}
         if max_output is not None:
             req["max_output"] = max_output
+        if extra:
+            req["extra"] = extra  # template variables such as enable_thinking
         try:
             self.proc.stdin.write((json.dumps(req, ensure_ascii=False) + "\n").encode("utf-8"))
             self.proc.stdin.flush()

@@ -6,6 +6,7 @@ runs/*
 !runs/p2-hf/
 !runs/p2-headline.json
 !runs/p2-lint.json
+!runs/h3-mini/
 __pycache__/
 *.pyc
 .pytest_cache/

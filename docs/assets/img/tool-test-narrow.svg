@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 652" width="360" height="652" role="img" aria-labelledby="t d">
+<title id="t">Does the layout change how well qwen2.5 uses tools?</title>
+<desc id="d">One tool, one call: Ollama&#x27;s layout 370 of 400, maker&#x27;s layout 378 of 400; Pick the right tool: Ollama&#x27;s layout 182 of 200, maker&#x27;s layout 191 of 200; One tool, several calls: Ollama&#x27;s layout 172 of 200, maker&#x27;s layout 179 of 200; Several tools, several calls: Ollama&#x27;s layout 163 of 200, maker&#x27;s layout 169 of 200; No suitable tool: don&#x27;t call: Ollama&#x27;s layout 147 of 240, maker&#x27;s layout 162 of 240; Overall: Ollama&#x27;s layout 1034 of 1240, maker&#x27;s layout 1079 of 1240</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="360" height="652" rx="14"/>
+<text x="16" y="32" class="ink" font-size="18" font-weight="700" text-anchor="start" >Does the layout change how</text>
+<text x="16" y="54" class="ink" font-size="18" font-weight="700" text-anchor="start" >well qwen2.5 uses tools?</text>
+<text x="16" y="76" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Share of test questions answered correctly.</text>
+<rect x="16" y="90" width="12" height="12" rx="3" class="acc"/><text x="34" y="101" class="ink" font-size="13" font-weight="400" text-anchor="start" >Ollama&#x27;s layout</text>
+<rect x="170" y="90" width="12" height="12" rx="3" class="warn"/><text x="188" y="101" class="ink" font-size="13" font-weight="400" text-anchor="start" >The maker&#x27;s layout</text>
+<text x="16" y="136" class="ink" font-size="14.5" font-weight="600" text-anchor="start" >One tool, one call</text>
+<text x="344" y="136" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+8</text>
+<rect x="16" y="146" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="146" width="155.4" height="13" rx="4" class="acc"/>
+<text x="194" y="157" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >92.5% (370 of 400)</text>
+<rect x="16" y="166" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="166" width="158.8" height="13" rx="4" class="warn"/>
+<text x="194" y="177" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >94.5% (378 of 400)</text>
+<text x="16" y="208" class="ink" font-size="14.5" font-weight="600" text-anchor="start" >Pick the right tool</text>
+<text x="344" y="208" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+9</text>
+<rect x="16" y="218" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="218" width="152.9" height="13" rx="4" class="acc"/>
+<text x="194" y="229" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >91.0% (182 of 200)</text>
+<rect x="16" y="238" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="238" width="160.4" height="13" rx="4" class="warn"/>
+<text x="194" y="249" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >95.5% (191 of 200)</text>
+<text x="16" y="280" class="ink" font-size="14.5" font-weight="600" text-anchor="start" >One tool, several calls</text>
+<text x="344" y="280" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+7</text>
+<rect x="16" y="290" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="290" width="144.5" height="13" rx="4" class="acc"/>
+<text x="194" y="301" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >86.0% (172 of 200)</text>
+<rect x="16" y="310" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="310" width="150.4" height="13" rx="4" class="warn"/>
+<text x="194" y="321" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >89.5% (179 of 200)</text>
+<text x="16" y="352" class="ink" font-size="14.5" font-weight="600" text-anchor="start" >Several tools, several calls</text>
+<text x="344" y="352" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+6</text>
+<rect x="16" y="362" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="362" width="136.9" height="13" rx="4" class="acc"/>
+<text x="194" y="373" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >81.5% (163 of 200)</text>
+<rect x="16" y="382" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="382" width="142.0" height="13" rx="4" class="warn"/>
+<text x="194" y="393" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >84.5% (169 of 200)</text>
+<text x="16" y="424" class="ink" font-size="14.5" font-weight="600" text-anchor="start" >No suitable tool: don&#x27;t call</text>
+<text x="344" y="424" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+15</text>
+<rect x="16" y="434" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="434" width="102.9" height="13" rx="4" class="acc"/>
+<text x="194" y="445" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >61.3% (147 of 240)</text>
+<rect x="16" y="454" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="454" width="113.4" height="13" rx="4" class="warn"/>
+<text x="194" y="465" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >67.5% (162 of 240)</text>
+<text x="16" y="496" class="ink" font-size="14.5" font-weight="700" text-anchor="start" >All five together</text>
+<text x="344" y="496" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+45, clear</text>
+<rect x="16" y="506" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="506" width="140.1" height="13" rx="4" class="acc"/>
+<text x="194" y="517" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >83.4% (1034 of 1240)</text>
+<rect x="16" y="526" width="168" height="13" rx="4" class="none"/>
+<rect x="16" y="526" width="146.2" height="13" rx="4" class="warn"/>
+<text x="194" y="537" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >87.0% (1079 of 1240)</text>
+<text x="16" y="562" class="mut" font-size="12" font-weight="400" text-anchor="start" >Right of each name: extra correct answers</text>
+<text x="16" y="579" class="mut" font-size="12" font-weight="400" text-anchor="start" >with the maker&#x27;s layout. &quot;Clear&quot;: exact</text>
+<text x="16" y="596" class="mut" font-size="12" font-weight="400" text-anchor="start" >paired test, p below 0.05.</text>
+<text x="16" y="618" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: runs/h3-mini/qwen2.5/report.json;</text>
+<text x="16" y="635" class="mut" font-size="12" font-weight="400" text-anchor="start" >questions from BFCL.</text>
+</svg>

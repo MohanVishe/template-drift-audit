@@ -18,13 +18,16 @@ classifies each difference: whitespace, JSON spacing, a dropped default system p
 definitions printed as Go structs, re-wrapped tool calls, and so on. It also reports where each
 difference first appears.
 
-It never loads model weights. GGUF headers are read with HTTP range requests, and rendering needs
-no GPU.
+The audit never loads model weights. GGUF headers are read with HTTP range requests, and rendering
+needs no GPU. A separate behavioural test (`tda/h3`, below) does run a model, on an isolated
+Ollama server, to measure what the drift changes.
 
 **The article, in plain language:** [ARTICLE.md](ARTICLE.md), the six weak spots of a local AI setup for everyday users and AI engineers.
 
+**The tool test:** [TOOL-TEST.md](TOOL-TEST.md), whether the layout changes how well qwen2.5 uses tools.
+
 **Website:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
-the article, a step-by-step guide to the check-up, and the full results.
+the article, the tool test, a step-by-step guide to the check-up, and the full results.
 
 ## Results (snapshot 2026-10-22, Ollama v0.40.7)
 
@@ -41,6 +44,25 @@ All 5 Hugging Face cases are already in the GGUF's embedded template.
 
 The data behind these numbers (every model's JSON and every render) is in `runs/p2-library/` and
 `runs/p2-hf/`.
+
+## Behavioural test: does the drift change tool use? (2026-10-25)
+
+`qwen2.5:7b-instruct` (model layer `2bada8a74506`), BFCL at `6ea5797`, five single-turn categories,
+1,240 items. Arm A1 is Ollama's L3 prompt rendered by the Go helper; arm B is the author's L0. Both
+are sent raw to the same isolated Ollama v0.40.7 (`LLAMA_ARG_CACHE_RAM=0`, temperature 0, seed 42)
+and both replies are read by BFCL's Hermes parser, so B − A1 is the layout alone.
+
+| Category | n | A1 (L3) | B (L0) | B only | A1 only | Holm p |
+|---|---|---|---|---|---|---|
+| simple_python | 400 | 370 | 378 | 13 | 5 | 0.277 |
+| multiple | 200 | 182 | 191 | 11 | 2 | 0.090 |
+| parallel | 200 | 172 | 179 | 10 | 3 | 0.277 |
+| parallel_multiple | 200 | 163 | 169 | 13 | 7 | 0.277 |
+| irrelevance | 240 | 147 | 162 | 23 | 8 | 0.053 |
+| **overall** | 1,240 | 1,034 (83.4%) | 1,079 (87.0%) | 70 | 25 | exact McNemar p = 4.3e-6 |
+
+Checks: 0 cached tokens in all 2,480 steps, 40 of 40 repeats identical, no reply hit `num_predict`.
+Data: `runs/h3-mini/qwen2.5/`; runner `scripts/h3_mini.py`, report `scripts/h3_mini_report.py`.
 
 ## Quick check-up: `tda check`
 
@@ -136,8 +158,9 @@ tda report runs/<run-id>
 | `labels/` | the labelled diff set and the labelling guide |
 | `population/` | the dated study population (top Ollama library and HF GGUF packages) and its hand-made L0 mapping |
 | `scripts/` | headline numbers, hand-review hunk viewer, population template lint, results page and site figures |
-| `runs/` | the published P2 study data: per-model JSON, every render, reports, headline and lint |
-| `docs/` | the GitHub Pages site (article, guide, results, method) |
+| `tda/h3/` | the behavioural test: BFCL items as prompts, output parsers, the isolated runtime |
+| `runs/` | the published study data: P2 per-model JSON, every render, reports, headline and lint; the H3 tool test in `runs/h3-mini/` |
+| `docs/` | the GitHub Pages site (article, tool test, guide, results, method) |
 | `DESIGN.md`, `P0-RESULTS.md`, `P1-RESULTS.md`, `P2-RESULTS.md` | design and results notes, in order |
 
 ## Scope

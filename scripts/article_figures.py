@@ -251,11 +251,96 @@ def fig_tool_format() -> str:
                "\n".join(b))
 
 
+CATEGORY_NAMES = {"simple_python": "One tool, one call", "multiple": "Pick the right tool",
+                  "parallel": "One tool, several calls", "parallel_multiple": "Several tools, several calls",
+                  "irrelevance": "No suitable tool: don't call"}
+
+
+def pct(c: int, n: int) -> str:
+    """Percentage to one decimal, rounding halves up (147/240 -> 61.3, not float's 61.2)."""
+    return f"{(1000 * c + n // 2) // n / 10:.1f}%"
+
+
+def fig_tool_test(report: dict) -> str:
+    """H3 mini-test: correct answers per category, Ollama's layout (A1) vs the maker's (B)."""
+    rows = report["results"]
+    b = [t(28, 40, "Does the layout change how well qwen2.5 uses tools?", "ink", 20, 700),
+         t(28, 62, "Share of test questions answered correctly, same model and settings, two prompt layouts.",
+           "ink2", 13)]
+    b.append(f'<rect x="470" y="76" width="12" height="12" rx="3" class="acc"/>' + t(488, 87, "Ollama's layout", "ink", 13))
+    b.append(f'<rect x="610" y="76" width="12" height="12" rx="3" class="warn"/>' + t(628, 87, "The maker's layout", "ink", 13))
+    y, width = 120, 300
+    for cat in list(CATEGORY_NAMES) + ["overall"]:
+        r = rows[cat]
+        n = r["n"]
+        name = CATEGORY_NAMES.get(cat, "All five together")
+        b.append(t(28, y + 14, name, "ink", 14, 700 if cat == "overall" else 400))
+        b.append(t(28, y + 32, f"{n} questions", "mut", 12))
+        for k, (arm, cls) in enumerate((("A1", "acc"), ("B", "warn"))):
+            c = r[f"{arm}_correct"]
+            yy = y + k * 18
+            w = round(width * c / n, 1)
+            b.append(f'<rect x="250" y="{yy}" width="{width}" height="13" rx="4" class="none"/>')
+            b.append(f'<rect x="250" y="{yy}" width="{w}" height="13" rx="4" class="{cls}"/>')
+            b.append(t(560, yy + 11, f"{pct(c, n)}  ({c} of {n})", "ink", 12.5))
+        diff = r["B_correct"] - r["A1_correct"]
+        sig = r.get("p_holm", r["p_exact"])
+        verdict = "clear" if sig < 0.05 else "not conclusive alone"
+        b.append(t(828, y + 22, f"{diff:+d}, {verdict}", "ink2", 12.5, anchor="end"))
+        y += 58 if cat != "irrelevance" else 66
+    b.append(t(28, y + 8, "Right: extra correct answers with the maker's layout. \"Clear\": exact paired test, p below 0.05 "
+               "(categories corrected for five tests).", "mut", 12))
+    b.append(t(28, y + 26, "Source: runs/h3-mini/qwen2.5/report.json; questions from the Berkeley Function Calling "
+               "Leaderboard (BFCL).", "mut", 12))
+    return svg(856, y + 44, "Does the layout change how well qwen2.5 uses tools?",
+               "; ".join(f"{CATEGORY_NAMES.get(c, 'Overall')}: Ollama's layout {rows[c]['A1_correct']} of "
+                         f"{rows[c]['n']}, maker's layout {rows[c]['B_correct']} of {rows[c]['n']}"
+                         for c in list(CATEGORY_NAMES) + ["overall"]), "\n".join(b))
+
+
+def fig_tool_test_narrow(report: dict) -> str:
+    """fig_tool_test stacked for phones: each category's name, then its two bars and values."""
+    rows = report["results"]
+    b = [t(16, 32, "Does the layout change how", "ink", 18, 700), t(16, 54, "well qwen2.5 uses tools?", "ink", 18, 700),
+         t(16, 76, "Share of test questions answered correctly.", "ink2", 13)]
+    b.append('<rect x="16" y="90" width="12" height="12" rx="3" class="acc"/>' + t(34, 101, "Ollama's layout", "ink", 13))
+    b.append('<rect x="170" y="90" width="12" height="12" rx="3" class="warn"/>' + t(188, 101, "The maker's layout", "ink", 13))
+    y, width = 136, 168
+    for cat in list(CATEGORY_NAMES) + ["overall"]:
+        r = rows[cat]
+        n = r["n"]
+        diff = r["B_correct"] - r["A1_correct"]
+        clear = r.get("p_holm", r["p_exact"]) < 0.05
+        b.append(t(16, y, CATEGORY_NAMES.get(cat, "All five together"), "ink", 14.5, 700 if cat == "overall" else 600))
+        b.append(t(344, y, f"{diff:+d}{', clear' if clear else ''}", "ink2", 13, anchor="end"))
+        for k, (arm, cls) in enumerate((("A1", "acc"), ("B", "warn"))):
+            c = r[f"{arm}_correct"]
+            yy = y + 10 + k * 20
+            b.append(f'<rect x="16" y="{yy}" width="{width}" height="13" rx="4" class="none"/>')
+            b.append(f'<rect x="16" y="{yy}" width="{round(width * c / n, 1)}" height="13" rx="4" class="{cls}"/>')
+            b.append(t(194, yy + 11, f"{pct(c, n)} ({c} of {n})", "ink", 12.5))
+        y += 72
+    b.append(t(16, y - 6, "Right of each name: extra correct answers", "mut", 12))
+    b.append(t(16, y + 11, "with the maker's layout. \"Clear\": exact", "mut", 12))
+    b.append(t(16, y + 28, "paired test, p below 0.05.", "mut", 12))
+    b.append(t(16, y + 50, "Source: runs/h3-mini/qwen2.5/report.json;", "mut", 12))
+    b.append(t(16, y + 67, "questions from BFCL.", "mut", 12))
+    return svg(360, y + 84, "Does the layout change how well qwen2.5 uses tools?",
+               "; ".join(f"{CATEGORY_NAMES.get(c, 'Overall')}: Ollama's layout {rows[c]['A1_correct']} of "
+                         f"{rows[c]['n']}, maker's layout {rows[c]['B_correct']} of {rows[c]['n']}"
+                         for c in list(CATEGORY_NAMES) + ["overall"]), "\n".join(b))
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     head = json.loads((ROOT / "runs" / "p2-headline.json").read_text(encoding="utf-8"))
     figs = {"setup.svg": fig_setup(), "reach.svg": fig_reach(), "reach-narrow.svg": fig_reach_narrow(), "results.svg": fig_results(head),
             "tool-format.svg": fig_tool_format()}
+    test = ROOT / "runs" / "h3-mini" / "qwen2.5" / "report.json"
+    if test.exists():
+        report = json.loads(test.read_text(encoding="utf-8"))
+        figs["tool-test.svg"] = fig_tool_test(report)
+        figs["tool-test-narrow.svg"] = fig_tool_test_narrow(report)
     for name, s in figs.items():
         (OUT / name).write_text(s, encoding="utf-8", newline="\n")
         print("wrote", (OUT / name).relative_to(ROOT))

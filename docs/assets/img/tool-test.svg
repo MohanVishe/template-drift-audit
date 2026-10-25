@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 520" width="856" height="520" role="img" aria-labelledby="t d">
+<title id="t">Does the layout change how well qwen2.5 uses tools?</title>
+<desc id="d">One tool, one call: Ollama&#x27;s layout 370 of 400, maker&#x27;s layout 378 of 400; Pick the right tool: Ollama&#x27;s layout 182 of 200, maker&#x27;s layout 191 of 200; One tool, several calls: Ollama&#x27;s layout 172 of 200, maker&#x27;s layout 179 of 200; Several tools, several calls: Ollama&#x27;s layout 163 of 200, maker&#x27;s layout 169 of 200; No suitable tool: don&#x27;t call: Ollama&#x27;s layout 147 of 240, maker&#x27;s layout 162 of 240; Overall: Ollama&#x27;s layout 1034 of 1240, maker&#x27;s layout 1079 of 1240</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="520" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >Does the layout change how well qwen2.5 uses tools?</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Share of test questions answered correctly, same model and settings, two prompt layouts.</text>
+<rect x="470" y="76" width="12" height="12" rx="3" class="acc"/><text x="488" y="87" class="ink" font-size="13" font-weight="400" text-anchor="start" >Ollama&#x27;s layout</text>
+<rect x="610" y="76" width="12" height="12" rx="3" class="warn"/><text x="628" y="87" class="ink" font-size="13" font-weight="400" text-anchor="start" >The maker&#x27;s layout</text>
+<text x="28" y="134" class="ink" font-size="14" font-weight="400" text-anchor="start" >One tool, one call</text>
+<text x="28" y="152" class="mut" font-size="12" font-weight="400" text-anchor="start" >400 questions</text>
+<rect x="250" y="120" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="120" width="277.5" height="13" rx="4" class="acc"/>
+<text x="560" y="131" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >92.5%  (370 of 400)</text>
+<rect x="250" y="138" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="138" width="283.5" height="13" rx="4" class="warn"/>
+<text x="560" y="149" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >94.5%  (378 of 400)</text>
+<text x="828" y="142" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+8, not conclusive alone</text>
+<text x="28" y="192" class="ink" font-size="14" font-weight="400" text-anchor="start" >Pick the right tool</text>
+<text x="28" y="210" class="mut" font-size="12" font-weight="400" text-anchor="start" >200 questions</text>
+<rect x="250" y="178" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="178" width="273.0" height="13" rx="4" class="acc"/>
+<text x="560" y="189" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >91.0%  (182 of 200)</text>
+<rect x="250" y="196" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="196" width="286.5" height="13" rx="4" class="warn"/>
+<text x="560" y="207" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >95.5%  (191 of 200)</text>
+<text x="828" y="200" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+9, not conclusive alone</text>
+<text x="28" y="250" class="ink" font-size="14" font-weight="400" text-anchor="start" >One tool, several calls</text>
+<text x="28" y="268" class="mut" font-size="12" font-weight="400" text-anchor="start" >200 questions</text>
+<rect x="250" y="236" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="236" width="258.0" height="13" rx="4" class="acc"/>
+<text x="560" y="247" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >86.0%  (172 of 200)</text>
+<rect x="250" y="254" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="254" width="268.5" height="13" rx="4" class="warn"/>
+<text x="560" y="265" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >89.5%  (179 of 200)</text>
+<text x="828" y="258" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+7, not conclusive alone</text>
+<text x="28" y="308" class="ink" font-size="14" font-weight="400" text-anchor="start" >Several tools, several calls</text>
+<text x="28" y="326" class="mut" font-size="12" font-weight="400" text-anchor="start" >200 questions</text>
+<rect x="250" y="294" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="294" width="244.5" height="13" rx="4" class="acc"/>
+<text x="560" y="305" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >81.5%  (163 of 200)</text>
+<rect x="250" y="312" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="312" width="253.5" height="13" rx="4" class="warn"/>
+<text x="560" y="323" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >84.5%  (169 of 200)</text>
+<text x="828" y="316" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+6, not conclusive alone</text>
+<text x="28" y="366" class="ink" font-size="14" font-weight="400" text-anchor="start" >No suitable tool: don&#x27;t call</text>
+<text x="28" y="384" class="mut" font-size="12" font-weight="400" text-anchor="start" >240 questions</text>
+<rect x="250" y="352" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="352" width="183.8" height="13" rx="4" class="acc"/>
+<text x="560" y="363" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >61.3%  (147 of 240)</text>
+<rect x="250" y="370" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="370" width="202.5" height="13" rx="4" class="warn"/>
+<text x="560" y="381" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >67.5%  (162 of 240)</text>
+<text x="828" y="374" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+15, not conclusive alone</text>
+<text x="28" y="432" class="ink" font-size="14" font-weight="700" text-anchor="start" >All five together</text>
+<text x="28" y="450" class="mut" font-size="12" font-weight="400" text-anchor="start" >1240 questions</text>
+<rect x="250" y="418" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="418" width="250.2" height="13" rx="4" class="acc"/>
+<text x="560" y="429" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >83.4%  (1034 of 1240)</text>
+<rect x="250" y="436" width="300" height="13" rx="4" class="none"/>
+<rect x="250" y="436" width="261.0" height="13" rx="4" class="warn"/>
+<text x="560" y="447" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >87.0%  (1079 of 1240)</text>
+<text x="828" y="440" class="ink2" font-size="12.5" font-weight="400" text-anchor="end" >+45, clear</text>
+<text x="28" y="484" class="mut" font-size="12" font-weight="400" text-anchor="start" >Right: extra correct answers with the maker&#x27;s layout. &quot;Clear&quot;: exact paired test, p below 0.05 (categories corrected for five tests).</text>
+<text x="28" y="502" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: runs/h3-mini/qwen2.5/report.json; questions from the Berkeley Function Calling Leaderboard (BFCL).</text>
+</svg>
