@@ -1,0 +1,131 @@
+{
+ "checks": {
+  "records": 1240,
+  "items": 1240,
+  "items_missing_a_published_arm": 0,
+  "steps_with_cached_tokens": 0,
+  "prompt_equal_to_A1": 1240,
+  "hit_num_predict": 0,
+  "max_prompt_tokens": 838,
+  "same_calls_as_A1": 1213,
+  "repeat_identical": "20 of 20"
+ },
+ "A_vs_B": {
+  "simple_python": {
+   "n": 400,
+   "A_correct": 370,
+   "B_correct": 378,
+   "A_only": 5,
+   "B_only": 13,
+   "p_exact": 0.09625244140625,
+   "p_holm": 0.369140625
+  },
+  "multiple": {
+   "n": 200,
+   "A_correct": 182,
+   "B_correct": 191,
+   "A_only": 2,
+   "B_only": 11,
+   "p_exact": 0.0224609375,
+   "p_holm": 0.1123046875
+  },
+  "parallel": {
+   "n": 200,
+   "A_correct": 172,
+   "B_correct": 179,
+   "A_only": 3,
+   "B_only": 10,
+   "p_exact": 0.09228515625,
+   "p_holm": 0.369140625
+  },
+  "parallel_multiple": {
+   "n": 200,
+   "A_correct": 162,
+   "B_correct": 169,
+   "A_only": 7,
+   "B_only": 14,
+   "p_exact": 0.18924713134765625,
+   "p_holm": 0.3784942626953125
+  },
+  "irrelevance": {
+   "n": 240,
+   "A_correct": 167,
+   "B_correct": 162,
+   "A_only": 23,
+   "B_only": 18,
+   "p_exact": 0.5327092552361137,
+   "p_holm": 0.5327092552361137
+  },
+  "overall": {
+   "n": 1240,
+   "A_correct": 1053,
+   "B_correct": 1079,
+   "A_only": 40,
+   "B_only": 66,
+   "p_exact": 0.014779410517038355
+  }
+ },
+ "A_vs_A1": {
+  "simple_python": {
+   "n": 400,
+   "A_correct": 370,
+   "A1_correct": 370,
+   "A_only": 0,
+   "A1_only": 0,
+   "p_exact": 1.0,
+   "p_holm": 1.0
+  },
+  "multiple": {
+   "n": 200,
+   "A_correct": 182,
+   "A1_correct": 182,
+   "A_only": 0,
+   "A1_only": 0,
+   "p_exact": 1.0,
+   "p_holm": 1.0
+  },
+  "parallel": {
+   "n": 200,
+   "A_correct": 172,
+   "A1_correct": 172,
+   "A_only": 0,
+   "A1_only": 0,
+   "p_exact": 1.0,
+   "p_holm": 1.0
+  },
+  "parallel_multiple": {
+   "n": 200,
+   "A_correct": 162,
+   "A1_correct": 163,
+   "A_only": 0,
+   "A1_only": 1,
+   "p_exact": 1.0,
+   "p_holm": 1.0
+  },
+  "irrelevance": {
+   "n": 240,
+   "A_correct": 167,
+   "A1_correct": 147,
+   "A_only": 20,
+   "A1_only": 0,
+   "p_exact": 1.9073486328125e-06,
+   "p_holm": 9.5367431640625e-06
+  },
+  "overall": {
+   "n": 1240,
+   "A_correct": 1053,
+   "A1_correct": 1034,
+   "A_only": 20,
+   "A1_only": 1,
+   "p_exact": 2.09808349609375e-05
+  }
+ },
+ "parser_flips_losing_side": {
+  "A_only": {
+   "irrelevance: irrelevance_error:decoder_success": 20
+  },
+  "A1_only": {
+   "parallel_multiple: parallel_function_checker_no_order:cannot_find_match": 1
+  }
+ }
+}

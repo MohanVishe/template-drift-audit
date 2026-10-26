@@ -1,0 +1,37 @@
+{
+ "model": "qwen2.5:7b-instruct",
+ "spec": {
+  "p2": "qwen2.5_latest",
+  "package": "qwen2.5:latest",
+  "serve_as": "qwen2.5:7b-instruct",
+  "parser": "hermes",
+  "upstream_repo": "Qwen/Qwen2.5-7B-Instruct",
+  "upstream_sha": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "model_digest": "2bada8a74506",
+  "one_call_per_message": false,
+  "think": null,
+  "optional": false
+ },
+ "options": {
+  "temperature": 0,
+  "seed": 42,
+  "num_ctx": 16384,
+  "num_predict": 1024
+ },
+ "ollama": "0.40.7",
+ "bfcl": {
+  "ok": true,
+  "bfcl_sha": "6ea57973c7a6097fd7c5915698c54c17c5b1b6c8",
+  "python": "3.12.3"
+ },
+ "model_digest": "sha256:2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+ "runtime": {
+  "runtime_adds_bos": false,
+  "size": 5472623000,
+  "size_vram": 5472623000
+ },
+ "started": "2026-10-26 06:49:20",
+ "arms": [
+  "A"
+ ]
+}

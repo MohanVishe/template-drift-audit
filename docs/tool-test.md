@@ -33,6 +33,8 @@ correctly.</p>
   of the tools fitted the question.
 - If a local model is clumsy with tools, the app's layout can be part of the reason, not only the
   model.
+- Through Ollama's normal chat route, the gap is smaller, about 2 in 100, because Ollama quietly
+  throws away calls to tools that don't exist.
 
 </div>
 <div class="view" markdown="1">
@@ -42,6 +44,9 @@ correctly.</p>
 - On qwen2.5, the layout alone moved tool-calling accuracy from 83.4% to 87.0% on BFCL's five
   single-turn categories. The overall difference is clear (exact paired test, p ≈ 0.000004).
 - Every category moved the same way, but no single category is conclusive on its own.
+- Through Ollama's own `/api/chat` and parser, qwen2.5 scored 84.9%: still behind the maker's
+  layout (p ≈ 0.015). Ollama's parser drops calls to tools that weren't offered, which rescued 20
+  "no suitable tool" answers.
 - If you depend on tool calling, test it on the exact package you ship. And if you benchmark on
   Ollama, turn the prompt cache off (details below).
 
@@ -156,6 +161,36 @@ says that `crime` is plain text.
 Two examples show what the differences look like, not why they happen. The test shows that the
 layout changes the answers. It doesn't show which part of the layout causes which mistake.
 
+## And in everyday use?
+
+The comparison above reads both layouts' replies the same way, to isolate the layout. In everyday
+use, an app sends the conversation to Ollama's chat route, and Ollama reads the reply with its own
+parser. So I ran all 1,240 questions a third way, exactly as an app would.
+
+| How the question was sent and read | Correct | Share |
+|---|---|---|
+| Ollama's layout, read by BFCL's parser (above) | 1,034 of 1,240 | 83.4% |
+| **Everyday Ollama:** Ollama's layout, read by Ollama's own parser | 1,053 of 1,240 | 84.9% |
+| The maker's layout, read by BFCL's parser (above) | 1,079 of 1,240 | 87.0% |
+
+- **The model read the same text.** On all 1,240 questions, the prompt Ollama built matched the
+  "Ollama's layout" prompt above, byte for byte, and the model's reply was the same length to the
+  token.
+- **Ollama's parser changed the verdict on 21 questions.** On 20 "no suitable tool" questions, the
+  model had written an answer and then called a tool that doesn't exist, one it made up, such as
+  `calculate_triangle_area` when only a body-mass-index tool was offered. Ollama's parser drops
+  calls to tools that weren't offered, so those 20 count as right. On 1 question it turned numbers
+  such as `3.0` into `3`, and BFCL marked that wrong.
+- **The maker's layout is still ahead.** 66 questions only the maker's layout got right, 40 only
+  everyday Ollama. A split like that would turn up by chance about 15 times in 1,000 (exact paired
+  test, p ≈ 0.015, the headline I chose before the run). So the gap is smaller, but still clear.
+- **Outside "no suitable tool", the gap is almost all layout.** In the other four categories, Ollama's
+  parser changed one verdict. There, everyday Ollama got 886 of 1,000 right and the maker's layout
+  917.
+- **On "no suitable tool", everyday Ollama came out ahead** (167 against 162), thanks to its
+  parser. The maker's layout wasn't run through Ollama's parser, so how much the same rescue would
+  add to it is still open.
+
 ## What this means
 
 <div class="views" markdown="1">
@@ -166,6 +201,8 @@ layout changes the answers. It doesn't show which part of the layout causes whic
 - On this test, the maker's layout gave about 4 more correct answers in every 100 (3.6, to be
   exact). The biggest gain was the model holding back when no tool fits, so it's less likely to
   do something you didn't ask for.
+- Through Ollama as you'd normally use it, the difference is about 2 in 100 (2.1). Ollama
+  already catches one kind of slip for you: a call to a tool that doesn't exist never runs.
 - You don't need to do anything technical for this. Keep Ollama updated: the tool-format problem
   is reported (issue #14601) and fixes have been proposed, so an update can bring the fix.
 
@@ -178,6 +215,9 @@ layout changes the answers. It doesn't show which part of the layout causes whic
   general. The layout is part of what you ship.
 - If a model's shipped template drifts from the maker's, you can set your own `TEMPLATE` in a
   Modelfile. Check the rendered prompt against the maker's template before you rely on it.
+- Ollama's parser silently drops calls to tools you didn't offer. That protects your app, but it
+  also hides the slip: if you're evaluating a model, read the raw output too. It also returns
+  `3.0` as `3`, so a tool that checks types strictly should accept both.
 - If you compare prompts on Ollama, watch the prompt cache. Identical prompts gave different
   answers at temperature 0 until it was off. Run each variant on a fresh server, or check the
   reused-token count in each reply.
@@ -192,22 +232,26 @@ layout changes the answers. It doesn't show which part of the layout causes whic
 - **Single-turn questions.** Each question is one request and one reply. Conversations where the
   model uses a tool, reads the answer and carries on are the next step, and the harness already
   supports them.
-- **The layout alone.** Both layouts' replies were read by BFCL's parser, to isolate the layout.
-  In everyday use, Ollama reads the reply with its own parser, which in the trial dropped calls to
-  tools that were never offered. That can rescue a few "no suitable tool" answers in real use.
+- **Two readers.** The main comparison reads both layouts with BFCL's parser, and the everyday
+  run reads Ollama's layout with Ollama's parser. Running the maker's layout through Ollama's
+  parser too would split the last gap into layout and parser exactly. That's a small next run.
 - **A benchmark, not everyday use.** BFCL's questions are short, in English, with an answer key.
   Real conversations are longer and messier.
-- **One interruption.** The run paused once when the graphics driver stopped responding, and
-  carried on after a restart. The 40 repeated answers were identical before and after.
+- **Two interruptions.** The main run paused once when the graphics driver stopped responding,
+  and the everyday run was paused by hand. Both carried on where they stopped. All 60 repeated
+  answers (40 and 20) were identical.
 
 ## Data and code
 
 - Every reply and its score: [`runs/h3-mini/qwen2.5/`](https://github.com/MohanVishe/template-drift-audit/tree/main/runs/h3-mini/qwen2.5)
-  (`records.jsonl`, `repeat.jsonl`, `meta.json`, `report.json`).
+  (`records.jsonl`, `repeat.jsonl`, `meta.json`, `report.json`; the everyday run in the files
+  ending `-A`).
 - The test runner and report: [`scripts/h3_mini.py`](https://github.com/MohanVishe/template-drift-audit/blob/main/scripts/h3_mini.py),
-  [`scripts/h3_mini_report.py`](https://github.com/MohanVishe/template-drift-audit/blob/main/scripts/h3_mini_report.py)
+  [`scripts/h3_mini_report.py`](https://github.com/MohanVishe/template-drift-audit/blob/main/scripts/h3_mini_report.py),
+  [`scripts/h3_mini_report_a.py`](https://github.com/MohanVishe/template-drift-audit/blob/main/scripts/h3_mini_report_a.py)
   and [`tda/h3/`](https://github.com/MohanVishe/template-drift-audit/tree/main/tda/h3).
-- Run on 25 October 2026, about 50 minutes of model time for 2,480 replies.
+- Run on 25 and 26 October 2026: about 50 minutes of model time for the 2,480 replies of the main
+  comparison, and about 25 for the 1,240 of the everyday run.
 
 ## Sources
 

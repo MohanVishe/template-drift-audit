@@ -400,7 +400,8 @@ information). It changes nothing, sends nothing anywhere, and never opens your f
 - **A clean check-up looks for known warning signs.** It can't prove a model or an app is
   trustworthy.
 - **A different layout changes what the model does.** For `qwen2.5`, the maker's layout gave
-  about 4 more correct tool answers in every 100 ([the tool test](TOOL-TEST.md)). Next: the same
+  about 4 more correct tool answers in every 100, or about 2 through Ollama's normal chat route
+  ([the tool test](TOOL-TEST.md)). Next: the same
   test on more models, and on conversations with several turns.
 - **The results are a snapshot** of the most popular models on 22 October 2026, with Ollama 0.40.7.
 - **For the Hugging Face models and three library models,** Ollama fills in the template with a

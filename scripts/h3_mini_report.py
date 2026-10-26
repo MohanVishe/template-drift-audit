@@ -90,7 +90,7 @@ def main() -> int:
             flips["B_only"][f"{v['A1']['category']}: {v['A1']['error_type']}"] += 1
     report = {"checks": checks, "results": rows,
               "losing_side_errors": {k: dict(c.most_common(12)) for k, c in flips.items()}}
-    (run / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
+    (run / "report.json").write_text(json.dumps(report, indent=1), encoding="utf-8", newline="\n")
 
     print(json.dumps(checks, indent=1))
     print(f"{'category':18} {'n':>4} {'A1':>5} {'B':>5} {'A1only':>6} {'Bonly':>5} {'p':>8} {'p_holm':>8} {'same':>5}")

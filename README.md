@@ -64,6 +64,13 @@ and both replies are read by BFCL's Hermes parser, so B − A1 is the layout alo
 Checks: 0 cached tokens in all 2,480 steps, 40 of 40 repeats identical, no reply hit `num_predict`.
 Data: `runs/h3-mini/qwen2.5/`; runner `scripts/h3_mini.py`, report `scripts/h3_mini_report.py`.
 
+**Arm A, everyday use** (`--arms A`, 2026-10-26): the same items through `/api/chat` and Ollama's
+own parser. Prompt equal to A1's on 1,240 of 1,240; 0 cached tokens; 20 of 20 repeats identical.
+A 1,053 (84.9%) vs B 1,079 (87.0%): 40 vs 66 discordant, exact McNemar p = 0.015 (the
+pre-registered headline in `scripts/h3_mini_report_a.py`). A vs A1 differ on 21 items: 20
+irrelevance items where Ollama's parser drops a call to a tool that was not offered, and 1
+parallel_multiple item where it returns `3.0` as `3`. Report: `report-A.json`.
+
 ## Quick check-up: `tda check`
 
 A read-only check of your own machine that needs only Python, no other packages:
