@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 420" width="856" height="420" role="img" aria-labelledby="t d">
+<title id="t">How a chat template travels from its maker to the model</title>
+<desc id="d">The maker&#x27;s template on Hugging Face is copied into the model file (GGUF), and Ollama then runs either that copy or its own rewritten version; the model reads only the result. Of the 32 Ollama library models whose tool conversations differ from the maker&#x27;s, 24 differ only because of Ollama&#x27;s own version, 6 start with an older copy in the model file, and 2 have no template in the file to compare.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="420" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >How a chat template travels from its maker to the model</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Where the difference first appears, for the 32 of 43 Ollama library models whose tool conversations differ.</text>
+<rect x="28" y="90" width="172" height="106" rx="10" class="card"/>
+<text x="42" y="120" class="ink" font-size="15" font-weight="700" text-anchor="start" >The maker&#x27;s template</text>
+<text x="42" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >on Hugging Face,</text>
+<text x="42" y="162" class="ink2" font-size="13" font-weight="400" text-anchor="start" >written by the maker</text>
+<text x="42" y="184" class="mut mono" font-size="11.5" font-weight="400" text-anchor="start" >L0 · Jinja</text>
+<line x1="204" y1="143" x2="230" y2="143" class="ln" stroke-width="2"/><path d="M228,138 L236,143 L228,148 Z" class="mut"/>
+<rect x="240" y="90" width="172" height="106" rx="10" class="card"/>
+<text x="254" y="120" class="ink" font-size="15" font-weight="700" text-anchor="start" >The copy in the file</text>
+<text x="254" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >made when the model</text>
+<text x="254" y="162" class="ink2" font-size="13" font-weight="400" text-anchor="start" >is packaged as GGUF</text>
+<text x="254" y="184" class="mut mono" font-size="11.5" font-weight="400" text-anchor="start" >L1 · GGUF header</text>
+<line x1="416" y1="143" x2="442" y2="143" class="ln" stroke-width="2"/><path d="M440,138 L448,143 L440,148 Z" class="mut"/>
+<rect x="452" y="90" width="172" height="106" rx="10" class="card"/>
+<text x="466" y="120" class="ink" font-size="15" font-weight="700" text-anchor="start" >What Ollama runs</text>
+<text x="466" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >often Ollama&#x27;s own</text>
+<text x="466" y="162" class="ink2" font-size="13" font-weight="400" text-anchor="start" >rewritten version</text>
+<text x="466" y="184" class="mut mono" font-size="11.5" font-weight="400" text-anchor="start" >L3 · Go template</text>
+<line x1="628" y1="143" x2="654" y2="143" class="ln" stroke-width="2"/><path d="M652,138 L660,143 L652,148 Z" class="mut"/>
+<rect x="664" y="90" width="172" height="106" rx="10" class="accw"/>
+<text x="678" y="120" class="ink" font-size="15" font-weight="700" text-anchor="start" >The model</text>
+<text x="678" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >reads only this</text>
+<text x="678" y="162" class="ink2" font-size="13" font-weight="400" text-anchor="start" >one block of text</text>
+<text x="28" y="246" class="ink2" font-size="13" font-weight="400" text-anchor="start" >The reference: the text</text>
+<text x="28" y="264" class="ink2" font-size="13" font-weight="400" text-anchor="start" >the model was trained</text>
+<text x="28" y="282" class="ink2" font-size="13" font-weight="400" text-anchor="start" >to read.</text>
+<line x1="326" y1="200" x2="326" y2="226" class="warnl" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="240" y="226" width="172" height="70" rx="10" class="warnw"/>
+<text x="254" y="254" class="warn" font-size="20" font-weight="700" text-anchor="start" >6 of 32</text>
+<text x="254" y="273" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >an older copy of the</text>
+<text x="254" y="289" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >maker&#x27;s, then Ollama&#x27;s</text>
+<rect x="240" y="306" width="172" height="70" rx="10" class="warnw"/>
+<text x="254" y="334" class="warn" font-size="20" font-weight="700" text-anchor="start" >2 of 32</text>
+<text x="254" y="353" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >the file has no</text>
+<text x="254" y="369" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >template to compare</text>
+<line x1="538" y1="200" x2="538" y2="226" class="warnl" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="452" y="226" width="172" height="70" rx="10" class="warnw"/>
+<text x="466" y="254" class="warn" font-size="20" font-weight="700" text-anchor="start" >24 of 32</text>
+<text x="466" y="273" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >Ollama&#x27;s own version</text>
+<text x="466" y="289" class="ink2" font-size="12.5" font-weight="400" text-anchor="start" >changes the layout</text>
+<text x="28" y="404" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: runs/p2-headline.json in the project repository.</text>
+</svg>

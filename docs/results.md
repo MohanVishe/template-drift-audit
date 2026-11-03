@@ -150,7 +150,7 @@ maker's next change to it.
 ## How often the check-up's template warning fires
 
 The check-up's template rules were run over 95 different templates
-from 65 models in this study (the maker's, the model file's and Ollama's). It
+from 65 model packages read for this study (the maker's, the model file's and Ollama's). It
 flagged 3. Read by hand, each one is a visible feature, not
 hidden instructions:
 

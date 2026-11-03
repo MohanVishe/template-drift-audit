@@ -218,6 +218,55 @@ def fig_results(head: dict) -> str:
                "\n".join(b))
 
 
+def fig_journey(head: dict) -> str:
+    """The template's three copies on the way to the model, and where the library differences start."""
+    a = head["p2-library"]["summary"]["all"]
+    o, total = a["origin"], a["material"]
+    b = [t(28, 40, "How a chat template travels from its maker to the model", "ink", 20, 700),
+         t(28, 62, f"Where the difference first appears, for the {total} of {a['packages']} Ollama library models "
+                   "whose tool conversations differ.", "ink2", 13)]
+    stages = [("The maker's template", ["on Hugging Face,", "written by the maker"], "L0 · Jinja", "card"),
+              ("The copy in the file", ["made when the model", "is packaged as GGUF"], "L1 · GGUF header", "card"),
+              ("What Ollama runs", ["often Ollama's own", "rewritten version"], "L3 · Go template", "card"),
+              ("The model", ["reads only this", "one block of text"], "", "accw")]
+    x0, bw, gap, y, h = 28, 172, 40, 90, 106
+    for i, (name, sub, layer, cls) in enumerate(stages):
+        x = x0 + i * (bw + gap)
+        b.append(box(x, y, bw, h, cls))
+        b.append(t(x + 14, y + 30, name, "ink", 15, 700))
+        b.append(t(x + 14, y + 54, sub[0], "ink2", 13))
+        b.append(t(x + 14, y + 72, sub[1], "ink2", 13))
+        if layer:
+            b.append(t(x + 14, y + 94, layer, "mut mono", 11.5))
+        if i < 3:
+            b.append(arrow(x + bw + 4, y + h // 2, x + bw + gap - 4))
+    b.append(t(x0, 246, "The reference: the text", "ink2", 13))
+    b.append(t(x0, 264, "the model was trained", "ink2", 13))
+    b.append(t(x0, 282, "to read.", "ink2", 13))
+
+    def callout(x, cy, n, lines):
+        if cy == 226:  # the first callout under a stage links back to it
+            b.append(f'<line x1="{x + bw // 2}" y1="{y + h + 4}" x2="{x + bw // 2}" y2="{cy}" class="warnl" '
+                     f'stroke-width="1.5" stroke-dasharray="4 3"/>')
+        b.append(box(x, cy, bw, 70, "warnw"))
+        b.append(t(x + 14, cy + 28, f"{n} of {total}", "warn", 20, 700))
+        b.append(t(x + 14, cy + 47, lines[0], "ink2", 12.5))
+        b.append(t(x + 14, cy + 63, lines[1], "ink2", 12.5))
+
+    callout(x0 + (bw + gap), 226, o.get("conversion and Ollama", 0), ["an older copy of the", "maker's, then Ollama's"])
+    callout(x0 + (bw + gap), 306, o.get("no GGUF template", 0), ["the file has no", "template to compare"])
+    callout(x0 + 2 * (bw + gap), 226, o.get("Ollama", 0), ["Ollama's own version", "changes the layout"])
+    b.append(t(28, 404, "Source: runs/p2-headline.json in the project repository.", "mut", 12))
+    return svg(856, 420, "How a chat template travels from its maker to the model",
+               "The maker's template on Hugging Face is copied into the model file (GGUF), and Ollama then runs "
+               "either that copy or its own rewritten version; the model reads only the result. Of the "
+               f"{total} Ollama library models whose tool conversations differ from the maker's, "
+               f"{o.get('Ollama', 0)} differ only because of Ollama's own version, "
+               f"{o.get('conversion and Ollama', 0)} start with an older copy in the model file, and "
+               f"{o.get('no GGUF template', 0)} have no template in the file to compare.",
+               "\n".join(b))
+
+
 MAKER = ['{"type": "function", "function": {', '  "name": "get_weather",',
          '  "description": "Current weather for a city",', '  "parameters": {"type": "object",',
          '    "properties": {"city": {"type": "string",', '      "description": "City name"},',
@@ -331,16 +380,83 @@ def fig_tool_test_narrow(report: dict) -> str:
                          for c in list(CATEGORY_NAMES) + ["overall"]), "\n".join(b))
 
 
+def reader_rows(report: dict, report_a: dict, report_o: dict) -> list[tuple[str, int, int, int]]:
+    """The 2x2 of the tool test, overall: (reader, Ollama's layout, maker's layout, n)."""
+    main, live, off = report["results"]["overall"], report_a["A_vs_B"]["overall"], report_o["Bo_vs_A1o"]["overall"]
+    return [("Read by the benchmark's parser (BFCL)", main["A1_correct"], main["B_correct"], main["n"]),
+            ("Read by Ollama's own parser, as in everyday use", live["A_correct"], off["Bo_correct"], off["n"])]
+
+
+def fig_tool_readers(report: dict, report_a: dict, report_o: dict) -> str:
+    """The layout effect under each parser: Ollama's layout vs the maker's, all 1,240 questions."""
+    rows = reader_rows(report, report_a, report_o)
+    b = [t(28, 40, "The maker's layout wins whichever parser reads the reply", "ink", 20, 700),
+         t(28, 62, "Share of 1,240 tool questions qwen2.5 answered correctly.", "ink2", 13)]
+    y, width = 100, 330
+    for name, a, m, n in rows:
+        b.append(t(28, y, name, "ink", 14.5, 700))
+        b.append(t(828, y, f"{m - a:+d}, clear", "ink2", 13, anchor="end"))
+        for k, (label, c, cls) in enumerate((("Ollama's layout", a, "acc"), ("The maker's layout", m, "warn"))):
+            yy = y + 14 + k * 22
+            b.append(t(28, yy + 11, label, "ink", 13))
+            b.append(f'<rect x="200" y="{yy}" width="{width}" height="14" rx="4" class="none"/>')
+            b.append(f'<rect x="200" y="{yy}" width="{round(width * c / n, 1)}" height="14" rx="4" class="{cls}"/>')
+            b.append(t(542, yy + 11, f"{pct(c, n)}  ({c:,} of {n:,})", "ink", 12.5))
+        y += 84
+    b.append(t(28, y - 4, "Right: extra correct answers with the maker's layout. \"Clear\": exact paired test, p below 0.001. "
+               "Ollama's parser, maker's layout: its saved", "mut", 12))
+    b.append(t(28, y + 13, "replies read offline by Ollama's own parser code, which reproduced the live everyday run on "
+               "all 1,240 questions.", "mut", 12))
+    b.append(t(28, y + 31, "Source: runs/h3-mini/qwen2.5/report.json, report-A.json, report-ollama-parser.json.", "mut", 12))
+    return svg(856, y + 50, "The maker's layout wins whichever parser reads the reply",
+               "; ".join(f"{name}: Ollama's layout {a} of {n}, maker's layout {m} of {n}" for name, a, m, n in rows),
+               "\n".join(b))
+
+
+def fig_tool_readers_narrow(report: dict, report_a: dict, report_o: dict) -> str:
+    """fig_tool_readers stacked for phones."""
+    rows = reader_rows(report, report_a, report_o)
+    b = [t(16, 32, "The maker's layout wins", "ink", 18, 700), t(16, 54, "whichever parser reads it", "ink", 18, 700),
+         t(16, 76, "Share of 1,240 questions answered correctly.", "ink2", 13)]
+    b.append('<rect x="16" y="90" width="12" height="12" rx="3" class="acc"/>' + t(34, 101, "Ollama's layout", "ink", 13))
+    b.append('<rect x="170" y="90" width="12" height="12" rx="3" class="warn"/>' + t(188, 101, "The maker's layout", "ink", 13))
+    y, width = 136, 168
+    for name, a, m, n in rows:
+        short = "Benchmark's parser (BFCL)" if "benchmark" in name else "Ollama's own parser"
+        b.append(t(16, y, short, "ink", 14.5, 700))
+        b.append(t(344, y, f"{m - a:+d}, clear", "ink2", 13, anchor="end"))
+        for k, (c, cls) in enumerate(((a, "acc"), (m, "warn"))):
+            yy = y + 10 + k * 20
+            b.append(f'<rect x="16" y="{yy}" width="{width}" height="13" rx="4" class="none"/>')
+            b.append(f'<rect x="16" y="{yy}" width="{round(width * c / n, 1)}" height="13" rx="4" class="{cls}"/>')
+            b.append(t(194, yy + 11, f"{pct(c, n)} ({c:,})", "ink", 12.5))
+        y += 72
+    b.append(t(16, y - 6, "Right of each name: extra correct answers", "mut", 12))
+    b.append(t(16, y + 11, "with the maker's layout. \"Clear\": exact", "mut", 12))
+    b.append(t(16, y + 28, "paired test, p below 0.001.", "mut", 12))
+    b.append(t(16, y + 50, "Source: runs/h3-mini/qwen2.5/", "mut", 12))
+    b.append(t(16, y + 67, "report*.json; questions from BFCL.", "mut", 12))
+    return svg(360, y + 84, "The maker's layout wins whichever parser reads the reply",
+               "; ".join(f"{name}: Ollama's layout {a} of {n}, maker's layout {m} of {n}" for name, a, m, n in rows),
+               "\n".join(b))
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     head = json.loads((ROOT / "runs" / "p2-headline.json").read_text(encoding="utf-8"))
     figs = {"setup.svg": fig_setup(), "reach.svg": fig_reach(), "reach-narrow.svg": fig_reach_narrow(), "results.svg": fig_results(head),
-            "tool-format.svg": fig_tool_format()}
+            "journey.svg": fig_journey(head), "tool-format.svg": fig_tool_format()}
     test = ROOT / "runs" / "h3-mini" / "qwen2.5" / "report.json"
     if test.exists():
         report = json.loads(test.read_text(encoding="utf-8"))
         figs["tool-test.svg"] = fig_tool_test(report)
         figs["tool-test-narrow.svg"] = fig_tool_test_narrow(report)
+        ra, ro = test.with_name("report-A.json"), test.with_name("report-ollama-parser.json")
+        if ra.exists() and ro.exists():
+            report_a = json.loads(ra.read_text(encoding="utf-8"))
+            report_o = json.loads(ro.read_text(encoding="utf-8"))
+            figs["tool-readers.svg"] = fig_tool_readers(report, report_a, report_o)
+            figs["tool-readers-narrow.svg"] = fig_tool_readers_narrow(report, report_a, report_o)
     for name, s in figs.items():
         (OUT / name).write_text(s, encoding="utf-8", newline="\n")
         print("wrote", (OUT / name).relative_to(ROOT))

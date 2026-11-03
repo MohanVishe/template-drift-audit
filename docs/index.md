@@ -253,11 +253,17 @@ Ollama's, `qwen2.5` answered 45 more of 1,240 tool questions correctly: 87.0% in
 
 ### What I measured, step by step
 
+A model's chat template is copied twice on its way to the model: into the model file, and then
+often into Ollama's own version. The measurement compares all three.
+
+<figure class="fig-img"><img src="assets/img/journey.svg" alt="How a chat template travels from its maker to the model: the maker's template on Hugging Face, the copy in the model file (GGUF), what Ollama runs, then the model. Of the 32 of 43 library models that differ, 24 differ because of Ollama's own version, 6 start with an older copy in the file, and 2 have no template in the file"></figure>
+
 1. **I picked the models:** the 50 most popular chat models in Ollama's library and the 30 most
    downloaded chat models on Hugging Face, as they were on 22 October 2026.
-2. **I set some aside, with a written reason for each.** For example, some makers never published
-   a template, so there's nothing to compare against. That left **65 models**: 43 from Ollama's
-   library and 22 from Hugging Face. The [results page](results.html) lists every reason.
+2. **I set some aside.** For example, some makers never published a template, so there's nothing
+   to compare against, and five Hugging Face files couldn't be read at all. That left **65
+   models**: 43 from Ollama's library and 22 from Hugging Face. The [results page](results.html)
+   lists every model left out and why.
 3. **I wrote twelve harmless practice conversations.** Six of them use tools: a tool list, a tool
    request and its answer, two requests at once, and so on.
 4. **I turned each conversation into the text the model reads, three ways,** and compared each with
@@ -277,8 +283,11 @@ or dropped, tools written in another format, and so on. Changes to spaces, line 
 don't count.</li>
 </ol>
 
-For 41 of the 45 library model files, the Ollama step runs Ollama's own code, so nothing is
-guessed. For three others, and for the Hugging Face models, it's a close copy written in Python.
+For 41 of the 45 library model files I read, the Ollama step runs Ollama's own code, so nothing
+is guessed. For three others, and for the Hugging Face models, it's a close copy written in Python.
+The last one, `gpt-oss`, uses a separate format of Ollama's that this study doesn't reproduce, so
+it isn't scored. Nor is `translategemma`, whose maker's template can't show a tool conversation.
+That leaves 43.
 All of it ran on my local setup with no GPU and no model downloads: the tool reads only the small
 header of each model file (7.3 MB of a multi-gigabyte file for `qwen2.5`).
 [How it works](how-it-works.html) explains the method and how it was checked.
@@ -368,7 +377,9 @@ models came from, and whether their templates have warning signs.
 
 On its own, a model only writes text. Once you connect a helper that can read files, run commands
 or browse, its text becomes actions on your computer. Two things can then go wrong:
-- **The model makes a mistake.** The layout problems in point 4 can make that more likely.
+- **The model makes a mistake.** The layout problems in point 4 make that more likely. In
+  [the tool test](tool-test.html), qwen2.5 with Ollama's layout called a tool when none fitted the
+  question 93 times out of 240, against 78 with its maker's layout.
 - **The model is misled by what it reads.** A web page, an email or a file can contain text
   written to give the AI orders. The model can't reliably tell those apart from yours. This is
   called **prompt injection**. OWASP, a long-standing security community, lists it as the number
@@ -455,7 +466,7 @@ nothing else. It changes nothing and sends nothing anywhere.
 - **A clean check-up looks for known warning signs.** It can't prove a model or an app is
   trustworthy.
 - **A different layout changes what the model does.** For `qwen2.5`, the maker's layout gave
-  about 4 more correct tool answers in every 100, or about 2 through Ollama's normal chat route
+  3 to 4 more correct tool answers in every 100, whichever program read the replies
   ([the tool test](tool-test.html)). Next: the same
   test on more models, and on conversations with several turns.
 - **The measurement is a snapshot.** It covers the most popular models on 22 October 2026, as they

@@ -13,6 +13,8 @@ through three hands:
 | **L1** | the template embedded at GGUF conversion | `tokenizer.chat_template` in the GGUF header |
 | **L3** | what Ollama actually runs | the package's Go template or built-in renderer, chosen by Ollama's own selection rule |
 
+![How a chat template travels from its maker to the model, and where the differences in 32 of 43 library models first appear](docs/assets/img/journey.svg)
+
 `tda` renders the same benign test conversations through every layer, diffs the results and
 classifies each difference: whitespace, JSON spacing, a dropped default system prompt, tool
 definitions printed as Go structs, re-wrapped tool calls, and so on. It also reports where each
@@ -27,7 +29,8 @@ Ollama server, to measure what the drift changes.
 **The tool test:** [TOOL-TEST.md](TOOL-TEST.md), whether the layout changes how well qwen2.5 uses tools.
 
 **Website:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
-the article, the tool test, a step-by-step guide to the check-up, and the full results.
+the article, the tool test, a step-by-step guide to the check-up, and the full results. Both write-ups
+are also on [mohanvishe.vercel.app](https://mohanvishe.vercel.app/projects/template-drift-audit).
 
 ## Results (snapshot 2026-10-22, Ollama v0.40.7)
 
@@ -37,6 +40,8 @@ Six tool fixtures (F04–F09), L0 vs L3, frozen classifier. Details in `P2-RESUL
 |---|---|---|---|---|
 | Ollama library, top 50 chat | 32 / 43 | 28 / 43 | 15 / 19 | 11 / 19 |
 | Hugging Face, top 30 GGUF | 5 / 22 | 5 / 22 | 4 / 21 | 4 / 21 |
+
+![How many popular models read their tool conversations differently](docs/assets/img/results.svg)
 
 In the library, 24 of the 32 come from Ollama's packaging alone. In 6, the GGUF already carries an
 older template revision, and the packaging adds to that. The remaining 2 have no GGUF template.
@@ -61,6 +66,8 @@ and both replies are read by BFCL's Hermes parser, so B − A1 is the layout alo
 | irrelevance | 240 | 147 | 162 | 23 | 8 | 0.053 |
 | **overall** | 1,240 | 1,034 (83.4%) | 1,079 (87.0%) | 70 | 25 | exact McNemar p = 4.3e-6 |
 
+![The maker's layout wins whichever parser reads the reply: 83.4% vs 87.0% with BFCL's parser, 84.9% vs 88.1% with Ollama's](docs/assets/img/tool-readers.svg)
+
 Checks: 0 cached tokens in all 2,480 steps, 40 of 40 repeats identical, no reply hit `num_predict`.
 Data: `runs/h3-mini/qwen2.5/`; runner `scripts/h3_mini.py`, report `scripts/h3_mini_report.py`.
 
@@ -70,6 +77,13 @@ A 1,053 (84.9%) vs B 1,079 (87.0%): 40 vs 66 discordant, exact McNemar p = 0.015
 pre-registered headline in `scripts/h3_mini_report_a.py`). A vs A1 differ on 21 items: 20
 irrelevance items where Ollama's parser drops a call to a tool that was not offered, and 1
 parallel_multiple item where it returns `3.0` as `3`. Report: `report-A.json`.
+
+**Both layouts through Ollama's parser** (`scripts/h3_ollama_parse.py`, no model run): the saved A1
+and B replies go through Ollama's own `tools.Parser` offline (Go helper op `parse`, mirroring the
+`/api/chat` path and the non-streamed join). Check: A1 read this way matches the live arm A on all
+1,240 items (verdict, calls and content). Result: maker's layout 1,093 (88.1%) vs Ollama's 1,053
+(84.9%), 67 vs 27 discordant, exact McNemar p = 4.5e-5. Ollama's parser rescues 15 B items (calls
+to tools not offered) and loses 1 (`3.0` as `3`). Report: `report-ollama-parser.json`.
 
 ## Quick check-up: `tda check`
 

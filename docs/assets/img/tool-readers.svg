@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 318" width="856" height="318" role="img" aria-labelledby="t d">
+<title id="t">The maker&#x27;s layout wins whichever parser reads the reply</title>
+<desc id="d">Read by the benchmark&#x27;s parser (BFCL): Ollama&#x27;s layout 1034 of 1240, maker&#x27;s layout 1079 of 1240; Read by Ollama&#x27;s own parser, as in everyday use: Ollama&#x27;s layout 1053 of 1240, maker&#x27;s layout 1093 of 1240</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="318" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >The maker&#x27;s layout wins whichever parser reads the reply</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Share of 1,240 tool questions qwen2.5 answered correctly.</text>
+<text x="28" y="100" class="ink" font-size="14.5" font-weight="700" text-anchor="start" >Read by the benchmark&#x27;s parser (BFCL)</text>
+<text x="828" y="100" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+45, clear</text>
+<text x="28" y="125" class="ink" font-size="13" font-weight="400" text-anchor="start" >Ollama&#x27;s layout</text>
+<rect x="200" y="114" width="330" height="14" rx="4" class="none"/>
+<rect x="200" y="114" width="275.2" height="14" rx="4" class="acc"/>
+<text x="542" y="125" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >83.4%  (1,034 of 1,240)</text>
+<text x="28" y="147" class="ink" font-size="13" font-weight="400" text-anchor="start" >The maker&#x27;s layout</text>
+<rect x="200" y="136" width="330" height="14" rx="4" class="none"/>
+<rect x="200" y="136" width="287.2" height="14" rx="4" class="warn"/>
+<text x="542" y="147" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >87.0%  (1,079 of 1,240)</text>
+<text x="28" y="184" class="ink" font-size="14.5" font-weight="700" text-anchor="start" >Read by Ollama&#x27;s own parser, as in everyday use</text>
+<text x="828" y="184" class="ink2" font-size="13" font-weight="400" text-anchor="end" >+40, clear</text>
+<text x="28" y="209" class="ink" font-size="13" font-weight="400" text-anchor="start" >Ollama&#x27;s layout</text>
+<rect x="200" y="198" width="330" height="14" rx="4" class="none"/>
+<rect x="200" y="198" width="280.2" height="14" rx="4" class="acc"/>
+<text x="542" y="209" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >84.9%  (1,053 of 1,240)</text>
+<text x="28" y="231" class="ink" font-size="13" font-weight="400" text-anchor="start" >The maker&#x27;s layout</text>
+<rect x="200" y="220" width="330" height="14" rx="4" class="none"/>
+<rect x="200" y="220" width="290.9" height="14" rx="4" class="warn"/>
+<text x="542" y="231" class="ink" font-size="12.5" font-weight="400" text-anchor="start" >88.1%  (1,093 of 1,240)</text>
+<text x="28" y="264" class="mut" font-size="12" font-weight="400" text-anchor="start" >Right: extra correct answers with the maker&#x27;s layout. &quot;Clear&quot;: exact paired test, p below 0.001. Ollama&#x27;s parser, maker&#x27;s layout: its saved</text>
+<text x="28" y="281" class="mut" font-size="12" font-weight="400" text-anchor="start" >replies read offline by Ollama&#x27;s own parser code, which reproduced the live everyday run on all 1,240 questions.</text>
+<text x="28" y="299" class="mut" font-size="12" font-weight="400" text-anchor="start" >Source: runs/h3-mini/qwen2.5/report.json, report-A.json, report-ollama-parser.json.</text>
+</svg>

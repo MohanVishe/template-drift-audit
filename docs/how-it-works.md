@@ -20,6 +20,8 @@ By the time your words reach a model in Ollama, that layout has been copied twic
 3. **What Ollama actually uses.** Ollama packages often carry their own version of the template,
    in a different language (Go instead of Jinja). A rule inside Ollama decides which one to use.
 
+<figure class="fig-img"><img src="assets/img/journey.svg" alt="How a chat template travels from its maker to the model: the maker's template on Hugging Face, the copy in the model file (GGUF), what Ollama runs, then the model. Of the 32 of 43 library models that differ, 24 differ because of Ollama's own version, 6 start with an older copy in the file, and 2 have no template in the file"></figure>
+
 The project puts the same twelve harmless practice conversations through all three, and
 compares the exact text the model would receive. When the texts differ, it sorts the difference
 into a plain category. For example:
@@ -29,10 +31,11 @@ into a plain category. For example:
 
 ## What makes the numbers trustworthy
 
-- **Ollama's own code does the Ollama step** for 41 of the 45 library models. A small helper
+- **Ollama's own code does the Ollama step** for 41 of the 45 library model files. A small helper
   program loads Ollama's real template code (version 0.40.7) and runs it, so nothing is guessed.
   For the Hugging Face models and three library models, Ollama uses a separate engine, which the
-  project reproduces in Python.
+  project reproduces in Python. The last library file, `gpt-oss`, uses a format of Ollama's
+  ("harmony") that the project doesn't reproduce, so it isn't scored.
   - It was checked against a real, isolated Ollama: the texts matched byte for byte on 12 of 12
     practice conversations.
   - The rule Ollama uses to pick a template was copied line by line. It passes all nine of

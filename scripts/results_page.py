@@ -163,7 +163,7 @@ def main():
         "## How often the check-up's template warning fires",
         "",
         f"The check-up's template rules were run over {lint['distinct_templates']} different templates",
-        f"from {lint['packages']} models in this study (the maker's, the model file's and Ollama's). It",
+        f"from {lint['packages']} model packages read for this study (the maker's, the model file's and Ollama's). It",
         f"flagged {lint['distinct_templates_flagged']}. Read by hand, each one is a visible feature, not",
         "hidden instructions:",
         "",

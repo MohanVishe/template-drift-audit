@@ -6,6 +6,7 @@
 //	{"op":"render","source":"go_template","template":"...","messages":[...],"tools":[...],"think":true}
 //	{"op":"render","source":"renderer","renderer":"qwen3.5","messages":[...]}
 //	{"op":"inspect","template":"..."}   -> identifiers and inferred thinking tags
+//	{"op":"parse","template":"...","tools":[...],"text":"..."}  -> what /api/chat returns for that reply
 //	{"op":"version"}
 package main
 
@@ -16,11 +17,13 @@ import (
 	"fmt"
 	"os"
 	"runtime/debug"
+	"strings"
 
 	"github.com/ollama/ollama/api"
 	"github.com/ollama/ollama/model/renderers"
 	"github.com/ollama/ollama/template"
 	"github.com/ollama/ollama/thinking"
+	"github.com/ollama/ollama/tools"
 )
 
 type request struct {
@@ -31,16 +34,21 @@ type request struct {
 	Messages []api.Message   `json:"messages"`
 	Tools    []api.Tool      `json:"tools"`
 	Think    *api.ThinkValue `json:"think"`
+	Text     string          `json:"text"`
+	Chunks   []string        `json:"chunks"`
 }
 
 type response struct {
-	OK         bool      `json:"ok"`
-	Error      string    `json:"error,omitempty"`
-	Prompt     *string   `json:"prompt,omitempty"`
-	LeadingBOS string    `json:"leading_bos,omitempty"`
-	Vars       []string  `json:"vars,omitempty"`
-	ThinkTags  *[2]string `json:"think_tags,omitempty"`
-	Ollama     string    `json:"ollama,omitempty"`
+	OK         bool           `json:"ok"`
+	Error      string         `json:"error,omitempty"`
+	Prompt     *string        `json:"prompt,omitempty"`
+	LeadingBOS string         `json:"leading_bos,omitempty"`
+	Vars       []string       `json:"vars,omitempty"`
+	ThinkTags  *[2]string     `json:"think_tags,omitempty"`
+	Ollama     string         `json:"ollama,omitempty"`
+	Content    *string        `json:"content,omitempty"`
+	ToolCalls  []api.ToolCall `json:"tool_calls,omitempty"`
+	Tag        string         `json:"tag,omitempty"`
 }
 
 func ollamaVersion() string {
@@ -96,6 +104,40 @@ func inspect(req request) response {
 	return response{OK: true, Vars: vars, ThinkTags: &[2]string{open, close}}
 }
 
+// parse mirrors the /api/chat path for a model with a Go template and no built-in parser
+// (server/routes.go ChatHandler, then writeChatResponse with stream=false): the reply reaches
+// tools.Parser piece by piece, as the runner streams it, followed by an empty final piece, and the
+// pieces are joined the way a non-streamed reply is. With no chunks given, each piece is one
+// character.
+func parse(req request) response {
+	t, err := template.Parse(req.Template)
+	if err != nil {
+		return response{Error: "parse: " + err.Error()}
+	}
+	p := tools.NewParser(t.Template, req.Tools)
+	pieces := req.Chunks
+	if pieces == nil {
+		for _, r := range req.Text {
+			pieces = append(pieces, string(r))
+		}
+	}
+	pieces = append(pieces, "")
+	var content strings.Builder
+	var calls []api.ToolCall
+	for i, s := range pieces {
+		tc, c := p.Add(s)
+		if len(c) > 0 {
+			content.WriteString(c)
+		} else if len(tc) > 0 {
+			calls = append(calls, tc...)
+		} else if i == len(pieces)-1 {
+			content.WriteString(p.Content())
+		}
+	}
+	out := content.String()
+	return response{OK: true, Content: &out, ToolCalls: calls, Tag: p.Tag()}
+}
+
 func main() {
 	in := bufio.NewScanner(os.Stdin)
 	in.Buffer(make([]byte, 0, 1<<20), 64<<20)
@@ -112,6 +154,8 @@ func main() {
 				resp = render(req)
 			case "inspect":
 				resp = inspect(req)
+			case "parse":
+				resp = parse(req)
 			case "version":
 				resp = response{OK: true, Ollama: ollamaVersion()}
 			default:

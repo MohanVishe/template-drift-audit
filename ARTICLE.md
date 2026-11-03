@@ -231,11 +231,18 @@ appears where they were. The model was trained to read the first one.
 
 ### What I measured, step by step
 
+A model's chat template is copied twice on its way to the model: into the model file, and then
+often into Ollama's own version. The measurement compares all three.
+
+![How a chat template travels from its maker to the model: the maker's template on Hugging Face, the copy in the model file (GGUF), what Ollama runs, then the model. Of the 32 of 43 library models that differ, 24 differ because of Ollama's own version, 6 start with an older copy in the file, and 2 have no template in the file](docs/assets/img/journey.svg)
+
 1. **I picked the models.** The 50 most popular chat models in Ollama's library and the 30 most
    downloaded chat models on Hugging Face, as they were on 22 October 2026.
-2. **I set some aside, with a written reason for each.** For example, some makers never published
-   a template, so there is nothing to compare against. That left **65 models**: 43 from Ollama's
-   library and 22 from Hugging Face.
+2. **I set some aside.** For example, some makers never published a template, so there is nothing
+   to compare against, and five Hugging Face files couldn't be read at all. That left **65
+   models**: 43 from Ollama's library and 22 from Hugging Face. The
+   [results page](https://mohanvishe.github.io/template-drift-audit/results.html) lists every model
+   left out and why.
 3. **I wrote twelve harmless practice conversations.** Six of them use tools: a tool list, a tool
    request and its answer, two requests at once, and so on.
 4. **I turned each conversation into the text the model reads, three ways:**
@@ -246,8 +253,11 @@ appears where they were. The model was trained to read the first one.
    answer missing, an instruction added or dropped, tools written in another format, and so on.
    Changes to spaces, line breaks or the date don't count.
 
-For 41 of the 45 library model files, the Ollama step runs Ollama's own code, so nothing is
-guessed. For three others, and for the Hugging Face models, it is a close copy written in Python.
+For 41 of the 45 library model files I read, the Ollama step runs Ollama's own code, so nothing
+is guessed. For three others, and for the Hugging Face models, it is a close copy written in Python.
+The last one, `gpt-oss`, uses a separate format of Ollama's that this study doesn't reproduce, so
+it isn't scored. Nor is `translategemma`, whose maker's template can't show a tool conversation.
+That leaves 43.
 
 All of this ran on my local setup with no GPU and no model downloads. The tool reads only the
 small header of each model file, not the model itself. For `qwen2.5` that was 7.3 MB of a
@@ -266,9 +276,9 @@ multi-gigabyte file.
   all. Counting only the 19 whose maker's template shows the model a list of tools, 15 differ, or
   11 without the order-only cases.
 - **Most differences come from Ollama's own version of the template.** In 24 of the 32, the copy
-  inside the model file matches the maker's, apart from harmless spacing. In 6, the model file
-  already holds an older copy, and Ollama's version changes it further. In 2, the model file has
-  no template of its own to compare.
+  inside the model file gives the same conversations as the maker's, apart from harmless spacing.
+  In 6, the model file already holds an older copy, and Ollama's version changes it further. In 2,
+  the model file has no template of its own to compare.
 - **Hugging Face downloads fare better.** For all 22 measured, Ollama used the template inside the
   file. Only 5 differ, and in all 5 the difference is already in the uploaded file. Ollama adds no
   meaningful change of its own.
@@ -323,7 +333,9 @@ have warning signs.
 files, run commands or browse, its text becomes actions on your computer. Two things can then go
 wrong:
 
-- **The model makes a mistake.** The layout problems in weak spot 4 can make that more likely.
+- **The model makes a mistake.** The layout problems in weak spot 4 make that more likely. In
+  [the tool test](TOOL-TEST.md), qwen2.5 with Ollama's layout called a tool when none fitted the
+  question 93 times out of 240, against 78 with its maker's layout.
 - **The model is misled by what it reads.** A web page, an email or a file can contain text
   written to give the AI orders. The model can't reliably tell those apart from yours. This is
   called **prompt injection**. OWASP, a long-standing security community, lists it as the number
@@ -400,7 +412,7 @@ information). It changes nothing, sends nothing anywhere, and never opens your f
 - **A clean check-up looks for known warning signs.** It can't prove a model or an app is
   trustworthy.
 - **A different layout changes what the model does.** For `qwen2.5`, the maker's layout gave
-  about 4 more correct tool answers in every 100, or about 2 through Ollama's normal chat route
+  3 to 4 more correct tool answers in every 100, whichever program read the replies
   ([the tool test](TOOL-TEST.md)). Next: the same
   test on more models, and on conversations with several turns.
 - **The results are a snapshot** of the most popular models on 22 October 2026, with Ollama 0.40.7.

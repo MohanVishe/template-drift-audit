@@ -28,7 +28,15 @@ from tda.sources import registry, upstream
 ROOT = Path(__file__).resolve().parents[2]
 DISTRO = go_helper.DISTRO
 WORKER_PY = os.environ.get("H3_PYTHON", "/root/h3/venv/bin/python")
-WORKER = "/mnt/c/" + str(ROOT / "scripts" / "h3_worker.py").replace("\\", "/").split(":/", 1)[1]
+
+
+def _wsl_path(p: Path) -> str:
+    """The path as WSL sees it: C:\\x -> /mnt/c/x on Windows, unchanged on Linux."""
+    s = str(p).replace("\\", "/")
+    return f"/mnt/{s[0].lower()}{s[2:]}" if s[1:2] == ":" else s
+
+
+WORKER = _wsl_path(ROOT / "scripts" / "h3_worker.py")
 OLLAMA = os.environ.get("H3_OLLAMA", "http://127.0.0.1:11500")
 
 
