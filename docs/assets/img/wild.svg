@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 340" width="856" height="340" role="img" aria-labelledby="t d">
+<title id="t">Open to the whole internet: what researchers found</title>
+<desc id="d">SentinelLABS and Censys found 175,108 Ollama servers open on the internet in 130 countries (293 days of scans, January 2026). Cisco found 1,139 in one Shodan search, 214 of them answering with a live model (September 2025). An IMC 2026 study found that only 0.43 to 2.90% of open servers running a version with a known hole updated in place over a year.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="340" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >Open to the whole internet: what researchers found</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Ollama servers anyone online could reach, with no login. Three studies, three methods.</text>
+<rect x="28" y="84" width="256" height="210" rx="10" class="warnw"/>
+<text x="46" y="134" class="warn" font-size="34" font-weight="700" text-anchor="start" >175,108</text>
+<text x="46" y="166" class="ink" font-size="14" font-weight="400" text-anchor="start" >Ollama servers found open on</text>
+<text x="46" y="186" class="ink" font-size="14" font-weight="400" text-anchor="start" >the internet, in 130 countries</text>
+<text x="46" y="250" class="mut" font-size="12" font-weight="400" text-anchor="start" >SentinelLABS and Censys,</text>
+<text x="46" y="268" class="mut" font-size="12" font-weight="400" text-anchor="start" >293 days of scans, Jan 2026</text>
+<rect x="300" y="84" width="256" height="210" rx="10" class="card"/>
+<text x="318" y="134" class="ink" font-size="34" font-weight="700" text-anchor="start" >1,139</text>
+<text x="318" y="166" class="ink" font-size="14" font-weight="400" text-anchor="start" >open servers in one Shodan</text>
+<text x="318" y="186" class="ink" font-size="14" font-weight="400" text-anchor="start" >search; 214 answered with a</text>
+<text x="318" y="206" class="ink" font-size="14" font-weight="400" text-anchor="start" >live model</text>
+<text x="318" y="250" class="mut" font-size="12" font-weight="400" text-anchor="start" >Cisco, September 2025</text>
+<rect x="572" y="84" width="256" height="210" rx="10" class="warnw"/>
+<text x="590" y="134" class="warn" font-size="34" font-weight="700" text-anchor="start" >0.43–2.90%</text>
+<text x="590" y="166" class="ink" font-size="14" font-weight="400" text-anchor="start" >of open servers running a version</text>
+<text x="590" y="186" class="ink" font-size="14" font-weight="400" text-anchor="start" >with a known hole updated in</text>
+<text x="590" y="206" class="ink" font-size="14" font-weight="400" text-anchor="start" >place over a year</text>
+<text x="590" y="250" class="mut" font-size="12" font-weight="400" text-anchor="start" >Xu and others, IMC 2026,</text>
+<text x="590" y="268" class="mut" font-size="12" font-weight="400" text-anchor="start" >Feb 2025 to Feb 2026</text>
+<text x="28" y="322" class="mut" font-size="12" font-weight="400" text-anchor="start" >The counts use different methods and time windows, so they are not a trend. Sources are listed at the end of the article.</text>
+</svg>

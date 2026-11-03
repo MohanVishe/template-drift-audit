@@ -21,7 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 IMG = ROOT / "docs" / "assets" / "img"
 REPO = "https://github.com/MohanVishe/template-drift-audit"
 
-FIGURES = ["setup", "reach", "results", "tool-format", "tool-test", "tool-readers"]
+FIGURES = ["glance", "setup", "reach", "wild", "cves", "journey", "results", "tool-format", "helpers",
+           "tool-test", "tool-readers"]
 
 # class -> attributes, in the portfolio's tokens. Fallbacks are its light theme.
 FILL = {
@@ -48,15 +49,17 @@ POSTS = {
     "ARTICLE.md": {
         "slug": "running-ai-locally",
         "date": "2026-10-24",
+        "featured": True,
         "tags": ["Local AI", "Ollama", "Security", "Evaluation"],
     },
     "TOOL-TEST.md": {
         "slug": "does-the-layout-change-tool-use",
         "date": "2026-10-25",
+        "title": "Part 2: does the layout change how well a model uses tools?",
         "tags": ["Local AI", "Ollama", "Tool calling", "Evaluation"],
         "summary": "A paired test of 1,240 tool-calling questions on qwen2.5: the prompt layout Ollama "
                    "uses against the one the model's maker designed, read by two different parsers. "
-                   "The maker's layout got about 4 more right in every 100.",
+                   "The maker's layout got 3 to 4 more right in every 100.",
     },
 }
 
@@ -83,7 +86,7 @@ def theme_svg(svg: str, name: str) -> str:
 
 def to_mdx(md: str, meta: dict) -> str:
     lines = md.splitlines()
-    title = lines[0].removeprefix("# ").strip()
+    title = meta.get("title") or lines[0].removeprefix("# ").strip()
     body = "\n".join(lines[1:]).lstrip("\n")
     # The italic line under the title is the subtitle (it becomes the summary) or the "also on the
     # website" note; either way it leaves the body.
@@ -99,10 +102,19 @@ def to_mdx(md: str, meta: dict) -> str:
         return "".join(f"- **{name}** ({n} questions). {what}\n" for name, what, n in rows) + "\n"
 
     body = re.sub(r"^\| Category \| What the model has to do \| Questions \|\n(?:\|.*\|\n)+", category_table, body, flags=re.M)
+
+    def advisory_table(m: re.Match) -> str:
+        rows = [[c.strip() for c in r.strip().strip("|").split("|")] for r in m.group(0).strip().splitlines()[2:]]
+        return "".join(f"- **{ver}** ({day}), {cve}: {what}\n" for ver, day, cve, what in rows) + "\n"
+
+    body = re.sub(r"^\| Fixed in \| Released \| CVE \| What it is \|\n(?:\|.*\|\n)+", advisory_table, body, flags=re.M)
+    # The site's headings carry no ids: drop the contents line and keep in-page links as plain text.
+    body = re.sub(r"^\*\*Contents:\*\*.*?\n\n", "", body, flags=re.M | re.S)
+    body = re.sub(r"\[([^\]]+)\]\(#[\w-]+\)", r"\1", body)
     if len(summary) > 400:
         summary = summary[:397].rsplit(" ", 1)[0] + "…"
     fm = [f'title: "{title}"', f"date: {meta['date']}", f'summary: "{summary.replace(chr(34), chr(39))}"',
-          "tags: [" + ", ".join(f'"{t}"' for t in meta["tags"]) + "]"]
+          "tags: [" + ", ".join(f'"{t}"' for t in meta["tags"]) + "]"] + (["featured: true"] if meta.get("featured") else [])
     note = (f"\n\n---\n\n*Also published with the code and data: [the project on GitHub]({REPO}).*\n")
     return "---\n" + "\n".join(fm) + "\n---\n\n" + body.rstrip() + note
 

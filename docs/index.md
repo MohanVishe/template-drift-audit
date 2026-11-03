@@ -1,16 +1,17 @@
 ---
 layout: default
-title: Running AI locally
-description: The six places a local AI setup can go wrong, explained in plain words for everyday users and AI engineers, with a free check-up for your own computer and a measurement of 65 popular models.
+title: How safe is your local AI?
+description: Running AI on your own computer keeps your chats private, but it doesn't make your setup safe. Six weak spots in a local AI setup, explained in plain words for everyday users and AI engineers, with what researchers found, a free check-up, and a measurement of 65 popular models.
 ---
 
-# Running AI locally: six weak spots, explained simply
+# How safe is your local AI? Six weak spots, explained simply
 
-<p class="lede">I took 43 of the most popular models in Ollama's library and checked the exact text
-each one is given when you use it with tools. For 32 of them, it isn't the text the model's maker
-designed. That's one of six weak spots in a local AI setup. This page explains all six in plain
-words: what each means if you simply use AI, what it means if you build with AI, how to check it on
-your own computer, and what to do about it.</p>
+<p class="lede">Local AI apps like Ollama and LM Studio feel private: the model runs on your own
+machine. But "local" isn't the same as "safe". Ollama has no login. Researchers have found
+175,108 Ollama servers open to the whole internet, and old versions have published holes. And for
+32 of 43 popular models in Ollama's library, the text the model reads when it uses tools isn't the
+text its maker designed. This page explains all six weak spots in plain words: what each means if
+you simply use AI, what it means if you build with AI, how to check it, and what to do.</p>
 
 <p class="diagram-note">This started from Kai's video <a href="https://www.youtube.com/watch?v=3mx84MRj8lY"><em>Your Local AI Is Not as Private as You Think</em></a> (October 2026). I followed its leads back to the original sources, read Ollama's code myself, and measured what the model actually reads. <a href="#credits">What's mine and what's the video's</a>.</p>
 
@@ -49,6 +50,8 @@ your own computer, and what to do about it.</p>
 </div>
 </div>
 
+<figure class="fig-img"><img src="assets/img/glance.svg" alt="The six weak spots at a glance: 1 the app answers anyone who can reach it, fix: keep Ollama on 127.0.0.1; 2 older versions have known holes, fix: update to 0.40.8 or later; 3 a model file carries more than the model, fix: get models from the maker or Ollama's library; 4 the layout can change what the model reads, fix: test tool use on the exact model you ship; 5 helpers turn the model's words into actions, fix: one folder, no secrets, approve risky steps; 6 chats are kept as ordinary files, fix: delete old chats and set OLLAMA_NOHISTORY=1"></figure>
+
 {% include fig/stats.html %}
 
 ## How a local AI setup works
@@ -78,6 +81,8 @@ Each part can go wrong in its own way. Here's each one.
 
 ## <span class="num">1</span> The app answers anyone who can reach it
 
+<p class="oneline"><b>In one line:</b> Ollama has no login. Whoever can connect to it can use your models, change them, and use your ollama.com account.</p>
+
 Ollama runs a small **server** on your computer: a program that waits for other programs to send
 it messages. It has no login. Anyone who can connect to it can do everything you can: chat with
 your models, download new ones, delete them, or create a new model with its own instructions.
@@ -94,6 +99,10 @@ router forwards Ollama's connection point (its "port") to the internet, everyone
 
 **What I found in Ollama's code.** I read the server code of Ollama 0.40.7 to see exactly what an
 open port gives away:
+- **There is no login to turn on.** Ollama has a setting called `OLLAMA_AUTH`, but it only makes
+  the Ollama command-line program sign the requests *it* sends
+  ([client.go](https://github.com/ollama/ollama/blob/v0.40.7/api/client.go)). The server never asks
+  for it.
 - **Its protection against websites switches off.** Ollama checks which address each request was
   sent to, which blocks a known trick where a web page quietly talks to your Ollama ("DNS
   rebinding"). The code runs this check only while Ollama listens on `127.0.0.1`
@@ -103,14 +112,22 @@ open port gives away:
   cloud models or web search), it forwards some requests to ollama.com signed with your computer's
   own key, whoever sent them
   ([cloud_proxy.go](https://github.com/ollama/ollama/blob/v0.40.7/server/cloud_proxy.go)). Anyone
-  who can reach it can read the account's name, email and plan, see its usage and balance, and run
-  cloud models and web searches on it.
+  who can reach it can read the account's name, email and plan, see its usage and balance, run
+  cloud models and web searches on it, and sign your computer out.
 - **Which websites may talk to it is one setting.** By default, only pages served from your own
   computer and a few kinds of app can read Ollama's answers in a browser. Each address added to
   `OLLAMA_ORIGINS` lets that website do the same
   ([config.go](https://github.com/ollama/ollama/blob/v0.40.7/envconfig/config.go)).
 
-<figure class="fig-img"><picture><source media="(max-width: 640px)" srcset="assets/img/reach-narrow.svg"><img src="assets/img/reach.svg" alt="Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do, including using a signed-in ollama.com account"></picture></figure>
+<figure class="fig-img"><picture><source media="(max-width: 640px)" srcset="assets/img/reach-narrow.svg"><img src="assets/img/reach.svg" alt="Who can reach your Ollama: this computer only by default, your network if OLLAMA_HOST is 0.0.0.0, the internet if the port is forwarded; and what anyone who connects can do: chat, download, copy or delete models, send your models to any server, create a model with its own instructions, and, if signed in to ollama.com, see the account, its usage and balance, run cloud models and web searches, and sign the computer out"></picture></figure>
+
+**What researchers found.** This isn't rare. Three separate studies counted Ollama servers anyone on
+the internet could use
+([SentinelLABS and Censys](https://www.sentinelone.com/labs/silent-brothers-ollama-hosts-form-anonymous-ai-network-beyond-platform-guardrails/),
+[Cisco](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama),
+[Xu and others, IMC 2026](https://arxiv.org/abs/2609.07115)):
+
+<figure class="fig-img"><img src="assets/img/wild.svg" alt="Open to the whole internet: SentinelLABS and Censys found 175,108 Ollama servers open on the internet in 130 countries over 293 days of scans (January 2026); Cisco found 1,139 in one Shodan search, 214 answering with a live model (September 2025); an IMC 2026 study found only 0.43 to 2.90% of open servers on a version with a known hole updated in place over a year"></figure>
 
 <div class="views" markdown="1">
 <div class="view" markdown="1">
@@ -121,38 +138,68 @@ people and devices on your network. On café, hostel or office Wi-Fi, it's stran
 </div>
 <div class="view" markdown="1">
 
-**If you build with AI:** a reachable Ollama is an unauthenticated API that can pull, delete and
-create models with any system prompt, and a signed-in server lends out its ollama.com account. Put
-an authenticating proxy in front of a shared server, and keep `OLLAMA_ORIGINS` to the exact sites
-that need it.
+**If you build with AI:** a reachable Ollama is an unauthenticated API that can pull, push, copy
+and delete models and create new ones with any system prompt, and a signed-in server lends out its
+ollama.com account. Put an authenticating proxy in front of a shared server, keep the port itself
+on `127.0.0.1`, and keep `OLLAMA_ORIGINS` to the exact sites that need it.
 
 </div>
 </div>
 
 <div class="tell" markdown="1">
 **How to tell:** the check-up looks at the addresses your AI apps are listening on, and at the
-`OLLAMA_HOST` setting, and tells you if anything other than your own computer can connect.
+`OLLAMA_HOST` setting, and tells you if anything other than your own computer can connect. By hand:
+on Windows run `netstat -ano | findstr 11434`, on a Mac or Linux `lsof -nP -iTCP:11434 -sTCP:LISTEN`.
+`127.0.0.1:11434` is good; `0.0.0.0:11434`, `[::]:11434` or `*:11434` means other devices can connect.
 **What to do:** delete `OLLAMA_HOST` or set it to `127.0.0.1`, then restart Ollama. In LM Studio,
-turn off **Serve on Local Network**.
+turn off **Serve on Local Network**. If you don't use Ollama's cloud models, set `OLLAMA_NO_CLOUD`
+to `1`, so the server never acts for your ollama.com account.
 </div>
+
+<details class="deep" markdown="1">
+<summary>For engineers: where this is in the code</summary>
+
+- [`server/routes.go`](https://github.com/ollama/ollama/blob/v0.40.7/server/routes.go): the only
+  middleware is CORS and `allowedHostsMiddleware`. The Host check returns early when the listener
+  isn't a loopback address, so DNS-rebinding protection only exists on `127.0.0.1`.
+- Routes on the same listener include `/api/chat`, `/api/generate`, `/api/pull`, `/api/push`,
+  `/api/create`, `/api/copy`, `/api/delete` and `/api/blobs/:digest`, plus the account routes
+  `/api/me` and `/api/signout` and the experimental web search and fetch.
+- [`server/cloud_proxy.go`](https://github.com/ollama/ollama/blob/v0.40.7/server/cloud_proxy.go):
+  requests for cloud models are signed with the machine's key before they're forwarded.
+  `OLLAMA_NO_CLOUD=1`, or `disable_ollama_cloud` in `~/.ollama/server.json`, turns the proxy off.
+- [`envconfig/config.go`](https://github.com/ollama/ollama/blob/v0.40.7/envconfig/config.go):
+  `OLLAMA_AUTH` is read only by the client in `api/client.go`. The default allowed origins are
+  `localhost`, `127.0.0.1` and `0.0.0.0` on any port, plus `app://`, `file://`, `tauri://`,
+  `vscode-webview://` and `vscode-file://`.
+
+</details>
 </section>
 
 <section class="spot" markdown="1">
 
 ## <span class="num">2</span> Older versions have known holes
 
-Ollama is updated often, and some updates fix security problems. Each published problem gets an
-ID that starts with "CVE". Two of them show why updating matters:
-- **A crafted model upload could leak memory** (CVE-2026-7482). Before version 0.17.1, sending
-  Ollama a specially built model file made it read memory it shouldn't
-  ([GitHub advisory](https://github.com/advisories/GHSA-x8qc-fggm-mpqg)). The upload uses the
-  "create a model" feature from point 1, so an app that others can reach is exposed to this too.
-- **The Windows updater accepted unchecked updates** (CVE-2026-42248 and CVE-2026-42249). Ollama for
-  Windows didn't verify that a downloaded update was genuine. Versions 0.12.10 to 0.17.5 were
-  confirmed affected
-  ([advisory](https://github.com/advisories/GHSA-5fjh-wjgp-25ph),
-  [advisory](https://github.com/advisories/GHSA-7mp6-jmch-f3fh)). Ollama 0.23.3 hardened its update
-  process ([release notes](https://github.com/ollama/ollama/releases/tag/v0.23.3)).
+<p class="oneline"><b>In one line:</b> Ollama has fixed several serious holes, most of them reached through the same open API, and many servers never get the fix.</p>
+
+Ollama is updated often, and some updates fix security holes. Each published hole gets an ID that
+starts with "CVE", and once it's published anyone can look up how it works.
+
+<figure class="fig-img"><img src="assets/img/cves.svg" alt="Ollama's security fixes: 0.1.34 (7 May 2024) fixed Probllama, taking over the computer through a crafted model download; 0.1.46 (22 June 2024) fixed crashing the app or learning which files exist; 0.1.47 (27 June 2024) fixed writing files outside the models folder through a ZIP upload; 0.17.1 (24 February 2026) fixed Bleeding Llama, reading the app's memory; 0.23.3 (12 May 2026) hardened the Windows updater. Four of the five are reached through Ollama's API. The newest version is 0.40.8, 21 October 2026"></figure>
+
+The two most serious, in plain words:
+- **Probllama** (CVE-2024-37032, fixed in 0.1.34). A request to download a model from a server
+  someone else controls could write files anywhere on the computer, and from there take it over
+  ([Wiz](https://www.wiz.io/blog/probllama-ollama-vulnerability-cve-2024-37032)).
+- **Bleeding Llama** (CVE-2026-7482, fixed in 0.17.1). Sending a specially built model file made
+  Ollama read memory it shouldn't, which can hold keys and chats
+  ([Cyera](https://www.cyera.com/research/bleeding-llama-critical-unauthenticated-memory-leak-in-ollama),
+  [advisory](https://github.com/advisories/GHSA-x8qc-fggm-mpqg)). It uses the "create a model"
+  request from point 1, so it needs only an Ollama that others can reach.
+
+And updates don't happen by themselves on servers. A year-long study of open Ollama servers
+([Xu and others, IMC 2026](https://arxiv.org/abs/2609.07115)) found that, depending on the hole,
+only **0.43% to 2.90%** of servers running a version with that hole were updated in place.
 
 The newest Ollama when this was written is
 [0.40.8](https://github.com/ollama/ollama/releases/tag/v0.40.8), released on 21 October 2026.
@@ -166,18 +213,31 @@ public knowledge.
 </div>
 <div class="view" markdown="1">
 
-**If you build with AI:** pin the Ollama version in your setup scripts and images, and track its
-advisories like any other dependency. Points 1 and 2 add up: an exposed, old server is the worst
-case.
+**If you build with AI:** pin the Ollama version in your setup scripts and images, track its
+advisories like any other dependency, and rebuild when a fix lands. Most of these holes need
+network access to the API, so closing point 1 also shrinks this one.
 
 </div>
 </div>
 
 <div class="tell" markdown="1">
-**How to tell:** the check-up asks your running Ollama for its version and compares it with these
-fixes. **What to do:** install the latest Ollama from [ollama.com](https://ollama.com) over the
-old one. Your models stay where they are.
+**How to tell:** run `ollama --version`. The check-up asks your running Ollama for its version and
+tells you if it's older than these fixes. **What to do:** install the latest Ollama from
+[ollama.com](https://ollama.com) over the old one. Your models stay where they are.
 </div>
+
+<details class="deep" markdown="1">
+<summary>For engineers: the advisories</summary>
+
+| Fixed in | Released | CVE | What it is |
+|---|---|---|---|
+| 0.1.34 | 7 May 2024 | [CVE-2024-37032](https://nvd.nist.gov/vuln/detail/CVE-2024-37032) | Path traversal through a model digest in `/api/pull`, leading to remote code execution ([Wiz](https://www.wiz.io/blog/probllama-ollama-vulnerability-cve-2024-37032)) |
+| 0.1.46 | 22 Jun 2024 | [CVE-2024-39720](https://nvd.nist.gov/vuln/detail/CVE-2024-39720), [39722](https://nvd.nist.gov/vuln/detail/CVE-2024-39722) | An out-of-bounds read that crashes the server through `/api/create`, and a file-existence leak through `/api/push` ([Oligo](https://www.oligo.security/blog/more-models-more-probllms)). Oligo also reported CVE-2024-39721, fixed in 0.1.34, and CVE-2024-39719, listed for versions through 0.3.14 |
+| 0.1.47 | 27 Jun 2024 | [CVE-2024-45436](https://nvd.nist.gov/vuln/detail/CVE-2024-45436) | ZIP extraction writes outside the target folder |
+| 0.17.1 | 24 Feb 2026 | [CVE-2026-7482](https://github.com/advisories/GHSA-x8qc-fggm-mpqg) | Heap out-of-bounds read through `/api/create`, CVSS 9.1 ([Cyera](https://www.cyera.com/research/bleeding-llama-critical-unauthenticated-memory-leak-in-ollama)) |
+| 0.23.3 | 12 May 2026 | [CVE-2026-42248](https://github.com/advisories/GHSA-5fjh-wjgp-25ph), [42249](https://github.com/advisories/GHSA-7mp6-jmch-f3fh) | Windows updater didn't verify updates; 0.12.10 to 0.17.5 confirmed affected ([release notes](https://github.com/ollama/ollama/releases/tag/v0.23.3)) |
+
+</details>
 </section>
 
 <section class="spot" markdown="1">
@@ -198,7 +258,8 @@ see them unless you go looking.
   using tools with their own wording. They also add a standing instruction about how to answer.
 
 Neither is an attack. But they show that the instructions travelling with a model can change
-between its maker and your computer.
+between its maker and your computer, and others have shown that a tampered one can be an attack
+(see "If you build with AI" below).
 
 <div class="views" markdown="1">
 <div class="view" markdown="1">
@@ -389,6 +450,8 @@ or browse, its text becomes actions on your computer. Two things can then go wro
 Either way, what the helper can reach is what's at risk. Project folders often hold a file called
 `.env` with passwords and keys in it, or a private key for logging in to servers.
 
+<figure class="fig-img"><img src="assets/img/helpers.svg" alt="How an AI helper can be steered by what it reads: untrusted text such as a web page, email, file or tool answer reaches the model with your request; the helper reads files, runs commands and browses; it can reach everything in the folders you gave it, such as .env files with passwords and API keys, SSH keys, browser data and documents"></figure>
+
 <div class="views" markdown="1">
 <div class="view" markdown="1">
 
@@ -454,6 +517,21 @@ chats you don't need, and set `OLLAMA_NOHISTORY` to `1` to stop the terminal his
 </div>
 </section>
 
+## Your safety checklist
+
+Tick these off once. Each links back to its weak spot.
+
+<ul class="check">
+  <li>Ollama listens only on <code>127.0.0.1</code>, and LM Studio's <b>Serve on Local Network</b> is off (<a href="#the-app-answers-anyone-who-can-reach-it">1</a>)</li>
+  <li><code>OLLAMA_NO_CLOUD</code> is <code>1</code>, unless you use Ollama's cloud models (<a href="#the-app-answers-anyone-who-can-reach-it">1</a>)</li>
+  <li><code>OLLAMA_ORIGINS</code> is empty, or lists only sites you trust (<a href="#the-app-answers-anyone-who-can-reach-it">1</a>)</li>
+  <li>Ollama is 0.40.8 or newer (<a href="#older-versions-have-known-holes">2</a>)</li>
+  <li>Models that use tools come from the maker or Ollama's library (<a href="#a-model-file-carries-more-than-the-model">3</a>)</li>
+  <li>If you build with tool calling, you've tested it on the exact model you ship (<a href="#the-layout-step-can-change-what-the-model-reads">4</a>)</li>
+  <li>No <code>.env</code> files or private keys in folders an AI helper can read (<a href="#helpers-turn-the-models-words-into-actions">5</a>)</li>
+  <li><code>OLLAMA_NOHISTORY</code> is <code>1</code> and <code>OLLAMA_DEBUG_LOG_REQUESTS</code> is off (<a href="#your-chats-are-kept-as-ordinary-files">6</a>)</li>
+</ul>
+
 ## Run the check-up
 
 The check-up looks at all of this on your own computer in about ten minutes. It needs Python and
@@ -470,7 +548,8 @@ nothing else. It changes nothing and sends nothing anywhere.
   ([the tool test](tool-test.html)). Next: the same
   test on more models, and on conversations with several turns.
 - **The measurement is a snapshot.** It covers the most popular models on 22 October 2026, as they
-  were that day, with Ollama 0.40.7.
+  were that day, with Ollama 0.40.7. The exposure counts come from other researchers' scans, with
+  their own methods and dates.
 - **Some parts are close copies, not Ollama's own code.** For the Hugging Face models, and for
   three library models, Ollama fills in the template with a separate engine. I reproduced that
   engine's behaviour in Python. It's very close, but not byte-for-byte Ollama.
@@ -482,10 +561,11 @@ nothing else. It changes nothing and sends nothing anywhere.
 
 Kai's video [*Your Local AI Is Not as Private as You Think*](https://www.youtube.com/watch?v=3mx84MRj8lY)
 (@kaiexplainsYT, October 2026) gave me the starting point. It covers weak spots 1, 2, 3 and 5 from
-the security side, and is worth watching. For those, this page cites the original advisories and
-research. The rest is my own work: the measurement of 65 models (weak spot 4), the evidence on old
-and rewritten templates (weak spot 3), what Ollama's code exposes on an open port (weak spot 1),
-where chats are saved (weak spot 6), the [tool test](tool-test.html), and the check-up.
+the security side, and is worth watching. For those, this page goes back to the original
+advisories and research. The rest is my own work: reading Ollama's code for what an open port
+exposes (weak spot 1), the measurement of 65 models (weak spot 4), the evidence on old and
+rewritten templates (weak spot 3), where chats are saved (weak spot 6), the
+[tool test](tool-test.html), and the check-up.
 
 ## Words used on this page
 
@@ -508,10 +588,17 @@ where chats are saved (weak spot 6), the [tool test](tool-test.html), and the ch
 
 - Kai, *Your Local AI Is Not as Private as You Think*, YouTube, October 2026.
 - Ollama source code, version 0.40.7: `server/routes.go`, `server/cloud_proxy.go`, `envconfig/config.go`,
-  `readline/history.go`, `internal/onboarding/app_state.go`.
-- Ollama release notes for 0.23.3 and 0.40.8, and issue #14601.
-- GitHub Advisory Database and the US National Vulnerability Database: CVE-2026-7482,
-  CVE-2026-42248, CVE-2026-42249, CVE-2024-34359.
+  `api/client.go`, `readline/history.go`, `server/inference_request_log.go`, `internal/onboarding/app_state.go`.
+- Ollama release notes for 0.1.34, 0.1.46, 0.1.47, 0.17.1, 0.23.3 and 0.40.8, and issue #14601.
+- GitHub Advisory Database and the US National Vulnerability Database: CVE-2024-37032,
+  CVE-2024-39719 to CVE-2024-39722, CVE-2024-45436, CVE-2026-7482, CVE-2026-42248, CVE-2026-42249,
+  CVE-2024-34359.
+- Wiz Research, [Probllama: Ollama Remote Code Execution Vulnerability](https://www.wiz.io/blog/probllama-ollama-vulnerability-cve-2024-37032), 2024.
+- Oligo Security, [More Models, More ProbLLMs](https://www.oligo.security/blog/more-models-more-probllms), 2024.
+- Cyera, [Bleeding Llama: Critical Unauthenticated Memory Leak in Ollama](https://www.cyera.com/research/bleeding-llama-critical-unauthenticated-memory-leak-in-ollama), May 2026.
+- SentinelLABS and Censys, [Silent Brothers: Ollama Hosts Form Anonymous AI Network](https://www.sentinelone.com/labs/silent-brothers-ollama-hosts-form-anonymous-ai-network-beyond-platform-guardrails/), January 2026.
+- Cisco, [Detecting Exposed LLM Servers: A Shodan Case Study on Ollama](https://blogs.cisco.com/security/detecting-exposed-llm-servers-shodan-case-study-on-ollama), September 2025.
+- Xu and others, [Ollama in the Wild](https://arxiv.org/abs/2609.07115), IMC 2026.
 - A. Fogel and O. Hofman, chat template backdoors across 18 models and 4 engines, Pillar Security,
   10 February 2026.
 - LM Studio documentation, "Manage chats".

@@ -24,9 +24,11 @@ The audit never loads model weights. GGUF headers are read with HTTP range reque
 needs no GPU. A separate behavioural test (`tda/h3`, below) does run a model, on an isolated
 Ollama server, to measure what the drift changes.
 
-**The article, in plain language:** [ARTICLE.md](ARTICLE.md), the six weak spots of a local AI setup for everyday users and AI engineers.
+**The article, in plain language:** [How safe is your local AI?](ARTICLE.md) The six weak spots of a local AI setup, for everyday users and AI engineers: what Ollama exposes without a login, the published holes, tampered templates, prompt injection, saved chats, and this measurement.
 
-**The tool test:** [TOOL-TEST.md](TOOL-TEST.md), whether the layout changes how well qwen2.5 uses tools.
+![The six weak spots at a glance, each with the fix that matters most](docs/assets/img/glance.svg)
+
+**Part 2, the tool test:** [TOOL-TEST.md](TOOL-TEST.md), whether the layout changes how well qwen2.5 uses tools.
 
 **Website:** [mohanvishe.github.io/template-drift-audit](https://mohanvishe.github.io/template-drift-audit/):
 the article, the tool test, a step-by-step guide to the check-up, and the full results. Both write-ups

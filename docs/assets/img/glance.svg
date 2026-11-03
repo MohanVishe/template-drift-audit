@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 542" width="856" height="542" role="img" aria-labelledby="t d">
+<title id="t">Six weak spots at a glance</title>
+<desc id="d">1. The app answers anyone who can reach it: Anyone on your Wi-Fi, or online, can use, delete or replace your models and use your ollama.com account. Fix: keep Ollama on 127.0.0.1 (the default).; 2. Older versions have known holes: Published bugs let others crash it, read its memory or, in old versions, take over the computer. Fix: update Ollama to 0.40.8 or later.; 3. A model file carries more than the model: Its template and settings can be outdated, rewritten by an uploader, or tampered with. Fix: get models from the maker or Ollama&#x27;s library.; 4. The layout can change what the model reads: 32 of 43 library models read tool chats differently; qwen2.5 got 45 fewer of 1,240 tool questions right. Fix: test tool use on the exact model you ship.; 5. Helpers turn the model&#x27;s words into actions: Text hidden in a page or file can steer the helper into reading or sending your files. Fix: one folder, no secrets in it, approve risky steps.; 6. Your chats are kept as ordinary files: Backups, sync tools and anyone using your account can read your saved conversations. Fix: delete old chats; set OLLAMA_NOHISTORY=1.</desc>
+<style>
+  .bg{fill:#fcfcfb} .card{fill:#f0efea} .ink{fill:#0b0b0b} .ink2{fill:#52514e} .mut{fill:#77756f}
+  .acc{fill:#2a78d6} .accw{fill:#e8f1fc} .soft{fill:#86b6ef} .none{fill:#d6d4cc}
+  .warn{fill:#a35200} .warnw{fill:#fdf1e3} .white{fill:#ffffff}
+  .ln{stroke:#77756f;fill:none} .accl{stroke:#2a78d6;fill:none} .warnl{stroke:#a35200;fill:none} .rule{stroke:#e1e0d9}
+  text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1a1a19} .card{fill:#232321} .ink{fill:#f0efec} .ink2{fill:#c3c2b7} .mut{fill:#9a988f}
+    .acc{fill:#3987e5} .accw{fill:#142338} .soft{fill:#184f95} .none{fill:#3a3936}
+    .warn{fill:#ec9a5a} .warnw{fill:#2d1d0f}
+    .ln{stroke:#9a988f} .accl{stroke:#6da7ec} .warnl{stroke:#ec9a5a} .rule{stroke:#2c2c2a}
+  }
+</style>
+<rect class="bg" width="856" height="542" rx="14"/>
+<text x="28" y="40" class="ink" font-size="20" font-weight="700" text-anchor="start" >Six weak spots at a glance</text>
+<text x="28" y="62" class="ink2" font-size="13" font-weight="400" text-anchor="start" >What can go wrong in a local AI setup, and the fix that matters most for each.</text>
+<rect x="28" y="82" width="392" height="128" rx="10" class="card"/>
+<circle cx="54" cy="110" r="12" class="acc"/><text x="54" y="115" class="white" font-size="13" font-weight="700" text-anchor="middle" >1</text>
+<text x="74" y="115" class="ink" font-size="15" font-weight="700" text-anchor="start" >The app answers anyone who can reach it</text>
+<text x="46" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Anyone on your Wi-Fi, or online, can use, delete or</text>
+<text x="46" y="163" class="ink2" font-size="13" font-weight="400" text-anchor="start" >replace your models and use your ollama.com account.</text>
+<text x="46" y="192" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: keep Ollama on 127.0.0.1 (the default)</text>
+<rect x="436" y="82" width="392" height="128" rx="10" class="card"/>
+<circle cx="462" cy="110" r="12" class="acc"/><text x="462" y="115" class="white" font-size="13" font-weight="700" text-anchor="middle" >2</text>
+<text x="482" y="115" class="ink" font-size="15" font-weight="700" text-anchor="start" >Older versions have known holes</text>
+<text x="454" y="144" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Published bugs let others crash it, read its memory</text>
+<text x="454" y="163" class="ink2" font-size="13" font-weight="400" text-anchor="start" >or, in old versions, take over the computer.</text>
+<text x="454" y="192" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: update Ollama to 0.40.8 or later</text>
+<rect x="28" y="224" width="392" height="128" rx="10" class="card"/>
+<circle cx="54" cy="252" r="12" class="acc"/><text x="54" y="257" class="white" font-size="13" font-weight="700" text-anchor="middle" >3</text>
+<text x="74" y="257" class="ink" font-size="15" font-weight="700" text-anchor="start" >A model file carries more than the model</text>
+<text x="46" y="286" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Its template and settings can be outdated, rewritten</text>
+<text x="46" y="305" class="ink2" font-size="13" font-weight="400" text-anchor="start" >by an uploader, or tampered with.</text>
+<text x="46" y="334" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: get models from the maker or Ollama&#x27;s library</text>
+<rect x="436" y="224" width="392" height="128" rx="10" class="card"/>
+<circle cx="462" cy="252" r="12" class="acc"/><text x="462" y="257" class="white" font-size="13" font-weight="700" text-anchor="middle" >4</text>
+<text x="482" y="257" class="ink" font-size="15" font-weight="700" text-anchor="start" >The layout can change what the model reads</text>
+<text x="454" y="286" class="ink2" font-size="13" font-weight="400" text-anchor="start" >32 of 43 library models read tool chats differently;</text>
+<text x="454" y="305" class="ink2" font-size="13" font-weight="400" text-anchor="start" >qwen2.5 got 45 fewer of 1,240 tool questions right.</text>
+<text x="454" y="334" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: test tool use on the exact model you ship</text>
+<rect x="28" y="366" width="392" height="128" rx="10" class="card"/>
+<circle cx="54" cy="394" r="12" class="acc"/><text x="54" y="399" class="white" font-size="13" font-weight="700" text-anchor="middle" >5</text>
+<text x="74" y="399" class="ink" font-size="15" font-weight="700" text-anchor="start" >Helpers turn the model&#x27;s words into actions</text>
+<text x="46" y="428" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Text hidden in a page or file can steer the helper</text>
+<text x="46" y="447" class="ink2" font-size="13" font-weight="400" text-anchor="start" >into reading or sending your files.</text>
+<text x="46" y="476" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: one folder, no secrets in it, approve risky steps</text>
+<rect x="436" y="366" width="392" height="128" rx="10" class="card"/>
+<circle cx="462" cy="394" r="12" class="acc"/><text x="462" y="399" class="white" font-size="13" font-weight="700" text-anchor="middle" >6</text>
+<text x="482" y="399" class="ink" font-size="15" font-weight="700" text-anchor="start" >Your chats are kept as ordinary files</text>
+<text x="454" y="428" class="ink2" font-size="13" font-weight="400" text-anchor="start" >Backups, sync tools and anyone using your account</text>
+<text x="454" y="447" class="ink2" font-size="13" font-weight="400" text-anchor="start" >can read your saved conversations.</text>
+<text x="454" y="476" class="acc" font-size="13" font-weight="700" text-anchor="start" >Fix: delete old chats; set OLLAMA_NOHISTORY=1</text>
+<text x="28" y="522" class="mut" font-size="12" font-weight="400" text-anchor="start" >Each one is explained below, with how to check it on your own computer.</text>
+</svg>

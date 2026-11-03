@@ -6,7 +6,7 @@ description: A paired test of 1,240 tool-calling questions on qwen2.5, once with
 
 # Does the layout change how well a model uses tools?
 
-<p class="lede">The <a href="./">main article</a> showed that for 32 of 43 popular models in
+<p class="lede">Part 2 of <a href="./">How safe is your local AI?</a> That article showed that for 32 of 43 popular models in
 Ollama's library, the text the model reads when it uses tools isn't the text its maker designed.
 The obvious next question: does that change what the model does? I tested one model, qwen2.5, on
 1,240 tool questions, once with each layout. With the maker's layout it answered 3 to 4 more in

@@ -103,6 +103,15 @@
     .view { border: 1px solid var(--ring); border-radius: 10px; padding: 2px 14px; }
     .view > p:first-child { margin-top: 0.7rem; }
     @media (max-width: 640px) { .views { grid-template-columns: 1fr; } }
+    /* engineer detail, folded away; one-line summaries; the checklist */
+    details.deep { background: var(--surface-2); border-radius: 10px; padding: 8px 14px; margin: 1rem 0; font-size: 15.5px; }
+    details.deep > summary { cursor: pointer; font-weight: 600; color: var(--ink-2); }
+    details.deep table { font-size: 14px; }
+    .oneline { border-left: 3px solid var(--warn); padding: 2px 0 2px 12px; margin: 0.6rem 0 1rem; color: var(--ink-2); }
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding-left: 1.9rem; position: relative; margin: 0.45rem 0; }
+    ul.check li::before { content: ""; position: absolute; left: 0; top: 0.25rem; width: 1.1rem; height: 1.1rem;
+      border: 2px solid var(--accent); border-radius: 4px; }
 
     /* setup and comparison diagrams (HTML, so text stays readable on a phone) */
     .flow { display: flex; align-items: stretch; gap: 8px; margin: 1.2rem 0 0.4rem; }

@@ -1,7 +1,8 @@
 """A Markdown article -> a plain HTML page in article/ (gitignored) to open in a browser and copy
 into LinkedIn's article editor (which keeps headings, bold, lists and links from pasted HTML but
 does not read Markdown). Handles only what the articles use: headings, paragraphs, lists (one
-level of nesting), tables (as lists), fenced code, rules, `code`, **bold**, *italic*, [links](url) and bare URLs.
+level of nesting), task lists, tables (as lists), blockquotes, <details> blocks (as titled sections),
+fenced code, rules, `code`, **bold**, *italic*, [links](url) and bare URLs.
 
 Usage: python scripts/article_html.py                    (ARTICLE.md -> article/linkedin-article.html)
        python scripts/article_html.py TOOL-TEST.md article/linkedin-tool-test.html
@@ -17,9 +18,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "ARTICLE.md"
 OUT = ROOT / "article" / "linkedin-article.html"
+REPO = "https://github.com/MohanVishe/template-drift-audit"
+WEB = {"ARTICLE.md": "https://mohanvishe.vercel.app/blog/running-ai-locally",
+       "TOOL-TEST.md": "https://mohanvishe.vercel.app/blog/does-the-layout-change-tool-use"}
 
 
 def inline(text: str) -> str:
+    # [`code`](url) first, as one piece: the code split below would cut it in half
+    links: list[str] = []
+
+    def keep(m: re.Match) -> str:
+        url = m.group(2) if m.group(2).startswith("http") else f"{REPO}/blob/main/{m.group(2)}"
+        links.append(f'<a href="{url}"><code>{html.escape(m.group(1))}</code></a>')
+        return f"\x00{len(links) - 1}\x00"
+
+    text = re.sub(r"\[`([^`]+)`\]\(([^)\s]+)\)", keep, text)
+    return re.sub(r"\x00(\d+)\x00", lambda m: links[int(m.group(1))], _inline(text))
+
+
+def _inline(text: str) -> str:
     parts = re.split(r"(`[^`]+`)", text)
     out = []
     for p in parts:
@@ -29,6 +46,11 @@ def inline(text: str) -> str:
         p = html.escape(p, quote=False)
         p = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', p)
         p = re.sub(r"(?<![\"'>])(https?://[^\s<]+[^\s<.,;:)])", r'<a href="\1">\1</a>', p)
+        # in-page links lose their target; links to the other article or the repo point at the web copies
+        p = re.sub(r"\[([^\]]+)\]\(#[\w-]+\)", r"\1", p)
+        for page, url in WEB.items():
+            p = re.sub(rf"\[([^\]]+)\]\({re.escape(page)}(?:#[\w-]+)?\)", rf'<a href="{url}">\1</a>', p)
+        p = re.sub(r"\[([^\]]+)\]\(([\w./-]+)\)", rf'<a href="{REPO}/blob/main/\2">\1</a>', p)
         p = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", p)
         p = re.sub(r"(?<![*\w])\*(?!\s)(.+?)(?<!\s)\*(?![*\w])", r"<em>\1</em>", p)
         out.append(p)
@@ -107,6 +129,28 @@ def convert(md: str) -> str:
                        f'(delete this line)</p><img src="img/{img.group(2)}.png" alt="{html.escape(img.group(1))}"></div>')
             i += 1
             continue
+        if line.strip() in ("<details>", "</details>"):
+            # folded engineer detail: LinkedIn has no folding, so it shows as a titled section
+            flush_para()
+            close_lists()
+            i += 1
+            continue
+        summ = re.match(r"^<summary>(?:<b>)?(.*?)(?:</b>)?</summary>$", line.strip())
+        if summ:
+            flush_para()
+            close_lists()
+            out.append(f"<h3>{inline(summ.group(1))}</h3>")
+            i += 1
+            continue
+        if line.startswith("> "):
+            flush_para()
+            close_lists()
+            quote = []
+            while i < len(lines) and lines[i].startswith(">"):
+                quote.append(lines[i][1:].strip())
+                i += 1
+            out.append(f"<blockquote><p>{inline(' '.join(quote))}</p></blockquote>")
+            continue
         m = re.match(r"^(#{1,3}) (.*)", line)
         if m:
             flush_para()
@@ -136,7 +180,7 @@ def convert(md: str) -> str:
                     item_open.append(False)
                 if item_open[-1]:
                     out.append("</li>")
-                out.append(f"<li>{inline(m.group(3))}")
+                out.append(f"<li>{inline(re.sub(r'^\[ \] ', '☐ ', m.group(3)))}")
                 item_open[-1] = True
             else:
                 close_lists()
@@ -151,6 +195,7 @@ def main() -> None:
     src = ROOT / sys.argv[1] if len(sys.argv) > 1 else SRC
     out = ROOT / sys.argv[2] if len(sys.argv) > 2 else OUT
     md = src.read_text(encoding="utf-8")
+    md = re.sub(r"^\*\*Contents:\*\*.*?\n\n", "", md, flags=re.M | re.S)
     title = md.splitlines()[0].lstrip("# ").strip()
     body = convert(md)
     out.write_text(f"""<!doctype html>
