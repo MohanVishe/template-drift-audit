@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title and page.url != '/' %}{{ page.title }} · {% endif %}Running AI locally</title>
+  <title>{% if page.title and page.url != '/' %}{{ page.title }} · {% endif %}Local AI Safety Audit</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
@@ -198,7 +198,7 @@
 <body>
   <header class="top">
     <div class="top-in">
-      <a class="brand" href="{{ '/' | relative_url }}"><i aria-hidden="true"></i>Running AI locally</a>
+      <a class="brand" href="{{ '/' | relative_url }}"><i aria-hidden="true"></i>Local AI Safety Audit</a>
       <nav aria-label="Site">
         <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>Article</a>
         <a href="{{ '/tool-test.html' | relative_url }}" {% if page.url == '/tool-test.html' %}aria-current="page"{% endif %}>Tool test</a>

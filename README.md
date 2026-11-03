@@ -1,6 +1,7 @@
-# template-drift-audit
+# Local AI Safety Audit
 
-A read-only auditor for one question: **is the prompt Ollama gives a model the prompt its author
+*Repository: `template-drift-audit`.* A free, read-only security check-up for a local AI setup
+(`python -m tda check`), and an auditor for one question: **is the prompt Ollama gives a model the prompt its author
 wrote the model to expect?**
 
 A chat model is trained on one exact prompt format, which its author publishes as a Jinja chat
